@@ -30,15 +30,28 @@
                     <input class="form-control" id="exampleInputPassword1" type="password" placeholder="Password">
                 </div>
                 <div class="form-group">
+
+                        <label for="birthday">Birthday</label>
+                        <div class='input-group date' id='datetimepicker1'>
+                            <input type='text' class="form-control"/>
+                            <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+
+                </div>
+                <div class="form-group">
                     <div class="form-check">
                         <label class="form-check-label">
                             <input class="form-check-input" type="checkbox"> Remember Password</label>
                     </div>
                 </div>
+
                 <a class="btn btn-primary btn-block" href="index.html">Login</a>
             </form>
             <div class="text-center">
                 <a class="d-block small" href="forgot-password.html">Forgot Password?</a>
+                <a class="d-block small" href="register-new-account.html">Link to main page</a>
             </div>
         </div>
     </div>
@@ -48,6 +61,11 @@
 <script src="../resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- Core plugin JavaScript-->
 <script src="../resources/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker1').datetimepicker();
+    });
+</script>
 </body>
 
 </html>

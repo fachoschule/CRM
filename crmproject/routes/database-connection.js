@@ -1,4 +1,4 @@
-var MongoClient = require('mongodb').MongoClient
+/*var MongoClient = require('mongodb').MongoClient
     , assert = require('assert');
 
 // Connection URL
@@ -10,3 +10,4 @@ MongoClient.connect(url, function(err, db) {
 
     db.close();
 });
+*/
