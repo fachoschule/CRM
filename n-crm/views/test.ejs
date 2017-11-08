@@ -16,14 +16,16 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper" style="min-height: 265px;">
         <!-- Content Header (Page header) -->
-        <%include ./layout/contentHeader.ejs%>
+
         <!-- =============================================== -->
 
         <div style="padding-top: 10px"></div>
         <!-- Main content -->
         <section class="content">
 
-            welcome <%= user%>;
+            <form method="POST" action="/testAddDB">
+                <input class="btn btn-primary" type="submit" value="submit"/>
+            </form>
         </section><!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
