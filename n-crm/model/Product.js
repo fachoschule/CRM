@@ -17,6 +17,7 @@ let crmSchema = mongoose.Schema({
     },
     image: {
         type: String,
+        required:true
     }
 });
 
