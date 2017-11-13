@@ -17,7 +17,8 @@ var http = require('http').Server(app);
 //bring in customers models
 let Customers = require('./model/customer');
 
-app.use(express.static('views'));
+//app.use(express.static('views'));
+app.use(express.static(path.join(__dirname, 'views')));
 
 /*app.set('view engine', 'ejs');
 var path = __dirname + '/views/';*/
