@@ -6,31 +6,30 @@ module.exports = function(app) {
     app.post('/newregister', function (req,res) {
         let employee = new Employee();
 
+        employee.role = req.body.selectview;
         employee.gender = req.body.gender;
         employee.last_name = req.body.lastname;
         employee.first_name = req.body.firstName;
         employee.username = req.body.userName;
         employee.password = req.body.password;
-
         employee.date_of_birth = '"'+req.body.dateBirth+'"';
         employee.phone = req.body.phoneNumber;
-        employee.deparment = req.body.deparment;
+        employee.department = req.body.department;
         employee.email = req.body.email;
         employee.address = req.body.homeAddress;
 
         employee.save()
             .then(item => {
-                res.send("Employee Added to Database");
+                res.send("New Record Save to Database");
             })
             .catch(err => {
-                res.status(400).send("Unable to Add");
+                res.status(400).send("Unable to save to database");
             });
 
     });
     app.get('/emp-register',function(req,res){
-        res.render('emp-register',{user: "Great User",title:"homepage"});
+        res.render('emp-register');
     });
-
 }
 
 //employee.save()

@@ -4,8 +4,14 @@ let uniqueValidator = require('mongoose-unique-validator');
 // crm schema
 let crmSchema = mongoose.Schema({
 
-    gender:{
-      type: String,
+    role:{
+        type: String,
+        required: true
+    },
+    username:{
+        type: String,
+        required: true,
+        unique: true
     },
     last_name:{
         type: String,
@@ -15,21 +21,19 @@ let crmSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    username:{
-        type: String,
-        required: true,
-        unique: true
-    },
-    date_of_birth:{
-        type: Date
-    },
     department:{
         type: String,
     },
-    address:{
+    email:{
         type: String,
     },
-    email:{
+    gender:{
+      type: String,
+    },
+    date_of_birth:{
+        type: Date,
+    },
+    address:{
         type: String,
     },
     phone:{
@@ -37,6 +41,7 @@ let crmSchema = mongoose.Schema({
     },
     password:{
         type: String,
+        required: true
     }
 });
 crmSchema.plugin(uniqueValidator);
