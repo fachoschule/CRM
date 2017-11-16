@@ -7,7 +7,7 @@ module.exports = function(app) {
         let employee = new Employee();
 
         employee.role = req.body.selectview;
-        employee.gender = req.body.gender;
+        employee.gender = req.body.selectgender;
         employee.last_name = req.body.lastname;
         employee.first_name = req.body.firstName;
         employee.username = req.body.userName;
