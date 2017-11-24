@@ -13,7 +13,6 @@ var routes = require('./server/routes')(app);
 var user = require('./server/userServer')(app);
 var login = require('./server/login')(app);
 var register = require('./server/emp-register')(app);
-var manage = require('./server/emp-manage')(app);
 var empview = require('./server/empview')(app);
 //app.use(bodyparser);
 //var productroutes = require('./server/add_product')(app);

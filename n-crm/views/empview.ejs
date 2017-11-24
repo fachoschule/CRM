@@ -1,6 +1,6 @@
 
 <html>
-<head><title><%= (typeof title != "undefined" ? title : "") %></title>
+<head><title><%= (typeof title != "undefined" ? title : "EmpView") %></title>
     <%include ./layout/library.ejs%>
 </head>
 <body>
@@ -63,16 +63,28 @@
                                     <td><%=employees[i].role%></td>
                                     <td><%=employees[i].department%></td>
                                     <td>
+                                        <button type="button" class="btn-link btnedit"
+                                                data-id ='{"empid":"<%=employees[i]._id%>",
+                                                "role":"<%=employees[i].role%>",
+                                                "username":"<%=employees[i].username%>",
+                                                "lastname":"<%=employees[i].last_name%>",
+                                                "firstname":"<%=employees[i].first_name%>",
+                                                "email":"<%=employees[i].email%>",
+                                                "role":"<%=employees[i].role%>",
+                                                "department":"<%=employees[i].department%>",
+                                                "gender":"<%=employees[i].gender%>",
+                                                "address":"<%=employees[i].address%>",
+                                                "phone":"<%=employees[i].phone%>"
+                                        }'  data-toggle="modal" data-target="#exampleModal">
+                                            Edit
+                                        </button>
 
-                                        <FORM METHOD="LINK" ACTION="/emp-manage">
-                                        <div class="btn-group-vertical">
-                                            <button type="submit" onclick="()" class="btn-link">Edit</button>
-                                        </div>
+
 
                                         <div class="btn-group-vertical">
                                             <button type="button" onclick="empRemove('<%=employees[i]._id%>','<%=employees[i].username%>')" class="btn-link">Delete</button>
                                         </div>
-                                        </FORM>
+
                                     </td>
                                 </tr>
                                 <%}%>
@@ -89,6 +101,77 @@
     </div>
     <!-- /.content-wrapper -->
     <script type="text/javascript">
+
+        $(document).on("click", ".btnedit", function () {
+           //console.log();
+             var editEmployeeData = $(this).data('id');
+            console.log(editEmployeeData);
+            console.log(typeof editEmployeeData);
+            //var myObj = JSON.parse(editEmployeeData);
+            console.log(editEmployeeData.lastname);
+            $(".modal-body #editid").val(editEmployeeData.empid);
+            $(".modal-body #editrole").val(editEmployeeData.role);
+            $(".modal-body #editusername").val(editEmployeeData.username);
+            $(".modal-body #editlastname").val(editEmployeeData.lastname);
+            $(".modal-body #editfirstname").val(editEmployeeData.firstname);
+            $(".modal-body #editemail").val(editEmployeeData.email);
+            $(".modal-body #editdepartment").val(editEmployeeData.department);
+            $(".modal-body #editgender").val(editEmployeeData.gender);
+          //  $(".modal-body #editdateofbirth").val(editEmployeeData.date_of_birth);
+            $(".modal-body #editaddress").val(editEmployeeData.address);
+            $(".modal-body #editphone").val(editEmployeeData.phone);
+            <!--$(".modal-body #editpassword").val(editEmployeeData.password);-->
+
+        });
+
+        function saveChanges() {
+            var newEditEmpid = $("#editid").val();
+            var newEditRole = $("#editrole").val();
+            var newEditusername = $("#editusername").val();
+            var newEditlastname = $("#editlastname").val();
+            var newEditfirstname = $("#editfirstname").val();
+            var newEditEmail = $("#editemail").val();
+            var newEditDepartment = $("#editdepartment").val();
+            var newEditGender = $("#editgender").val();
+           // var newEditDatofBirth = $("#editdateofbirth").val();
+            var newEditAddress= $("#editaddress").val();
+            var newEditPhone= $("#editphone").val();
+
+                //console.log(newEditLastname);
+
+            $.ajax({
+                type: "post",
+                url: '/edit-employee',
+                dataType: 'text',
+                data: {
+                    _id: newEditEmpid,
+                    last_name: newEditlastname,
+                    first_name: newEditfirstname,
+                    role: newEditRole,
+                    username: newEditusername,
+                    email: newEditEmail,
+                    department: newEditDepartment,
+                    gender: newEditGender,
+                    address: newEditAddress,
+                    phone: newEditPhone
+                },
+
+                success: function (response) {
+
+                    if (response == "Updated") {
+                        location.reload();
+                    } else if (response.toLowerCase().indexOf("400") >= 0) {
+                        bootbox.alert(response);
+                    }
+                    else {
+                        bootbox.alert("500: Not Successful ");
+                    }
+                }
+            });
+
+        }
+
+        <!-- Employee Record Delete  -->
         function empRemove (_id,username) {
             bootbox.confirm({
                 title: "Delete Membership ",
@@ -123,19 +206,125 @@
             });
         }
 
-        function empEdit (_id,username) {
-            bootbox.dialog({
-                title: "Delete Membership ",
-                message: 'Are you sure! you want to delete employee ' + '"' + username + '"' + ' information?',
-                size: 'medium',
-                onEscape: function () {
-                    bootbox.hideAll();
-                },
-            });
-        };
     </script>
     <%include ./layout/footer.ejs%>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Employer Information Change</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <!-- Moden Body start-->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-4">
+                        <form class="form-horizontal" role="form">
+                            <fieldset>
+                                <!-- Form Name -->
+                                <legend>Employer Update</legend>
+
+                                <!-- Text input-->
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="textinput">Role</label>
+                                    <div class="col-sm-10">
+                                        <output type="text" id = "editrole" class="form-control"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="textinput">UserName</label>
+                                    <div class="col-sm-10">
+                                        <output type="text" id = "editusername" class="form-control"/>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="textinput">Last Name</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id = "editlastname" placeholder="Last Name" class="form-control">
+                                    </div>
+                                </div>
+
+                                <!-- Text input-->
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="textinput">First Name</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id = "editfirstname" placeholder="First Name" class="form-control" >
+                                    </div>
+                                </div>
+
+                                <!-- Text input-->
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="textinput">Emain</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id = "editemail" placeholder="Email" class="form-control">
+                                    </div>
+                                </div>
+
+                                <!-- Text input-->
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="textinput">Department</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id = "editdepartment" placeholder="Department" class="form-control">
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="textinput">Gender</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id = "editgender" placeholder="Gender" class="form-control">
+                                    </div>
+                                </div>
+
+
+                                <!-- Text input-->
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="textinput">Phone</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id = "editphone" placeholder="Phone" class="form-control">
+                                    </div>
+                                </div>
+                                <!-- Text input-->
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="textinput">Address</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id = "editaddress" placeholder="Address" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="textinput"></label>
+                                    <div class="col-sm-10">
+                                        <output type="text" id = "editid" class="form-control" style="display: none"/>
+                                    </div>
+                                </div>
+
+                            </fieldset>
+                        </form>
+                    </div><!-- /.col-lg-12 -->
+                </div>
+            </div>
+
+            <!-- Moden Body End-->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" onclick="saveChanges()" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Model End -->
 <!-- ./wrapper -->
 </body>
 </body>

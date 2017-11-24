@@ -20,7 +20,7 @@ module.exports = function(app) {
 
         employee.save()
             .then(item => {
-                res.send("New Record Save to Database");
+                res.send("Added");
             })
             .catch(err => {
                 res.status(400).send("Unable to save to database");
@@ -28,7 +28,7 @@ module.exports = function(app) {
 
     });
     app.get('/emp-register',function(req,res){
-        res.render('emp-register');
+        res.render('emp-register',{user: "Admin",title:"Registration"});
     });
 }
 
