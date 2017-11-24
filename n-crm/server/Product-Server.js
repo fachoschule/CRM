@@ -1,22 +1,25 @@
-let Product = require('../model/Product');
-
+//let Product = require('../model/Product');
+let Customer = require('../model/Customer');
 module.exports = function(app) {
     // Load Home page
     app.get('/create-product',function(req,res){
         res.render('add_product');
     });
-    app.post('/testAddDB', function (req,res) {
-        let product = new Product();
-        product.product_id = "PR002";
-        product.product_name = "Coca cola";
-        product.image = "D://coca-cocla.png";
-        product.description = "Sugar water";
+    app.post('/testAddDB111', function (req,res) {
+        console.log("Before adding");
+        let cust = new Customer();
+        cust.last_name = "PR002";
+        cust.first_name = "Coca cola";
+        cust.email = "abc";
+        cust.adress = "abch";
+        cust.contact_phone ="0192837";
 
-        product.save(function (err) {
+        cust.save(function (err) {
             if (err) {
                 console.log(err);
                 return;
             } else {
+                console.log("save success");
                 // req.flash('success', 'Product Add Success');
             }
         });
