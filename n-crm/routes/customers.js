@@ -41,7 +41,7 @@ module.exports = function(app) {
                 return;
             } else {
                 console.log("save success");
-                res.redirect('/');
+                res.redirect('/customers');
                 // req.flash('success', 'Product Add Success');
             }
         });
@@ -69,27 +69,31 @@ module.exports = function(app) {
 //     });
 //
 // // Update Submit POST Route
-//     app.post('/edit/:id', function (req, res) {
-//         let customer = {};
-//         customer.last_name = req.param('last_name');
-//         customer.first_name = req.param('first_name');
-//         customer.email = req.param('email');
-//         customer.contact_phone = req.param('contact_phone');
-//         customer.adress = req.param('adress');
-//
-//         let query = {_id: req.params.id}
-//
-//         Customers.update(query, customer, function (err) {
-//             if (err) {
-//                 console.log(err);
-//                 return;
-//             } else {
-//                 req.flash('success', 'Customer Updated');
-//                 res.redirect('/customers');
-//             }
-//         });
-//     });
-//
+    app.post('/edit-customer', function (req, res) {
+        Customers.findById(req.param('id'), (err, customer) => {
+            if (err) {
+                res.status(500).send(err);
+            } else {
+                // Update each attribute with any possible attribute that may have been submitted in the body of the request
+                // If that attribute isn't in the request body, default back to whatever it was before.
+                customer.last_name = req.param('last_name');
+                customer.first_name = req.param('first_name');
+                customer.email = req.param('email');
+                customer.contact_phone = req.param('contact_phone');
+                customer.adress = req.param('adress');
+
+                // Save the updated document back to the database
+                customer.save((err, todo) => {
+                    if (err) {
+                        res.status(500).send(err)
+                    }
+                    res.status('200').send('OK');
+                });
+            }
+        });
+
+    });
+
 // // Delete Customer
     app.post('/delete-customer', function (req, res) {
         console.log("delete customer " + req.body._id);
