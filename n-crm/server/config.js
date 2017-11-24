@@ -12,3 +12,4 @@ db.once('open', function(){
 db.on('error', function(err){
     console.log(err);
 });
+module.exports = db;
