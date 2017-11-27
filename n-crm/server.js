@@ -8,6 +8,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('views'));
 app.set('view engine', 'ejs');
 var supplier = require('./server/supplier')(app);
+var customerRoutes = require('./routes/customers')(app);
 var path = __dirname + '/views/';
 var routes = require('./server/routes')(app);
 //var productroutes = require('./server/Product-Server')(app);
