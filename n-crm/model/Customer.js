@@ -19,7 +19,8 @@ let crmSchema = mongoose.Schema({
         required: true
     },
     adress:{
-        type: String
+        type: String,
+        //required: true
     }
 });
 
