@@ -20,9 +20,14 @@ const customerRoutes = require('./routes/customers')(app);
 var path = __dirname + '/views/';
 var routes = require('./server/routes')(app);
 //var productroutes = require('./server/Product-Server')(app);
+<<<<<<< HEAD
 
 const configDB = require('./server/config');
 
 const port = process.env.PORT || 8080;
+=======
+var configDB = require('./server/config');
+var port = process.env.PORT || 8080;
+>>>>>>> db1cb92071d3516c607cd1a385cbda5b954d2f77
 http.listen(port);
 console.log('server started on: 8080');
