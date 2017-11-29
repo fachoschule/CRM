@@ -5,7 +5,7 @@ module.exports = function(app) {
     app.get('/create-product',function(req,res){
         sess = req.session;
         if(sess.name) {
-            res.render('add_product');
+            res.render('add_product',{session: sess});
         }else{
             res.render('login',{title:'Login Page'});
         }
@@ -20,7 +20,8 @@ module.exports = function(app) {
                     console.log(products);
 
                     res.render('list_products',{
-                        products: products
+                        products: products,
+                        session: sess
                     });
                 }
             });
@@ -87,7 +88,8 @@ module.exports = function(app) {
                             console.log(err);
                         }else{
                             res.render('list_products',{
-                                products: products
+                                products: products,
+                                session: sess
                             });
                         }
                     });

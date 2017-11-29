@@ -1,23 +1,22 @@
 module.exports = function(app) {
     // Load Home page
-    var connection = require('./config');
     var Supplier = require('../model/Suppliers');
     var connection = require('./config');
-    app.get('/',function(req,res){
-        res.render('test',{user: "Great User",title:"homepage"});
-    });
+    var sess ;
     app.get('/supplier',function(req,res){
-        res.render('supplier',{title:"Supplier"});
+        sess = req.session;
+        res.render('supplier',{title:"Supplier", session: sess});
     });
     app.get('/view_supplier',function(req,res){
+        sess = req.session;
         connection.collection("suppliers").find({}).toArray(function(err, result) {
             if (err) throw err;
-            res.render('view_supplier',{title:"View Supplier",sened:result});
+            res.render('view_supplier',{title:"View Supplier",sened:result , session: sess});
         })
 
     });
 
-    app.post('/insert', function (req, res, next) {
+    app.post('/insert-supplier', function (req, res, next) {
         supplier = new Supplier();
         supplier.supplier_id = "SUP_001";
         supplier.address = req.body.address;

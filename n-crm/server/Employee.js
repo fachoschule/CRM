@@ -1,7 +1,6 @@
 let Employee = require('../model/Employee');
 var db = require('./config');
-
-
+var sess;
 module.exports = function(app) {
     // Load Register page
 
@@ -30,19 +29,22 @@ module.exports = function(app) {
 
     });
     app.get('/emp-register',function(req,res){
-        res.render('emp-register',{user: "Admin",title:"Registration"});
+        sess = req.session;
+        res.render('emp-register',{
+            user: "Admin",
+            title:"Registration",
+            session: sess
+        });
     });
-
-
-
-
     app.get('/empview', function (req, res) {
+        sess = req.session;
         Employee.find({}, function (err, employees) {
             if (err) {
                 console.log(err);
             } else {
                 res.render('empview', {
-                    employees: employees
+                    employees: employees,
+                    session: sess
                 });
             }
         });

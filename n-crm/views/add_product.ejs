@@ -36,20 +36,20 @@
                         <form action="/product/createNewProduct" method="post" commandName="formDH">
                             <div class="box-body">
                                 <div class="form-group">
-                                    <label for="product-id">Product ID</label>
-                                    <input name="productID" type="text" class="form-control " id="product-id" placeholder=""/>
+                                    <label for="productID">Product ID</label>
+                                    <input name="productID" type="text" class="form-control " required="true" id="productID" placeholder=""/>
                                 </div>
                                 <div class="form-group">
-                                    <label for="product-name">Product Name</label>
-                                    <input name="productName" type="text" class="form-control " id="product-name" placeholder="Name of product"/>
+                                    <label for="productName">Product Name</label>
+                                    <input name="productName" type="text" class="form-control " required="true" id="productName" placeholder="Name of product"/>
                                 </div>
                                 <div class="form-group">
-                                    <label for="pro-image">Product Image</label>
-                                    <input name="productImage" type="file" class="form-control" accept=".image/png, .jpgx" id="pro-image"/>
+                                    <label for="productImage">Product Image</label>
+                                    <input name="productImage" type="file" class="form-control" accept=".image/png, .jpgx" id="productImage"/>
                                 </div>
                                 <div class="form-group">
                                     <label for="description">Description</label>
-                                    <textarea path="description" class="form-control " rows="3" id="description" placeholder="Enter ..."></textarea>
+                                    <textarea name="description" class="form-control " rows="3" id="description" placeholder="Enter ..."></textarea>
                                 </div>
                             </div>
                             <!-- /.box-body -->

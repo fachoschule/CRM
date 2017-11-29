@@ -24,19 +24,56 @@
                 <!-- User Account: style can be found in dropdown.less -->
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                       <% if(session.nickname){%>
-                            <img src='../resources/user.png'
-                                 class="user-image" alt="User Image">
-                            <span class="hidden-xs"><%= session.nickname%></span>
+                        <% if(session.nickname){%>
+                        <img src='../resources/user.png'
+                             class="user-image" alt="User Image">
+                        <!-- <c:choose>
+                             <c:when test="${sessionScope.user.username == 'admin@anhkhoabrother.com' }">
+                                 <img src='<c:url value="/hrm/nhan-vien/imageDisplay?idUser=${sessionScope.user.id }" />'
+                                      class="user-image" alt="User Image">
+                             </c:when>
+                             <c:otherwise>
+                                 <img src='<c:url value="/resources/user.png" />'
+                                      class="user-image" alt="User Image">
+                             </c:otherwise>
+                         </c:choose>-->
+                        <span class="hidden-xs"><%= session.nickname%></span>
                         <%}else{%>
-                            <img src='../resources/user.png'
-                                 class="user-image" alt="User Image">
-
-                            <span class="hidden-xs">Anonymous User</span>
+                        <img src='../resources/user.png'
+                             class="user-image" alt="User Image">
+                        <!-- <c:choose>
+                             <c:when test="${sessionScope.user.username == 'admin@anhkhoabrother.com' }">
+                                 <img src='<c:url value="/hrm/nhan-vien/imageDisplay?idUser=${sessionScope.user.id }" />'
+                                      class="user-image" alt="User Image">
+                             </c:when>
+                             <c:otherwise>
+                                 <img src='<c:url value="/resources/user.png" />'
+                                      class="user-image" alt="User Image">
+                             </c:otherwise>
+                         </c:choose>-->
+                        <span class="hidden-xs">Anonymous User</span>
                         <%}%>
-
                     </a>
-
+                    <ul class="dropdown-menu">
+                        <!-- User image -->
+                        <li class="user-header">
+                            <img src='../resources/user.png'
+                                 class="img-circle" alt="User Image">
+                            <!-- <c:choose>
+                                 <c:when test="${sessionScope.user.username == 'admin@anhkhoabrother.com' }">
+                                     <img src='<c:url value="/hrm/nhan-vien/imageDisplay?idUser=${sessionScope.user.id }" />'
+                                          class="img-circle" alt="User Image">
+                                 </c:when>
+                                 <c:otherwise>
+                                     <img src='<c:url value="/resources/user.png" />'
+                                          class="img-circle" alt="User Image">
+                                 </c:otherwise>
+                             </c:choose>
+                             <!--<p>
+                                 ${sessionScope.user.firstName} ${sessionScope.user.lastName}
+                                 <small>${sessionScope.role.name}</small>
+                             </p>-->
+                        </li>
                         <!-- Menu Body -->
 
                         <!-- Menu Footer-->

@@ -4,6 +4,10 @@ var crypto = require('crypto');
 var nodemailer = require('nodemailer');
 var sess ;
 module.exports = function(app) {
+    // Load Home page
+    app.get('/',function(req,res){
+        res.render('login',{title:'login page'});
+    });
     //Redirect Forgot password page
     app.get('/forgot_password', function (req,res) {
         res.render('forgot_password',{title:'Forgot Password Page'});
@@ -45,7 +49,7 @@ module.exports = function(app) {
                     service: 'Gmail',
                     auth: {
                         user: 'maihathi.92@gmail.com',
-                        pass: 'maihathI123'
+                        pass: ''
                     }
                 });
                 var mailOptions = {
