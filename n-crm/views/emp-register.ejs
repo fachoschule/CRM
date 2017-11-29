@@ -1,0 +1,127 @@
+<html>
+<head><title><%= (typeof title != "undefined" ? title : "") %></title>
+    <%include ./layout/library.ejs%>
+</head>
+<body>
+<body class="skin-blue fixed sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+    <%include ./layout/header.ejs%>
+    <!-- =============================================== -->
+
+    <!-- Left side column. contains the sidebar -->
+    <%include ./layout/menu.ejs%>
+    <!-- =============================================== -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper" style="min-height: 265px;">
+        <!-- Content Header (Page header) -->
+
+        <!-- =============================================== -->
+
+        <div style="padding-top: 10px"></div>
+        <!-- Main content -->
+        <section class="content">
+
+                <div class="register-logo">
+                    <a href=""><b>New</b>Employer</a>
+                </div>
+
+                <div class="register-box-body">
+                    <p class="login-box-msg">Register a new membership</p>
+
+                    <form action="/newregister" method="post">
+
+                        <div class="form-group has-feedback">
+                            <select class="selectpicker" data-style="btn-info" name="selectview" id="selectview">
+                                <optgroup label="Select Table">
+                                    <option name="table2" value="user">User</option>
+                                    <option name="table1" value="admin">Admin</option>
+                                </optgroup>
+                            </select>
+
+                                <select class="selectpicker" data-style="btn-info" name="selectgender" id="selectgender">
+                                    <optgroup label="Select Table">
+                                        <option name="table2" value="Male">Male</option>
+                                        <option name="table1" value="Female">Female</option>
+                                    </optgroup>
+                                </select>
+                        </div>
+
+
+                        <div class="form-group has-feedback">
+                            <input  type="text" name="lastname" class="form-control" id="lastname" placeholder="Last name">
+                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <input type="text" name="firstName" class="form-control" placeholder="First name">
+                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <input type="text" name="userName" class="form-control" placeholder="User name">
+                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <input type="text" name="password" class="form-control" placeholder="Password">
+                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                        </div>
+
+
+                        <div class="form-group has-feedback">
+                            <input type="date" name="dateBirth" class="form-control" placeholder="Date of Birth: mm/dd/yyyy">
+                            <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <input type="text" name="phoneNumber" maxlength="9" class="form-control" placeholder="Phone number">
+                            <span class="glyphicon glyphicon-phone form-control-feedback"></span>
+                        </div>
+
+                        <div class="form-group has-feedback">
+                            <input type="text" name="department" class="form-control" placeholder="Department">
+                            <span class="glyphicon glyphicon-briefcase form-control-feedback"></span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <input type="email" name="email" class="form-control" placeholder="Email">
+                            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <input type="text" name="homeAddress" class="form-control" placeholder="Home Address">
+                            <span class="glyphicon glyphicon-home form-control-feedback"></span>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-xs-16">
+                                <button type="submit" class="btn btn-primary btn-block btn-flat">Register</button>
+                            </div><!-- /.col -->
+                        </div>
+                    </form>
+                </div><!-- /.form-box -->
+
+
+
+            <script>
+                $(function () {
+                    $('input').iCheck({
+                        checkboxClass: 'icheckbox_square-blue',
+                        radioClass: 'iradio_square-blue',
+                        increaseArea: '20%' // optional
+                    });
+
+
+                });
+            </script>
+
+        </section><!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <%include ./layout/footer.ejs%>
+</div>
+<!-- ./wrapper -->
+
+</body>
+
+</body>
+</html>
+

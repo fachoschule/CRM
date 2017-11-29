@@ -11,7 +11,7 @@ var supplier = require('./server/supplier')(app);
 var customerRoutes = require('./routes/customers')(app);
 var path = __dirname + '/views/';
 var routes = require('./server/routes')(app);
-//var productroutes = require('./server/Product-Server')(app);
+var employee = require('./server/employee')(app);
 var configDB = require('./server/config');
 var port = process.env.PORT || 8080;
 http.listen(port);
