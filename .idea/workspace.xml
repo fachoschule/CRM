@@ -14,18 +14,41 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
+<<<<<<< HEAD:.idea/workspace.xml
       <file leaf-file-name="emp-register.ejs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/emp-register.ejs">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="90">
               <caret line="100" column="0" lean-forward="false" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
+=======
+      <file leaf-file-name="customers.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/routes/customers.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="289">
+              <caret line="70" column="11" lean-forward="false" selection-start-line="70" selection-start-column="11" selection-end-line="70" selection-end-column="11" />
+>>>>>>> login/keerthi:n-crm/.idea/workspace.xml
               <folding />
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD:.idea/workspace.xml
       <file leaf-file-name="empview.ejs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/empview.ejs">
+=======
+      <file leaf-file-name="server.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="289">
+              <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/package.json">
+>>>>>>> login/keerthi:n-crm/.idea/workspace.xml
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-673">
               <caret line="27" column="16" lean-forward="false" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="16" />
@@ -34,6 +57,7 @@
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD:.idea/workspace.xml
       <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/stylesheets/style.css">
           <provider selected="true" editor-type-id="text-editor">
@@ -56,6 +80,10 @@
       </file>
       <file leaf-file-name="Employee.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/model/Employee.js">
+=======
+      <file leaf-file-name="layout.jade" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/layout.jade">
+>>>>>>> login/keerthi:n-crm/.idea/workspace.xml
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="540">
               <caret line="36" column="21" lean-forward="false" selection-start-line="36" selection-start-column="21" selection-end-line="36" selection-end-column="21" />
@@ -77,8 +105,13 @@
       <file leaf-file-name="server.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD:.idea/workspace.xml
             <state relative-caret-position="45">
               <caret line="3" column="39" lean-forward="false" selection-start-line="3" selection-start-column="39" selection-end-line="3" selection-end-column="39" />
+=======
+            <state relative-caret-position="374">
+              <caret line="22" column="5" lean-forward="false" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
+>>>>>>> login/keerthi:n-crm/.idea/workspace.xml
               <folding />
             </state>
           </provider>
@@ -194,7 +227,10 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+<<<<<<< HEAD:.idea/workspace.xml
       <pane id="Scope" />
+=======
+>>>>>>> login/keerthi:n-crm/.idea/workspace.xml
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -207,6 +243,17 @@
               <item name="n-crm" type="b2602c69:ProjectViewProjectNode" />
               <item name="n-crm" type="462c0819:PsiDirectoryNode" />
               <item name="server" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <expand>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="n-crm" type="cbb8eebc:String" user="n-crm" />
             </path>
           </expand>
           <select />
@@ -288,6 +335,7 @@
       <workItem from="1510123252538" duration="6642000" />
       <workItem from="1510166029879" duration="651000" />
       <workItem from="1510167105729" duration="8576000" />
+<<<<<<< HEAD:.idea/workspace.xml
       <workItem from="1510522199736" duration="13798000" />
       <workItem from="1510580092367" duration="9692000" />
       <workItem from="1510593474361" duration="10993000" />
@@ -298,10 +346,21 @@
       <workItem from="1511443661520" duration="29439000" />
       <workItem from="1511487508779" duration="140000" />
       <workItem from="1511813569957" duration="2122000" />
+=======
+      <workItem from="1510337628276" duration="19158000" />
+      <workItem from="1510358670779" duration="2062000" />
+      <workItem from="1510583421444" duration="9906000" />
+      <workItem from="1510595507298" duration="2433000" />
+      <workItem from="1511057116213" duration="10356000" />
+      <workItem from="1511460301033" duration="6462000" />
+      <workItem from="1511538174542" duration="7325000" />
+      <workItem from="1511979654128" duration="649000" />
+>>>>>>> login/keerthi:n-crm/.idea/workspace.xml
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD:.idea/workspace.xml
     <option name="totallyTimeSpent" value="133088000" />
   </component>
   <component name="TodoView">
@@ -312,17 +371,29 @@
       <are-packages-shown value="true" />
       <is-autoscroll-to-source value="true" />
     </todo-panel>
+=======
+    <option name="totallyTimeSpent" value="92498000" />
+>>>>>>> login/keerthi:n-crm/.idea/workspace.xml
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="720" extended-state="1" />
     <editor active="true" />
     <layout>
+<<<<<<< HEAD:.idea/workspace.xml
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17553614" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.264" sideWeight="0.50277996" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290398" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+=======
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13095239" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1719243" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+>>>>>>> login/keerthi:n-crm/.idea/workspace.xml
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.264" sideWeight="0.49722" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
@@ -366,6 +437,7 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+<<<<<<< HEAD:.idea/workspace.xml
     <entry file="file://$PROJECT_DIR$/views/resources/AdminLTE-2.3.0/build/bootstrap-less/mixins/center-block.less">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -374,6 +446,9 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/resources/AdminLTE-2.3.0/build/bootstrap-less/mixins/buttons.less">
+=======
+    <entry file="file://$PROJECT_DIR$/views/layout/contentHeader.ejs">
+>>>>>>> login/keerthi:n-crm/.idea/workspace.xml
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -503,6 +578,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD:.idea/workspace.xml
     <entry file="file://$PROJECT_DIR$/views/layout/404.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-112">
@@ -518,6 +594,10 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/layout/menu.ejs">
+=======
+    <entry file="file://$PROJECT_DIR$/../crmproject/app.js" />
+    <entry file="file://$PROJECT_DIR$/bin/www">
+>>>>>>> login/keerthi:n-crm/.idea/workspace.xml
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="248">
           <caret line="21" column="17" lean-forward="false" selection-start-line="21" selection-start-column="17" selection-end-line="21" selection-end-column="17" />
@@ -531,6 +611,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD:.idea/workspace.xml
     <entry file="file://$PROJECT_DIR$/server/config.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
@@ -539,6 +620,10 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/resources/AdminLTE-2.3.0/pages/calendar.html">
+=======
+    <entry file="file://$USER_HOME$/Desktop/CRM-master/crmproject/app.js" />
+    <entry file="file://$PROJECT_DIR$/views/layout/stepProcess.ejs">
+>>>>>>> login/keerthi:n-crm/.idea/workspace.xml
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="264">
           <caret line="136" column="22" lean-forward="true" selection-start-line="136" selection-start-column="22" selection-end-line="136" selection-end-column="22" />
@@ -675,30 +760,46 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server/login.js">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD:.idea/workspace.xml
         <state relative-caret-position="75">
           <caret line="5" column="38" lean-forward="false" selection-start-line="5" selection-start-column="38" selection-end-line="5" selection-end-column="38" />
+=======
+        <state relative-caret-position="374">
+          <caret line="22" column="5" lean-forward="false" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
+>>>>>>> login/keerthi:n-crm/.idea/workspace.xml
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/user.ejs">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD:.idea/workspace.xml
         <state relative-caret-position="375">
           <caret line="25" column="52" lean-forward="false" selection-start-line="25" selection-start-column="52" selection-end-line="25" selection-end-column="52" />
           <folding />
+=======
+        <state relative-caret-position="236">
+          <caret line="42" column="105" lean-forward="false" selection-start-line="42" selection-start-column="105" selection-end-line="42" selection-end-column="105" />
+>>>>>>> login/keerthi:n-crm/.idea/workspace.xml
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/userServer.js">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD:.idea/workspace.xml
         <state relative-caret-position="120">
           <caret line="8" column="1" lean-forward="true" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
+=======
+        <state relative-caret-position="289">
+          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+>>>>>>> login/keerthi:n-crm/.idea/workspace.xml
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/emp-register.ejs">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD:.idea/workspace.xml
         <state relative-caret-position="90">
           <caret line="100" column="0" lean-forward="false" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
           <folding />
@@ -717,14 +818,39 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="3" column="39" lean-forward="false" selection-start-line="3" selection-start-column="39" selection-end-line="3" selection-end-column="39" />
+=======
+        <state relative-caret-position="67">
+          <caret line="40" column="40" lean-forward="true" selection-start-line="40" selection-start-column="40" selection-end-line="40" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/index.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="206">
+          <caret line="81" column="34" lean-forward="true" selection-start-line="81" selection-start-column="34" selection-end-line="81" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Roaming/Skype/My Skype Received Files/menu.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+>>>>>>> login/keerthi:n-crm/.idea/workspace.xml
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD:.idea/workspace.xml
     <entry file="file://$PROJECT_DIR$/server/Employee.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="299">
           <caret line="23" column="27" lean-forward="true" selection-start-line="23" selection-start-column="27" selection-end-line="23" selection-end-column="27" />
+=======
+    <entry file="file://$PROJECT_DIR$/routes/customers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="70" column="11" lean-forward="false" selection-start-line="70" selection-start-column="11" selection-end-line="70" selection-end-column="11" />
+>>>>>>> login/keerthi:n-crm/.idea/workspace.xml
           <folding />
         </state>
       </provider>

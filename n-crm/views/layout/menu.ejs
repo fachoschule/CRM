@@ -6,13 +6,24 @@
                  style="height: 266px; overflow: hidden; width: auto;">
             <!-- Sidebar user panel -->
             <div class="user-panel">
-                <div class="pull-left image">
-                    <img src='../resources/user.png'
-                         class="img-circle" alt="User Image">
-                </div>
-                <div class="pull-left info">
-                    <p>Welcome,<br> Admin</p>
-                </div>
+                <% if(session.nickname){%>
+                    <div class="pull-left image">
+                        <img src='../resources/user.png'
+                             class="img-circle" alt="User Image">
+                    </div>
+                    <div class="pull-left info">
+                        <p>Welcome,<br> <%= session.nickname%></p>
+                    </div>
+                <%}else{%>
+                    <div class="pull-left image">
+                        <img src='../resources/user.png'
+                             class="img-circle" alt="User Image">
+                    </div>
+                    <div class="pull-left info">
+                        <p>Welcome,<br> Anonymous User</p>
+                    </div>
+                <%}%>
+
             </div>
 
             <ul class="sidebar-menu">
@@ -44,9 +55,9 @@
                         <i class="fa fa-gift"></i> <span>Product</span> <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="../add_product"><i class="fa fa-circle-o"></i>Create New Product</a></li>
+                        <li><a href="../create-product"><i class="fa fa-circle-o"></i>Create New Product</a></li>
                         <li><a href="#"><i class="fa fa-circle-o"></i>Create New Supplier</a></li>
-                        <li><a href="#"><i class="fa fa-circle-o"></i>List Products</a></li>
+                        <li><a href="../list-product"><i class="fa fa-circle-o"></i>List Products</a></li>
                         <li><a href="#"><i class="fa fa-circle-o"></i>List Suppliers</a></li>
                     </ul>
                 </li>

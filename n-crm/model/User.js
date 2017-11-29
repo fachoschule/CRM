@@ -6,13 +6,23 @@ let crmSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    nickname:{
+        type: String,
+        required: true
+    },
     password:{
         type: String,
         required: true
     },
     role: {
-        type: String,
-        required: true
+        type: String
+       // required: true
+    },
+    passwordToken: {
+        type: String
+    },
+    passwordExpires: {
+        type: String
     }
 });
 
