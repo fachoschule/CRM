@@ -22,7 +22,6 @@ module.exports = function(app) {
                 });
             },
             function(token, done) {
-                console.log(req.param('email'));
                 User.find({ username: req.param('email') }, function(err, user) {
                     if (!user) {
                         //req.flash('error', 'No account with that email address exists.');
@@ -73,11 +72,14 @@ module.exports = function(app) {
     })
 // Load Home page
     app.post('/login/checkAuthentication',function(req,res){
-        User.find({"username": req.param('email')}, function (err, user){
+        console.log(req.body.email);
+        User.find({"username": req.body.email}, function (err, user){
             if(err){
                 console.log(err);
             }else{
-                password = req.param('password');
+                password = req.body.password;
+                console.log(password);
+                console.log(user[0]);
                 if(user[0].password == password)
                 {
                     sess = req.session;

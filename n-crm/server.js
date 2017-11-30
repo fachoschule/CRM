@@ -3,12 +3,12 @@ var express = require('express');
 var session = require('express-session');
 var app = express();
 var bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 var http = require('http').Server(app);
 
 app.use(express.static('views'));
 app.set('view engine', 'ejs');
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
 app.use(session({
     secret: "secret",
     //  name: cookie_name,
