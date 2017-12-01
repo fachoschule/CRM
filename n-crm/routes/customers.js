@@ -1,11 +1,12 @@
 //bring in customers models
 let Customers = require('../model/Customer');
-
+var sess ;
 //here was get single customer
 module.exports = function(app) {
 
 // Customers Route
     app.get('/customers', function (req, res){
+        sess = req.session;
         console.log('customer here');
         Customers.find({}, function (err, customers){
             if(err){
@@ -13,15 +14,18 @@ module.exports = function(app) {
             }else{
                 res.render('index',{
                     title: 'Customers',
-                    customers: customers
+                    customers: customers,
+                    session: sess
                 });
             }
         });
     });
 // Add Customer Route
     app.get('/add-customer', function (req, res) {
+        sess = req.session;
         res.render('add_customer', {
-            title: 'Add Customers'
+            title: 'Add Customers',
+            session: sess
         });
     });
 

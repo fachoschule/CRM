@@ -11,12 +11,20 @@ let crmSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    image: {
+        type: String,
+    },
+    brand: {
+        brand_id : String,
+        brand_name : String
+    },
+    pro_type: {
+        type_id: String,
+        type_name: String
+    },
     description:{
         type: String,
         required: true
-    },
-    image: {
-        type: String,
     }
 });
 

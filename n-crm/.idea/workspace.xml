@@ -17,18 +17,28 @@
       <file leaf-file-name="server.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="269">
-              <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+            <state relative-caret-position="561">
+              <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="routes.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="routes.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/routes.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" column="22" lean-forward="true" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
+            <state relative-caret-position="51">
+              <caret line="3" column="1" lean-forward="false" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Suppliers.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/model/Suppliers.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="142">
+              <caret line="12" column="6" lean-forward="true" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -53,12 +63,12 @@
             <state relative-caret-position="357">
               <caret line="21" column="20" lean-forward="false" selection-start-line="21" selection-start-column="20" selection-end-line="21" selection-end-column="20" />
               <folding>
-                <marker date="1512160999671" expanded="true" signature="83:399" ph="{...}" />
-                <marker date="1512160999671" expanded="true" signature="99:151" ph="{&quot;type&quot;: String...}" />
-                <marker date="1512160999671" expanded="true" signature="168:220" ph="{&quot;type&quot;: String...}" />
-                <marker date="1512160999671" expanded="true" signature="232:284" ph="{&quot;type&quot;: String...}" />
-                <marker date="1512160999671" expanded="true" signature="304:356" ph="{&quot;type&quot;: String...}" />
-                <marker date="1512160999671" expanded="true" signature="369:397" ph="{&quot;type&quot;: String...}" />
+                <marker date="1512161657110" expanded="true" signature="83:425" ph="{...}" />
+                <marker date="1512161657110" expanded="true" signature="99:151" ph="{&quot;type&quot;: String...}" />
+                <marker date="1512161657110" expanded="true" signature="168:220" ph="{&quot;type&quot;: String...}" />
+                <marker date="1512161657110" expanded="true" signature="232:284" ph="{&quot;type&quot;: String...}" />
+                <marker date="1512161657110" expanded="true" signature="304:356" ph="{&quot;type&quot;: String...}" />
+                <marker date="1512161657110" expanded="true" signature="369:423" ph="{&quot;type&quot;: String...}" />
               </folding>
             </state>
           </provider>
@@ -67,8 +77,8 @@
       <file leaf-file-name="Employee.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/model/Employee.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="15" lean-forward="false" selection-start-line="4" selection-start-column="15" selection-end-line="4" selection-end-column="15" />
+            <state relative-caret-position="255">
+              <caret line="15" column="15" lean-forward="false" selection-start-line="15" selection-start-column="15" selection-end-line="15" selection-end-column="15" />
               <folding />
             </state>
           </provider>
@@ -84,11 +94,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="supplier.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="supplier.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server/supplier.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="252">
+              <caret line="58" column="0" lean-forward="true" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -97,30 +107,9 @@
       <file leaf-file-name="Product-Server.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/Product-Server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" column="21" lean-forward="false" selection-start-line="14" selection-start-column="21" selection-end-line="14" selection-end-column="21" />
-              <folding>
-                <marker date="1511541770999" expanded="true" signature="75:688" ph="{...}" />
-                <marker date="1511541770999" expanded="true" signature="146:188" ph="{...}" />
-                <marker date="1511541770999" expanded="true" signature="237:685" ph="{...}" />
-                <marker date="1511541770999" expanded="true" signature="486:677" ph="{...}" />
-                <marker date="1511541770999" expanded="true" signature="509:582" ph="{...}" />
-                <marker date="1511541770999" expanded="true" signature="588:667" ph="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Product_Supplier.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/model/Product_Supplier.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" column="72" lean-forward="false" selection-start-line="14" selection-start-column="72" selection-end-line="14" selection-end-column="72" />
-              <folding>
-                <marker date="1511541753196" expanded="true" signature="83:238" ph="{&quot;supplier&quot;: Scheme.Suppliers...}" />
-                <marker date="1511541753196" expanded="true" signature="160:189" ph="{&quot;type&quot;: Integer...}" />
-                <marker date="1511541753196" expanded="true" signature="208:236" ph="{&quot;type&quot;: String...}" />
-              </folding>
+            <state relative-caret-position="374">
+              <caret line="22" column="21" lean-forward="false" selection-start-line="22" selection-start-column="21" selection-end-line="22" selection-end-column="21" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -208,8 +197,8 @@
         <option value="$PROJECT_DIR$/model/Customer.js" />
         <option value="$PROJECT_DIR$/routes/customers.js" />
         <option value="$PROJECT_DIR$/views/index.ejs" />
-        <option value="$PROJECT_DIR$/server/routes.js" />
         <option value="$PROJECT_DIR$/server.js" />
+        <option value="$PROJECT_DIR$/server/routes.js" />
       </list>
     </option>
   </component>
@@ -383,7 +372,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="94934000" />
+    <option name="totallyTimeSpent" value="96761000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -518,23 +507,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/Suppliers.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="142">
-          <caret line="12" column="6" lean-forward="true" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server-controller.js" />
     <entry file="file://$PROJECT_DIR$/test.js" />
     <entry file="file://$PROJECT_DIR$/model/Product_Supplier.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
-          <caret line="14" column="72" lean-forward="false" selection-start-line="14" selection-start-column="72" selection-end-line="14" selection-end-column="72" />
+          <caret line="20" column="72" lean-forward="false" selection-start-line="20" selection-start-column="72" selection-end-line="20" selection-end-column="72" />
           <folding>
-            <marker date="1511541753196" expanded="true" signature="83:238" ph="{&quot;supplier&quot;: Scheme.Suppliers...}" />
-            <marker date="1511541753196" expanded="true" signature="160:189" ph="{&quot;type&quot;: Integer...}" />
-            <marker date="1511541753196" expanded="true" signature="208:236" ph="{&quot;type&quot;: String...}" />
+            <marker date="1512161657118" expanded="true" signature="83:303" ph="{&quot;supplier&quot;: Scheme.Suppliers...}" />
+            <marker date="1512161657118" expanded="true" signature="225:254" ph="{&quot;type&quot;: Integer...}" />
+            <marker date="1512161657118" expanded="true" signature="273:301" ph="{&quot;type&quot;: String...}" />
           </folding>
         </state>
       </provider>
@@ -592,21 +574,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/Product-Server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="21" lean-forward="false" selection-start-line="14" selection-start-column="21" selection-end-line="14" selection-end-column="21" />
-          <folding>
-            <marker date="1511541770999" expanded="true" signature="75:688" ph="{...}" />
-            <marker date="1511541770999" expanded="true" signature="146:188" ph="{...}" />
-            <marker date="1511541770999" expanded="true" signature="237:685" ph="{...}" />
-            <marker date="1511541770999" expanded="true" signature="486:677" ph="{...}" />
-            <marker date="1511541770999" expanded="true" signature="509:582" ph="{...}" />
-            <marker date="1511541770999" expanded="true" signature="588:667" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/add_product.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -637,8 +604,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/model/Employee.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="15" lean-forward="false" selection-start-line="4" selection-start-column="15" selection-end-line="4" selection-end-column="15" />
+        <state relative-caret-position="255">
+          <caret line="15" column="15" lean-forward="false" selection-start-line="15" selection-start-column="15" selection-end-line="15" selection-end-column="15" />
           <folding />
         </state>
       </provider>
@@ -738,12 +705,12 @@
         <state relative-caret-position="357">
           <caret line="21" column="20" lean-forward="false" selection-start-line="21" selection-start-column="20" selection-end-line="21" selection-end-column="20" />
           <folding>
-            <marker date="1512160999671" expanded="true" signature="83:399" ph="{...}" />
-            <marker date="1512160999671" expanded="true" signature="99:151" ph="{&quot;type&quot;: String...}" />
-            <marker date="1512160999671" expanded="true" signature="168:220" ph="{&quot;type&quot;: String...}" />
-            <marker date="1512160999671" expanded="true" signature="232:284" ph="{&quot;type&quot;: String...}" />
-            <marker date="1512160999671" expanded="true" signature="304:356" ph="{&quot;type&quot;: String...}" />
-            <marker date="1512160999671" expanded="true" signature="369:397" ph="{&quot;type&quot;: String...}" />
+            <marker date="1512161657110" expanded="true" signature="83:425" ph="{...}" />
+            <marker date="1512161657110" expanded="true" signature="99:151" ph="{&quot;type&quot;: String...}" />
+            <marker date="1512161657110" expanded="true" signature="168:220" ph="{&quot;type&quot;: String...}" />
+            <marker date="1512161657110" expanded="true" signature="232:284" ph="{&quot;type&quot;: String...}" />
+            <marker date="1512161657110" expanded="true" signature="304:356" ph="{&quot;type&quot;: String...}" />
+            <marker date="1512161657110" expanded="true" signature="369:423" ph="{&quot;type&quot;: String...}" />
           </folding>
         </state>
       </provider>
@@ -774,26 +741,42 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/supplier.js">
+    <entry file="file://$PROJECT_DIR$/model/Suppliers.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="142">
+          <caret line="12" column="6" lean-forward="true" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+        <state relative-caret-position="561">
+          <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/routes.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="22" lean-forward="true" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
+        <state relative-caret-position="51">
+          <caret line="3" column="1" lean-forward="false" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/Product-Server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="21" lean-forward="false" selection-start-line="22" selection-start-column="21" selection-end-line="22" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/supplier.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="58" column="0" lean-forward="true" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
           <folding />
         </state>
       </provider>
