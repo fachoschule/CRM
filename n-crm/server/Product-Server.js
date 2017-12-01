@@ -1,4 +1,5 @@
 var Product = require('../model/Product');
+var Supplier = require('../model/Suppliers')
 var sess ;
 module.exports = function(app) {
     // Load Home page
@@ -99,5 +100,20 @@ module.exports = function(app) {
             res.render('login',{title:'Login Page'});
         }
     });
-
+    //load ajax for supplier list
+    app.get ('/product/load-supplier-information', function (req,res) {
+        sess = req.session;
+        if(sess.name) {
+            Supplier.find({}, function (err, suppliers){
+                if(err){
+                    console.log(err);
+                }else{
+                    console.log(suppliers);
+                    res.send({suppliers: suppliers});
+                }
+            });
+        }else{
+            res.render('login',{title:'Login Page'});
+        }
+    });
 }

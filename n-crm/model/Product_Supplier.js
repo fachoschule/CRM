@@ -2,8 +2,14 @@ let mongoose = require('mongoose');
 
 // crm schema
 let crmSchema = mongoose.Schema({
-    supplier: Scheme.Suppliers,
-    product: Schema.Products,
+    supplier: {
+        id: String,
+        name: String
+    },
+    product: {
+        id: String,
+        name: String
+    },
     quantity:{
         type: Integer
     },
