@@ -23,8 +23,8 @@ var path = __dirname + '/views/';
 var routes = require('./server/routes')(app);
 var productroutes = require('./server/Product-Server')(app);
 var userroutes = require('./server/User-Server')(app);
-var supplier = require('./server/supplier')(app);
-var employee = require('./server/employee')(app);
+var supplier = require('./server/Supplier-Server')(app);
+var employee = require('./server/Employee')(app);
 var customerRoutes = require('./routes/customers')(app);
 
 var configDB = require('./server/config' );

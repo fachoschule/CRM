@@ -57,4 +57,12 @@ module.exports = function(app) {
         })
     });
 
+
+    // Part for create product-supplier
+
+    //ajax get the information of 1 supplier
+    app.get('ajax/load-supplier-information', function (req, res) {
+        sess = req.session;
+
+    });
 }

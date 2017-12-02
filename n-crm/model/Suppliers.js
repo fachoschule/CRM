@@ -16,6 +16,12 @@ let crmSchema = mongoose.Schema({
     },
     contact_phone: {
         type: String
+    },
+    tax_number: {
+        type: String
+    },
+    fax_number: {
+        type: String
     }
 });
 

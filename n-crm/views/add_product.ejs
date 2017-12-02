@@ -61,6 +61,10 @@
                                         <button style=" margin-top: 20px; " type="button" onclick="addNewSupplier()" class="btn bg-olive btn-flat margin">ADD NEW SUPPLIER</button>
                                     </div>
                                 </div>
+                                <br>
+                                <div id="loadSupplierInformation">
+
+                                </div>
                                 <div class="form-group">
                                     <label for="description">Description</label>
                                     <textarea name="description" class="form-control " rows="3" id="description" placeholder="Enter ..."></textarea>
@@ -111,6 +115,42 @@
             }
         });
 
+    }
+    function fillDataSupplier(){
+        var supplierID=$('#supplier-ID').val();
+        var row = '';
+        $.ajax({
+            type: "get",
+            url: 'ajax/load-supplier-information',
+            dataType : 'json',
+            data: {
+                supplierID: supplierID
+            },
+            success: function(response) {
+                var supplier = response.supplier;
+                row +='<br>';
+                row += '<div class="form-group">';
+                row +=		'<label for="supp-address">SUPPLIER ADDRESS</label> ';
+                row +=		'<input name="supAddress" type="text" class="form-control " value="'+supplier.address+'" id="dia-chi" placeholder="SUPPLIER ADDRESS"/>';
+                row +='</div>';
+                row += '<div class="form-group">';
+                row +=		'<label for="supp-tax-number">TAX NUMBER</label> ';
+                row +=		'<input name="supTaxNumber" type="text" class="form-control " value="'+supplier.tax_number+'" id="ma-so-thue" placeholder="TAX NUMBER"/>';
+                row +='</div>';
+                row += '<div class="row">';
+                row += 		'<div class="col-xs-5">';
+                row += 			'<label for="supp-telephone">TELEPHONE</label> ';
+                row +=			'<input name="supTelephone" type="text" class="form-control " value="'+supplier.contact_phone+'" id="so-dien-thoai" placeholder="TELEPHONE NUMBER"/>';
+                row +=		'</div>'
+                row += 		'<div class="col-xs-5">';
+                row += 			'<label for="fax">FAX</label> ';
+                row +=			'<input name="fax" type="text" class="form-control " value="'+supplier.fax_number+'" id="fax" placeholder="FAX"/>';
+                row +=		'</div>'
+                row +='</div>';
+                row +='<br>';
+                $('#loadSupplierInformation').html(row);
+            }
+        });
     }
 </script>
 </body>
