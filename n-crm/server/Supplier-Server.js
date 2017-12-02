@@ -61,8 +61,18 @@ module.exports = function(app) {
     // Part for create product-supplier
 
     //ajax get the information of 1 supplier
-    app.get('ajax/load-supplier-information', function (req, res) {
+    app.get('/product/ajax/load-supplier-information', function (req, res) {
         sess = req.session;
-
+        if(sess.nickname){
+            Supplier.findById( req.param('supplierID'), function (err, supplier){
+                if(err){
+                    console.log(err);
+                }else{
+                    res.send({supplier: supplier});
+                }
+            });
+        }else{
+            res.render('login',{title:'Login Page'});
+        }
     });
 }

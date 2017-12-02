@@ -101,7 +101,7 @@ module.exports = function(app) {
         }
     });
     //load ajax for supplier list
-    app.get ('/product/load-supplier-information', function (req,res) {
+    app.get ('/product/load-suppliers-information', function (req,res) {
         sess = req.session;
         if(sess.name) {
             Supplier.find({}, function (err, suppliers){
