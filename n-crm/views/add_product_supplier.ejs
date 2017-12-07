@@ -24,52 +24,15 @@
 
             <h1></h1>
             <div class="row ">
-                <div class="col-md-1"></div>
                 <div class="col-md-9">
                     <div class="box box-solid box-primary">
                         <div class="box-header with-border">
-                            <h3 class="box-title">CREATE NEW PRODUCT</h3>
+                            <h3 class="box-title">ADD SUPPLIERS FOR THE PRODUCT</h3>
                         </div>
                         <!-- /.box-header -->
                         <!-- form start -->
-                        <form action="/product/createNewProduct" method="post" commandName="formDH">
+
                             <div class="box-body">
-                                <div class="row">
-                                    <div class="col-xs-6">
-                                        <label for="product-brand-id">Product's brand</label>
-                                        <select id="product-brand-id" class="form-control select2" name="brandID"  style="width: 100%;">
-                                            <% brands.forEach(function(brand) { %>
-                                                <option value="<%=brand._id %>"><%=brand.brand_id %> - <%= brand.brand_name %></option>s
-                                            <% }); %>
-                                        </select>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row">
-                                    <div class="col-xs-6">
-                                        <div id='product-Type'>
-                                            <label for="product-type-id">Product's type</label>
-                                            <select id="product-type-id" class="form-control select2" name="typeID" onchange="fullfillproductID()"  style="width: 100%;">
-                                                <% types.forEach(function(type) { %>
-                                                    <option value="<%=type._id %>"><%=type.proType_id %> - <%= type.proType_name %></option>s
-                                                <% }); %>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="form-group">
-                                    <label for="productID">Product ID</label>
-                                    <input name="productID" type="text" class="form-control " required="true" id="productID" placeholder=""/>
-                                </div>
-                                <div class="form-group">
-                                    <label for="productName">Product Name</label>
-                                    <input name="productName" type="text" class="form-control " required="true" id="productName" placeholder="Name of product"/>
-                                </div>
-                                <div class="form-group">
-                                    <label for="productImage">Product Image</label>
-                                    <input name="productImage" type="file" class="form-control" accept=".image/png, .jpgx" id="productImage"/>
-                                </div>
 
                                 <div class="row">
                                     <div class="col-xs-5">
@@ -83,26 +46,66 @@
                                     </div>
                                     <div class="col-xs-3">
                                         <button style=" margin-top: 20px; " type="button" onclick="addNewSupplier()" class="btn bg-olive btn-flat margin">ADD NEW SUPPLIER</button>
+
                                     </div>
                                 </div>
-                                <br>
                                 <div id="loadSupplierInformation">
-
                                 </div>
-                                <div class="form-group">
-                                    <label for="description">Description</label>
-                                    <textarea name="description" class="form-control " rows="3" id="description" placeholder="Enter ..."></textarea>
+                                <div class = "row">
+                                    <div class="col-xs-6">
+                                        <div class="form-group">
+                                            <label for="cost-per-item">Cost/ Item</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-eur" aria-hidden="true"></i></span>
+                                                <input name="itemCost" type="text" class="form-control " required="true" id="cost-per-item" placeholder=""/>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xs-2">
+                                            <label for="currency-id">Currency</label>
+                                            <select id="currency-id" class="form-control select2" name="typeID"  style="width: 100%;">
+                                                <option value="CNY">VND</option>
+                                                <option value="CNY">USD</option>
+                                                <option value="CNY">EUR</option>
+                                                <option value="CNY">CNY</option>
+                                                <option value="CNY">INR</option>
+                                            </select>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <button style=" margin-top: 20px; " type="button" onclick="" class="btn bg-olive btn-flat margin">ADD SUPPLIER FOR PRODUCT</button>
+
+                                    </div>
+                                </div>
+                                <div id="loadSuppliersForProduct">
+
                                 </div>
                             </div>
                             <!-- /.box-body -->
-
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary btn-flat">ADDING NEW PRODUCT & FINISH<i class="fa fa-chevron-right"></i></button>
-                                &nbsp;&nbsp;&nbsp;
-                                <button type="button" class="btn btn-primary btn-flat"><a href="/product/redirect-adding-suppliers-for-product">ADDING SUPPLIER<i class="fa fa-chevron-right"></i></a></button>
-
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="box box-solid box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">The Product's Information</h3>
+                        </div><!-- /.box-header -->
+                        <!-- form start -->
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-5">Pro ID</div>
+                                <div class="col-md-7" style="font-weight: bold;"></div>
                             </div>
-                        </form>
+                            <div class="row">
+                                <div class="col-md-5">Pro Name</div>
+                                <div class="col-md-7" style="font-weight: bold;"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">Description</div>
+                                <div class="col-md-7" style="font-weight: bold;"></div>
+                            </div>
+
+                        </div><!-- /.box-body -->
                     </div>
                 </div>
             </div>
@@ -116,22 +119,6 @@
 <!-- ./wrapper -->
 <script>
     loadSupplier('');
-    function fullfillproductID(){
-        var brand = $('#product-brand-id').val();
-        var type = $('#product-type-id').val();
-        $.ajax({
-            type: "get",
-            url: '/product/generate-new-product-id',
-            dataType: 'json',
-            data: {
-                brand: brand,
-                type : type
-            },
-            success: function(response) {
-                $('#productID').val(response.product_id);
-            }
-        });
-    }
     function loadSupplier(supplierID){
         $.ajax({
             type: "get",

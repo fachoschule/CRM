@@ -75,4 +75,30 @@ module.exports = function(app) {
             res.render('login',{title:'Login Page'});
         }
     });
+    app.post('/product/add-new-supplier', function (req,res) {
+       sess = req.session;
+       if(sess.nickname){
+           supplier = new Supplier();
+           supplier.supplier_id = req.body.suppID;
+           supplier.address = req.body.suppAddress;
+           supplier.supplier_name = req.body.suppName;
+           supplier.contact_phone = req.body.suppTelephone;
+           supplier.tax_number = req.body.suppTaxNumber;
+           supplier.fax_number = req.body.suppFax;
+           supplier.save(function (err) {
+               if (err) {
+                   res.send({
+                       inform : 'error'
+                   });
+               } else {
+                   res.send({
+                       supplier: supplier,
+                       inform : 'OK'
+                   });
+               }
+           });
+       }else{
+           res.render('login',{title:'Login Page'});
+       }
+    });
 }

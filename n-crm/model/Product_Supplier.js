@@ -13,6 +13,12 @@ let crmSchema = mongoose.Schema({
     quantity:{
         type: Integer
     },
+    costPerItem:{
+        type: Double
+    },
+    currency:{
+        type: String
+    },
     description: {
         type: String
     }
