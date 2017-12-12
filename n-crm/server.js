@@ -29,8 +29,9 @@ var userroutes = require('./server/User-Server')(app);
 var supplier = require('./server/Supplier-Server')(app);
 var employee = require('./server/Employee')(app);
 const customerRoutes = require('./routes/customers')(app);
-const firebaseClient = require('./server/firebase-client')(app);
-const notification = require('./server/firebase-notifications')(app);
+const smsService = require('./server/sms-server')(app);
+//const firebaseClient = require('./server/firebase-client')(app);
+//const notification = require('./server/firebase-notifications');
 //config database
 const configDB = require('./server/config');
 

@@ -9,9 +9,9 @@ var config = {
     storageBucket: "",
     messagingSenderId: "180973527418"
 };
-firebase.initializeApp(config);
 
 const messaging = firebase.messaging();
+
 messaging.requestPermission()
     .then(function() {
         console.log('Notification permission granted.');
