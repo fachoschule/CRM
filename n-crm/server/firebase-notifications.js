@@ -1,6 +1,6 @@
 var admin = require("firebase-admin");
 
-var serviceAccount = require("../ecrm-fh-kiel-firebase-adminsdk-8v8ge-7055d76710");
+var serviceAccount = require("../service-account");
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),

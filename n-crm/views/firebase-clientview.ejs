@@ -1,0 +1,43 @@
+
+<script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
+<script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyD4BLZ6CRso3hFh_0bN7HpekHarbO1UewQ",
+        authDomain: "ecrm-fh-kiel.firebaseapp.com",
+        databaseURL: "https://ecrm-fh-kiel.firebaseio.com",
+        projectId: "ecrm-fh-kiel",
+        storageBucket: "ecrm-fh-kiel.appspot.com",
+        messagingSenderId: "180973527418"
+    };
+    firebase.initializeApp(config);
+
+    const messaging = firebase.messaging();
+
+    messaging.requestPermission()
+        .then(function() {
+            console.log('Notification permission granted.');
+            return messaging.getToken();
+        })
+        .then(function(currentToken) {
+            console.log(currentToken);
+            if (currentToken) {
+                sendTokenToServer(currentToken);
+                updateUIForPushEnabled(currentToken);
+            } else {
+                // Show permission request.
+                console.log('No Instance ID token available. Request permission to generate one.');
+                // Show permission UI.
+                updateUIForPushPermissionRequired();
+                setTokenSentToServer(false);
+            }
+        })
+        .catch(function(err) {
+            console.log('An error occurred while retrieving token. ', err);
+            showToken('Error retrieving Instance ID token. ', err);
+            setTokenSentToServer(false);
+        })
+        .catch(function(err) {
+            console.log('Unable to get permission to notify.', err);
+        });
+</script>

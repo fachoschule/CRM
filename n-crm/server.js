@@ -30,8 +30,10 @@ var supplier = require('./server/Supplier-Server')(app);
 var employee = require('./server/Employee')(app);
 const customerRoutes = require('./routes/customers')(app);
 const smsService = require('./server/sms-server')(app);
+//const fcmNotification = require('server/fcm-notification')(app);
 //const firebaseClient = require('./server/firebase-client')(app);
 //const notification = require('./server/firebase-notifications');
+
 //config database
 const configDB = require('./server/config');
 
