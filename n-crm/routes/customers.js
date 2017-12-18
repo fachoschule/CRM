@@ -114,11 +114,5 @@ module.exports = function(app) {
         });
 
     });
-    app.get('/firebase', function (req ,res) {
-        res.render('firebase-clientview');
 
-    })
-    app.post('/firebase',function (req, res) {
-        sendTokenToServer.save(currentToken);
-    })
 };
