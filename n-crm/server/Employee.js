@@ -1,5 +1,6 @@
 let Employee = require('../model/Employee');
 let Department = require('../model/Department');
+let User = require('../model/User');
 var db = require('./config');
 var sess;
 module.exports = function(app) {
@@ -11,7 +12,13 @@ module.exports = function(app) {
 
     app.post('/newregister', function (req,res) {
         let employee = new Employee();
-        //let depart = new Department();
+       /*
+        let user = new User();
+        user.username = req.body.userName;
+        user.password = req.body.password;
+        user.role = req.body.selectview;
+        */
+
         employee.role = req.body.selectview;
         employee.gender = req.body.selectgender;
         employee.last_name = req.body.lastname;
@@ -26,6 +33,7 @@ module.exports = function(app) {
 
 
         employee.save()
+            //user.save()
             .then(item => {
                 res.redirect("/emp-register");
             })
@@ -36,6 +44,7 @@ module.exports = function(app) {
     });
     app.get('/emp-register',function(req,res){
         sess = req.session;
+        if(sess.name) {
         Department.find({}, function (err, departments) {
             if (err) {
                 console.log(err);
@@ -52,9 +61,13 @@ module.exports = function(app) {
             session: sess
             */
         });
+        }else{
+            res.render('login',{title:'Login Page'});
+        }
     });
     app.get('/empview', function (req, res) {
         sess = req.session;
+        if(sess.name) {
         Employee.find({}, function (err, employees) {
             Department.find({}, function (err, departments) {
                 if (err) {
@@ -69,8 +82,13 @@ module.exports = function(app) {
             });
 
         });
+        }else{
+            res.render('login',{title:'Login Page'});
+        }
     });
     app.post('/delete-employee', function (req, res) {
+        sess = req.session;
+        if(sess.name) {
         Employee.findByIdAndRemove(req.param('_id'), function (err) {
             if(err){
                 console.log(err);
@@ -78,9 +96,14 @@ module.exports = function(app) {
             }
             res.send('OK');
         });
+        }else{
+            res.render('login',{title:'Login Page'});
+        }
     });
 
     app.post('/edit-employee', function (req, res) {
+        sess = req.session;
+        if(sess.name) {
         Employee.findById(req.param('_id'), (err, employees) => {
             if (err) {
                 res.status(500).send(err);
@@ -108,6 +131,9 @@ module.exports = function(app) {
                     });
             }
         });
+        }else{
+            res.render('login',{title:'Login Page'});
+        }
     });
 
 }

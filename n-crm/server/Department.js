@@ -7,12 +7,9 @@ module.exports = function(app) {
 
     app.post('/depregister', function (req,res) {
         let department = new Department();
-
-
         department.name = req.body.department;
        // employee.email = req.body.email;
         department.location = req.body.location;
-
         department.save()
             .then(item => {
                 res.redirect("/department-list");
@@ -20,21 +17,25 @@ module.exports = function(app) {
             .catch(err => {
                 res.status(400).send("Unable to Add Department!!!");
             });
-
     });
 
     app.get('/department',function(req,res){
         sess = req.session;
+        if(sess.name) {
         res.render('department',{
-            user: "Admin",
-            title:"Registration",
+            //user: "Admin",
+            //title:"Registration",
             session: sess
         });
+        }else{
+            res.render('login',{title:'Login Page'});
+        }
     });
 
 
     app.get('/department-list', function (req, res) {
         sess = req.session;
+        if(sess.name) {
         Department.find({}, function (err, departments) {
             Employee.find({}, function (err, employees) {
                 if (err) {
@@ -51,11 +52,14 @@ module.exports = function(app) {
 
 
         });
+        }else{
+            res.render('login',{title:'Login Page'});
+        }
     });
 
     app.post('/department-list/Employee', function (req, res) {
         sess = req.session;
-
+        if(sess.name) {
             Employee.find({department:req.body.departmentName}, function (err, employees1) {
 
                 if (err) {
@@ -65,11 +69,16 @@ module.exports = function(app) {
 
                 }
             });
+        }else{
+            res.render('login',{title:'Login Page'});
+        }
 
         });
 
 
     app.post('/edit-department', function (req, res) {
+        sess = req.session;
+        if(sess.name) {
         Department.findById(req.param('_id'), (err, departments) => {
             if (err) {
                 res.status(500).send(err);
@@ -90,11 +99,16 @@ module.exports = function(app) {
                     });
             }
         });
+        }else{
+            res.render('login',{title:'Login Page'});
+        }
     });
 
 
 
     app.post('/delete-department', function (req, res) {
+        sess = req.session;
+        if(sess.name) {
         Department.findByIdAndRemove(req.param('_id'), function (err) {
             if(err){
                 console.log(err);
@@ -102,6 +116,9 @@ module.exports = function(app) {
             }
             res.send('OK');
         });
+        }else{
+            res.render('login',{title:'Login Page'});
+        }
     });
 }
 

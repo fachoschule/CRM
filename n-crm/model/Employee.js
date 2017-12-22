@@ -42,6 +42,12 @@ let crmSchema = mongoose.Schema({
     password:{
         type: String,
         required: true
+    },
+    passwordToken: {
+        type: String
+    },
+    passwordExpires: {
+        type: String
     }
 });
 crmSchema.plugin(uniqueValidator);
