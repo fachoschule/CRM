@@ -1,23 +1,16 @@
 let Employee = require('../model/Employee');
 let Department = require('../model/Department');
-let User = require('../model/User');
+//let User = require('../model/User');
 var db = require('./config');
 var sess;
-module.exports = function(app) {
-    // Load Register page
 
-        // }else{
-        //     res.render('login',{title:'Login Page'});
-        // }
+
+module.exports = function(app) {
+
+/////////////////////// Registering Employee Records ///////////////////////
 
     app.post('/newregister', function (req,res) {
         let employee = new Employee();
-       /*
-        let user = new User();
-        user.username = req.body.userName;
-        user.password = req.body.password;
-        user.role = req.body.selectview;
-        */
 
         employee.role = req.body.selectview;
         employee.gender = req.body.selectgender;
@@ -42,6 +35,9 @@ module.exports = function(app) {
             });
 
     });
+
+    //////////////////// Get Departments Name from Department Collection/Model ////////////////////////////
+
     app.get('/emp-register',function(req,res){
         sess = req.session;
         if(sess.name) {
@@ -65,6 +61,9 @@ module.exports = function(app) {
             res.render('login',{title:'Login Page'});
         }
     });
+
+/////////////////////// For Viewing Employee Records in Table Page 'empview' ///////////////////////
+
     app.get('/empview', function (req, res) {
         sess = req.session;
         if(sess.name) {
@@ -86,6 +85,9 @@ module.exports = function(app) {
             res.render('login',{title:'Login Page'});
         }
     });
+
+///////////////////////////////////////// Find By ID and Delete Employee Record ///////////////////////////
+
     app.post('/delete-employee', function (req, res) {
         sess = req.session;
         if(sess.name) {
@@ -100,7 +102,7 @@ module.exports = function(app) {
             res.render('login',{title:'Login Page'});
         }
     });
-
+///////////////////////////////////////// Find By ID and Edit/Update Employee Record ///////////////////////////
     app.post('/edit-employee', function (req, res) {
         sess = req.session;
         if(sess.name) {
@@ -137,18 +139,3 @@ module.exports = function(app) {
     });
 
 }
-
-
-
-
-//employee.save()
-/*
-employee.save(function (err) {
-    if (err) {
-        console.log(err);
-        return;
-    }else {
-
-    }
-});
-*/
