@@ -113,7 +113,8 @@
             $(".modal-body #editlastname").val(editEmployeeData.lastname);
             $(".modal-body #editfirstname").val(editEmployeeData.firstname);
             $(".modal-body #editemail").val(editEmployeeData.email);
-            $(".modal-body #editdepartment").val(editEmployeeData.department);
+            //$(".modal-body #editdepartment").val(editEmployeeData.department);
+            $(".modal-body #editdepartmentname").val(editEmployeeData.department);
             $(".modal-body #editgender").val(editEmployeeData.gender);
           //  $(".modal-body #editdateofbirth").val(editEmployeeData.date_of_birth);
             $(".modal-body #editaddress").val(editEmployeeData.address);
@@ -129,7 +130,8 @@
             var newEditlastname = $("#editlastname").val();
             var newEditfirstname = $("#editfirstname").val();
             var newEditEmail = $("#editemail").val();
-            var newEditDepartment = $("#editdepartment").val();
+            var newEditDepartment = $("#editdepartmentname").val();
+
             var newEditGender = $("#editgender").val();
            // var newEditDatofBirth = $("#editdateofbirth").val();
             var newEditAddress= $("#editaddress").val();
@@ -221,18 +223,8 @@
 
             <!-- Moden Body start-->
             <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-4 col-md-offset-4">
-                        <form class="form-horizontal" role="form">
-                            <fieldset>
-                                <!-- Form Name -->
-                                <legend>Employer Update</legend>
 
                                 <!-- Text input-->
-
-
-
-
                                 <div class="form-group">
                                     <label for="textinput">Role</label>
                                         <output type="text" id = "editrole" class="form-control"/>
@@ -264,10 +256,13 @@
                                 <!-- Text input-->
 
                                 <div class="form-group">
-                                    <label for="textinput">Department</label>
-                                        <input type="text" id = "editdepartment" placeholder="Department" class="form-control">
+                                    <label for="Department Names">Departments</label>
+                                    <select id="editdepartmentname" class="form-control select2" name="editdepartmentname"  style="width: 100%;">
+                                        <% departments.forEach(function(department) { %>
+                                        <option value="<%=department.name %>"> <%= department.name %></option>s
+                                        <% }); %>
+                                    </select>
                                 </div>
-
 
                                 <div class="form-group">
                                     <label for="textinput">Gender</label>
@@ -291,10 +286,7 @@
                                         <output type="text" id = "editid" class="form-control" style="display: none"/>
                                 </div>
 
-                            </fieldset>
-                        </form>
-                    </div><!-- /.col-lg-12 -->
-                </div>
+
             </div>
 
             <!-- Moden Body End-->

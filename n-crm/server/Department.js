@@ -1,4 +1,5 @@
 let Department = require('../model/Department');
+let Employee = require('../model/Employee');
 var db = require('./config');
 var sess;
 module.exports = function(app) {
@@ -14,10 +15,10 @@ module.exports = function(app) {
 
         department.save()
             .then(item => {
-                res.redirect("/department");
+                res.redirect("/department-list");
             })
             .catch(err => {
-                res.status(400).send("Unable to Add Employer!!! May be Username Already Exist or syntax error");
+                res.status(400).send("Unable to Add Department!!!");
             });
 
     });
@@ -35,16 +36,64 @@ module.exports = function(app) {
     app.get('/department-list', function (req, res) {
         sess = req.session;
         Department.find({}, function (err, departments) {
+            Employee.find({}, function (err, employees) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    //console.log(departments);
+                    res.render('department-list', {
+                        departments: departments,
+                        employees: employees,
+                        session: sess
+                    });
+                }
+            });
+
+
+        });
+    });
+
+    app.post('/department-list/Employee', function (req, res) {
+        sess = req.session;
+
+            Employee.find({department:req.body.departmentName}, function (err, employees1) {
+
+                if (err) {
+                    console.log(err);
+                } else {
+                    res.json(employees1);
+
+                }
+            });
+
+        });
+
+
+    app.post('/edit-department', function (req, res) {
+        Department.findById(req.param('_id'), (err, departments) => {
             if (err) {
-                console.log(err);
+                res.status(500).send(err);
             } else {
-                res.render('department-list', {
-                    departments: departments,
-                    session: sess
-                });
+               // console.log(departments);
+                // Update each attribute with any possible attribute that may have been submitted in the body of the request
+                // If that attribute isn't in the request body, default back to whatever it was before.
+
+                departments.name = req.param('name');
+                departments.location = req.param('location');
+
+                departments.save()
+                    .then(item => {
+                        res.send("Updated");
+                    })
+                    .catch(err => {
+                        res.status(400).send("Unable to save to database");
+                    });
             }
         });
     });
+
+
+
     app.post('/delete-department', function (req, res) {
         Department.findByIdAndRemove(req.param('_id'), function (err) {
             if(err){

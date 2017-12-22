@@ -1,12 +1,17 @@
 let Employee = require('../model/Employee');
+let Department = require('../model/Department');
 var db = require('./config');
 var sess;
 module.exports = function(app) {
     // Load Register page
 
+        // }else{
+        //     res.render('login',{title:'Login Page'});
+        // }
+
     app.post('/newregister', function (req,res) {
         let employee = new Employee();
-
+        //let depart = new Department();
         employee.role = req.body.selectview;
         employee.gender = req.body.selectgender;
         employee.last_name = req.body.lastname;
@@ -15,9 +20,10 @@ module.exports = function(app) {
         employee.password = req.body.password;
         employee.date_of_birth = '"'+req.body.dateBirth+'"';
         employee.phone = req.body.phoneNumber;
-        employee.department = req.body.department;
+        employee.department = req.body.departmentname;
         employee.email = req.body.email;
         employee.address = req.body.homeAddress;
+
 
         employee.save()
             .then(item => {
@@ -30,23 +36,38 @@ module.exports = function(app) {
     });
     app.get('/emp-register',function(req,res){
         sess = req.session;
-        res.render('emp-register',{
+        Department.find({}, function (err, departments) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.render('emp-register', {
+                    departments:departments,
+                    session: sess
+                });
+            }
+            /*
+            res.render('emp-register',{
             user: "Admin",
             title:"Registration",
             session: sess
+            */
         });
     });
     app.get('/empview', function (req, res) {
         sess = req.session;
         Employee.find({}, function (err, employees) {
-            if (err) {
-                console.log(err);
-            } else {
-                res.render('empview', {
-                    employees: employees,
-                    session: sess
-                });
-            }
+            Department.find({}, function (err, departments) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    res.render('empview', {
+                        employees: employees,
+                        departments: departments,
+                        session: sess
+                    });
+                }
+            });
+
         });
     });
     app.post('/delete-employee', function (req, res) {
@@ -88,7 +109,11 @@ module.exports = function(app) {
             }
         });
     });
+
 }
+
+
+
 
 //employee.save()
 /*
