@@ -1,0 +1,168 @@
+<html>
+<head><title><%= title %></title>
+    <% include ./layout/library.ejs %>
+</head>
+<body class="skin-blue fixed sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+    <% include ./layout/header.ejs %>
+    <!-- =============================================== -->
+
+    <!-- Left side column. contains the sidebar -->
+    <% include ./layout/menu.ejs %>
+    <!-- =============================================== -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper" style="min-height: 265px;">
+        <!-- Content Header (Page header) -->
+
+        <!-- =============================================== -->
+        <div style="padding-top: 10px"></div>
+        <!-- Main content -->
+        <section class="content">
+            <div class="box">
+                <div class="box-header">
+                    <h1 class="box-title" style="color: #0d6aad">Tasks</h1>
+                </div><!-- /.box-header -->
+                <div class="box-body" >
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-btn">
+                            <input type="button" class="btn btn-secondary btn-primary" name="taskbutton" id="taskbutton"
+                                   data-toggle="modal" data-target="#myModal"  value="New Task">
+                        </span>
+                        <input type="search" class="form-control" id ="search" onkeyup="showtitle()" placeholder="Search ...">
+
+                    </div>
+                </div>
+            </div>
+
+
+                <!--<div class="container">-->
+            <!--<div class="row">-->
+            <!--<% for (var t = 0; t<tasks.length ; t++){%>-->
+                <!--<div class="col-sm" style="background-color: white">-->
+                    <!--<div ><h2><%=tasks[t].title%></h2></div>-->
+                    <!--<div ><%= tasks[t].things_to_do%></div>-->
+                <!--</div>-->
+            <!--<%}%>-->
+                <!--</div>-->
+            <!--</div>-->
+            <% for (var t = 0; t<tasks.length ; t++){%>
+            <%if(t%2 == 0){%>
+            <div class="row">
+                <%}%>
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-block">
+                          <div class="card-title"><h3 class="card-title"><%=tasks[t].title%></h3></div>
+                            <p class="card-text"><b><%= tasks[t].things_to_do%></b></p>
+                               <br>
+                            <a href="/calendar" class="btn btn-primary">Calendar</a>
+
+                        </div>
+                        <div class="card-footer">
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <b><%=tasks[t].users%></b>
+                                </div>
+                                <div class="col-sm-6">
+                                    <small class="text-muted" style="float: right">
+                                        <% var date =  tasks[t].deadline%>
+                                       <%= date.getDate() + "." + date.getMonth() + "." + date.getFullYear()%>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <%if(t%2 ==1){%>
+            </div>
+            <%}%>
+            <%}%>
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" style="color:#0d6aad">New Task</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <form action="task_insert" method="post">
+                        <div class="form-group">
+                            <label style="color: #0d6aad">Title</label>
+                            <input type="text" id="title" name="title" class="form-control" placeholder="Title ...">
+                        </div>
+                        <div class="form-group">
+                            <label style="color: #0d6aad">Things to do</label>
+                            <textarea class="form-control" rows="5" id="things_to_do" name="things_to_do" placeholder="Things to do ..."></textarea>
+                        </div>
+                        <div class="col-md-6" style=" padding-right: 0 !important; padding-left: 0 !important;">
+                        <div class="form-group " style="float: left">
+                            <div class="input-group date">
+                                <label style="color: #0d6aad">Deadline</label>
+                                <input type="date" name="deadline" id="deadline" class="form-control" placeholder="Deadline: mm/dd/yyyy">
+                            </div>
+                        </div>
+                        </div>
+
+                        <div class="col-md-6">
+                        <div class="form-group " >
+
+                            <label style="color: #0d6aad">Responsible User</label><br>
+                            <select class="form-control select2" multiple="multiple" name="users" id="users" data-placeholder="Select User" style="width: 100%;" >
+                                <%for (var i=0; i< users.length; i++){%>
+                                <option><%= users[i].username%></option>
+                                <%}%>
+                            </select>
+                        </div>
+                        </div>
+                    <div class="modal-footer" style="margin-top: 10%">
+                        <button type="submit" class="btn-primary">Submit</button>
+                        <button type="button" class="" data-dismiss="modal">Close</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        </div>
+
+        </section>
+    <!-- /.content -->
+    <!-- /.content-wrapper -->
+
+<script>
+    function showtitle() {
+        var title =document.getElementById("search").value;
+        $.ajax({
+            type: "post",
+            url: '/gettitle',
+            dataType : 'json',
+            data: {
+                title : title
+            },
+            success: function(response){
+                location.reload();
+            }
+        });
+    }
+
+
+$(function () {
+    $(".select2").select2();
+
+})
+
+</script>
+</div>
+
+    <% include ./layout/footer.ejs %>
+</div>
+<!-- ./wrapper -->
+
+</body>
+
+</html>

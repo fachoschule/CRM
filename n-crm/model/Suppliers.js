@@ -14,7 +14,7 @@ let crmSchema = mongoose.Schema({
     address:{
         type: String
     },
-    contact_phone: {
+    telephone: {
         type: String
     }
 });

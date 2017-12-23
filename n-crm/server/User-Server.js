@@ -3,17 +3,28 @@ var async = require('async');
 var crypto = require('crypto');
 var nodemailer = require('nodemailer');
 var sess ;
+var request = require('request');
+let fx = require('money');
+var exchange = require("exchange-rates");
+var utility = require("./Utility");
+
 module.exports = function(app) {
     // Load Home page
-    app.get('/',function(req,res){
+
+
+    app.get('/',function(req,res,cb){
+
         res.render('login',{title:'login page'});
+     //   var asd=converter('EUR','TRY',400);
+
     });
+
     //Redirect Forgot password page
     app.get('/forgot_password', function (req,res) {
         res.render('forgot_password',{title:'Forgot Password Page'});
     })
     app.post('/forgot_password', function (req, res) {
-       var to = 'avaz.babayev@student.fh-kiel.de';
+        var to = 'avaz.babayev@student.fh-kiel.de';
         async.waterfall([
             function(done) {
                 crypto.randomBytes(20, function(err, buf) {
@@ -61,7 +72,7 @@ module.exports = function(app) {
                     'If you did not request this, please ignore this email and your password will remain unchanged.\n'
                 };
                 smtpTransport.sendMail(mailOptions, function(err) {
-                   // req.flash('info', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
+                    // req.flash('info', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
                     done(err, 'done');
                 });
             }
@@ -93,11 +104,12 @@ module.exports = function(app) {
                 }
             }
         });
-       // res.render('add_product');
+        // res.render('add_product');
     });
     app.get('/logout', function (req,res) {
         sess = req.session;
         sess.name = "";
         res.render('login',{title:'Home Page'});
     })
+
 }
