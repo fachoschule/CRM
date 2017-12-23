@@ -1,4 +1,6 @@
 const request=require('request');
+var admin = require("firebase-admin");
+var serviceAccount = require("../service-account.json");
 
 module.exports = function(app) {
     app.get('/firebase', function (req ,res) {
@@ -10,8 +12,36 @@ module.exports = function(app) {
         console.log(currentToken);
     })
 
+
+    admin.initializeApp({
+        credential: admin.credential.cert(serviceAccount),
+        databaseURL: "https://ecrm-fh-kiel.firebaseio.com"
+    });
+// This registration token comes from the client FCM SDKs.
+    var registrationToken = "e7nfxKa0fck:APA91bEawrneFWSn7G6y75tjNz2LuasdyyDOs7mcctfc_qH75n-rQvw9m6NHO4kgVL_blIB1Wpqkj7Xib_zDyvvjw2YlqdmomKlP2nJhkXCnZ00Hc_iirhFt0LNZko8TeQjg-wIBiS4K";
+
+// See the "Defining the message payload" section below for details
+// on how to define a message payload.
+    var payload = {
+        notification: {
+            title: "Urgent action needed!",
+            body: "Urgent action is needed to prevent your account from being disabled! ESAM is happy",
+            icon: "images/logo.png"
+        }
+    };
+// Send a message to the device corresponding to the provided
+// registration token.
+    admin.messaging().sendToDevice(registrationToken, payload)
+        .then(function(response) {
+            // See the MessagingDevicesResponse reference documentation for
+            // the contents of response.
+            console.log("Successfully sent message:", response);
+        })
+        .catch(function(error) {
+            console.log("Error sending message:", error);
+        });
     //get access token
-    function getAccessToken() {
+    /*function getAccessToken() {
         return new Promise(function(resolve, reject) {
             var key = require('./service-account.json');
             var jwtClient = new google.auth.JWT(
@@ -56,5 +86,5 @@ module.exports = function(app) {
             console.log(body);
         }
     });
-
+*/
 };
