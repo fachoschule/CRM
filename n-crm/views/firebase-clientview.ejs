@@ -1,94 +1,136 @@
+<html>
+<head><title><%= (typeof title != "undefined" ? title : "") %></title>
+    <%include ./layout/library.ejs%>
+</head>
+<body>
+<body class="skin-blue fixed sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+    <%include ./layout/header.ejs%>
+    <!-- =============================================== -->
 
-<%include layout/library.ejs%>
-<script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
-<script>
-    // Initialize Firebase
-    var config = {
-        apiKey: "AIzaSyD4BLZ6CRso3hFh_0bN7HpekHarbO1UewQ",
-        authDomain: "ecrm-fh-kiel.firebaseapp.com",
-        databaseURL: "https://ecrm-fh-kiel.firebaseio.com",
-        projectId: "ecrm-fh-kiel",
-        storageBucket: "ecrm-fh-kiel.appspot.com",
-        messagingSenderId: "180973527418"
-    };
-    firebase.initializeApp(config);
+    <!-- Left side column. contains the sidebar -->
+    <%include ./layout/menu.ejs%>
+    <!-- =============================================== -->
 
-    const messaging = firebase.messaging();
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper" style="min-height: 265px;">
+        <!-- Content Header (Page header) -->
 
-    messaging.requestPermission()
-        .then(function() {
-            console.log('Notification permission granted.');
-            return messaging.getToken()
-                .then(function(currentToken) {
-                    console.log(currentToken);
-                    if (currentToken) {
-                        sendTokenToServer(currentToken);
-                        //updateUIForPushEnabled(currentToken);
-                    } else {
-                        // Show permission request.
-                        console.log('No Instance ID token available. Request permission to generate one.');
-                        // Show permission UI.
-                        //updateUIForPushPermissionRequired();
-                        setTokenSentToServer(false);
-                    }
-                })
-                .catch(function(err) {
-                    console.log('An error occurred while retrieving token. ', err);
-                    showToken('Error retrieving Instance ID token. ', err);
-                    setTokenSentToServer(false);
+        <!-- =============================================== -->
+
+        <div style="padding-top: 10px"></div>
+        <!-- Main content -->
+        <section class="content">
+            <div class="register-logo">
+                <a href=""><b>Push </b>notification</a>
+            </div>
+            <div class="register-box-body">
+                <p class="login-box-msg">Send Notification</p>
+                jjjj
+            </div><!-- /.form-box -->
+            <script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
+            <script>
+                // Initialize Firebase
+                var config = {
+                    apiKey: "AIzaSyD4BLZ6CRso3hFh_0bN7HpekHarbO1UewQ",
+                    authDomain: "ecrm-fh-kiel.firebaseapp.com",
+                    databaseURL: "https://ecrm-fh-kiel.firebaseio.com",
+                    projectId: "ecrm-fh-kiel",
+                    storageBucket: "ecrm-fh-kiel.appspot.com",
+                    messagingSenderId: "180973527418"
+                };
+                firebase.initializeApp(config);
+
+                const messaging = firebase.messaging();
+
+                messaging.requestPermission()
+                    .then(function() {
+                        console.log('Notification permission granted.');
+                        return messaging.getToken()
+                            .then(function(currentToken) {
+                                console.log(currentToken);
+                                if (currentToken) {
+                                    sendTokenToServer(currentToken);
+                                    //updateUIForPushEnabled(currentToken);
+                                } else {
+                                    // Show permission request.
+                                    console.log('No Instance ID token available. Request permission to generate one.');
+                                    // Show permission UI.
+                                    //updateUIForPushPermissionRequired();
+                                    setTokenSentToServer(false);
+                                }
+                            })
+                            .catch(function(err) {
+                                console.log('An error occurred while retrieving token. ', err);
+                                showToken('Error retrieving Instance ID token. ', err);
+                                setTokenSentToServer(false);
+                            });
+                    })
+                    .catch(function(err) {
+                        console.log('Unable to get permission to notify.', err);
+                    })
+
+
+                // Callback fired if Instance ID token is updated.
+                /*messaging.onTokenRefresh(function() {
+                    messaging.getToken()
+                        .then(function(refreshedToken) {
+                            console.log('Token refreshed.');
+                            // Indicate that the new Instance ID token has not yet been sent to the
+                            // app server.
+                            setTokenSentToServer(false);
+                            // Send Instance ID token to app server.
+                            sendTokenToServer(refreshedToken);
+                            // ...
+                        })
+                        .catch(function(err) {
+                            console.log('Unable to retrieve refreshed token ', err);
+                            showToken('Unable to retrieve refreshed token ', err);
+                        });
+                });*/
+                // get message
+                messaging.onMessage(function(payload) {
+                    console.log("Message received. ", payload);
+                    // ...
                 });
-        })
-        .catch(function(err) {
-           console.log('Unable to get permission to notify.', err);
-        })
+                function sendTokenToServer(currentToken){
+                    $.ajax({
+                        type: "post",
+                        url: '/send-token-to-server',
+                        dataType: 'text',
+                        data: {
+                            currentToken: currentToken
+                        },
+                        success: function (response) {
 
+                        }
+                    });
+                }
+                /*function sendTokenToServer(refreshedToken){
+                    $.ajax({
+                        type: "post",
+                        url: '/send-token-to-server',
+                        dataType: 'text',
+                        data: {
+                            currentToken: refreshedToken
+                        },
+                        success: function (response) {
 
-    // Callback fired if Instance ID token is updated.
-    /*messaging.onTokenRefresh(function() {
-        messaging.getToken()
-            .then(function(refreshedToken) {
-                console.log('Token refreshed.');
-                // Indicate that the new Instance ID token has not yet been sent to the
-                // app server.
-                setTokenSentToServer(false);
-                // Send Instance ID token to app server.
-                sendTokenToServer(refreshedToken);
-                // ...
-            })
-            .catch(function(err) {
-                console.log('Unable to retrieve refreshed token ', err);
-                showToken('Unable to retrieve refreshed token ', err);
-            });
-    });*/
-    // get message
-    messaging.onMessage(function(payload) {
-        console.log("Message received. ", payload);
-        // ...
-    });
-    function sendTokenToServer(currentToken){
-        $.ajax({
-            type: "post",
-            url: '/send-token-to-server',
-            dataType: 'text',
-            data: {
-                currentToken: currentToken
-            },
-            success: function (response) {
+                        }
+                    });
+                }*/
+            </script>
 
-            }
-        });
-    }
-    /*function sendTokenToServer(refreshedToken){
-        $.ajax({
-            type: "post",
-            url: '/send-token-to-server',
-            dataType: 'text',
-            data: {
-                currentToken: refreshedToken
-            },
-            success: function (response) {
+        </section><!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
 
-            }
-        });
-    }*/
-</script>
+    <%include ./layout/footer.ejs%>
+</div>
+<!-- ./wrapper -->
+
+</body>
+
+</body>
+</html>

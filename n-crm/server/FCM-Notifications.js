@@ -5,14 +5,14 @@ let sess;
 module.exports = function(app) {
     app.get('/firebase', function (req ,res) {
         sess = req.session;
-        res.render('firebase-clientview');
+        res.render('firebase-clientview', {session:sess});
         //console.log(tokenToServer);
     })
     app.post('/send-token-to-server',function (req, res) {
         var currentToken = req.param('currentToken');
         console.log(currentToken);
         sess = req.session;
-        res.render('firebase-clientview');
+        res.render('firebase-clientview',{session:sess});
 
     })
 
@@ -29,7 +29,7 @@ module.exports = function(app) {
     var payload = {
         notification: {
             title: "Urgent action needed!",
-            body: "tii Urgent action is needed to prevent your account from being disabled! ESAM is happy",
+            body: "Urgent action is needed to prevent your account from being disabled! ESAM is happy",
             icon: "images/logo.png"
         }
     };
