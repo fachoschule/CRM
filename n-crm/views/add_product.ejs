@@ -128,7 +128,7 @@
             }
         });
     }
-    function fullfillproductID(){
+    function fullfillproductID() {
         var brand = $('#product-brand-id').val();
         var type = $('#product-type-id').val();
         $.ajax({
@@ -137,12 +137,14 @@
             dataType: 'json',
             data: {
                 brand: brand,
-                type : type
+                type: type
             },
-            success: function(response) {
+            success: function (response) {
                 $('#productID').val(response.product_id);
+
                 $('#brand-name').val(response.brand_name);
-                $('#type-name').val(response.type-name);
+                $('#type-name').val(response.type - name);
+
             }
         });
     }

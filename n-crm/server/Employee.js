@@ -1,8 +1,13 @@
 let Employee = require('../model/Employee');
+let Department = require('../model/Department');
+//let User = require('../model/User');
 var db = require('./config');
 var sess;
+
+
 module.exports = function(app) {
-    // Load Register page
+
+/////////////////////// Registering Employee Records ///////////////////////
 
     app.post('/newregister', function (req,res) {
         let employee = new Employee();
@@ -15,11 +20,13 @@ module.exports = function(app) {
         employee.password = req.body.password;
         employee.date_of_birth = '"'+req.body.dateBirth+'"';
         employee.phone = req.body.phoneNumber;
-        employee.department = req.body.department;
+        employee.department = req.body.departmentname;
         employee.email = req.body.email;
         employee.address = req.body.homeAddress;
 
+
         employee.save()
+            //user.save()
             .then(item => {
                 res.redirect("/emp-register");
             })
@@ -28,28 +35,62 @@ module.exports = function(app) {
             });
 
     });
+
+    //////////////////// Get Departments Name from Department Collection/Model ////////////////////////////
+
     app.get('/emp-register',function(req,res){
         sess = req.session;
-        res.render('emp-register',{
-            user: "Admin",
-            title:"Registration",
-            session: sess
-        });
-    });
-    app.get('/empview', function (req, res) {
-        sess = req.session;
-        Employee.find({}, function (err, employees) {
+        if(sess.name) {
+        Department.find({}, function (err, departments) {
             if (err) {
                 console.log(err);
             } else {
-                res.render('empview', {
-                    employees: employees,
+                res.render('emp-register', {
+                    departments:departments,
                     session: sess
                 });
             }
+            /*
+            res.render('emp-register',{
+            user: "Admin",
+            title:"Registration",
+            session: sess
+            */
         });
+        }else{
+            res.render('login',{title:'Login Page'});
+        }
     });
+
+/////////////////////// For Viewing Employee Records in Table Page 'empview' ///////////////////////
+
+    app.get('/empview', function (req, res) {
+        sess = req.session;
+        if(sess.name) {
+        Employee.find({}, function (err, employees) {
+            Department.find({}, function (err, departments) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    res.render('empview', {
+                        employees: employees,
+                        departments: departments,
+                        session: sess
+                    });
+                }
+            });
+
+        });
+        }else{
+            res.render('login',{title:'Login Page'});
+        }
+    });
+
+///////////////////////////////////////// Find By ID and Delete Employee Record ///////////////////////////
+
     app.post('/delete-employee', function (req, res) {
+        sess = req.session;
+        if(sess.name) {
         Employee.findByIdAndRemove(req.param('_id'), function (err) {
             if(err){
                 console.log(err);
@@ -57,9 +98,14 @@ module.exports = function(app) {
             }
             res.send('OK');
         });
+        }else{
+            res.render('login',{title:'Login Page'});
+        }
     });
-
+///////////////////////////////////////// Find By ID and Edit/Update Employee Record ///////////////////////////
     app.post('/edit-employee', function (req, res) {
+        sess = req.session;
+        if(sess.name) {
         Employee.findById(req.param('_id'), (err, employees) => {
             if (err) {
                 res.status(500).send(err);
@@ -87,17 +133,9 @@ module.exports = function(app) {
                     });
             }
         });
+        }else{
+            res.render('login',{title:'Login Page'});
+        }
     });
+
 }
-
-//employee.save()
-/*
-employee.save(function (err) {
-    if (err) {
-        console.log(err);
-        return;
-    }else {
-
-    }
-});
-*/

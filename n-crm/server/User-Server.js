@@ -1,4 +1,5 @@
-var User = require('../model/User');
+//var User = require('../model/User');
+var Employee = require('../model/Employee');
 var async = require('async');
 var crypto = require('crypto');
 var nodemailer = require('nodemailer');
@@ -22,7 +23,7 @@ module.exports = function(app) {
                 });
             },
             function(token, done) {
-                User.find({ username: req.param('email') }, function(err, user) {
+                Employee.find({ username: req.param('email') }, function(err, user) {
                     if (!user) {
                         //req.flash('error', 'No account with that email address exists.');
                         return res.render('/forgot_password');
@@ -73,7 +74,7 @@ module.exports = function(app) {
 // Load Home page
     app.post('/login/checkAuthentication',function(req,res){
         console.log(req.body.email);
-        User.find({"username": req.body.email}, function (err, user){
+        Employee.find({"username": req.body.email}, function (err, user){
             if(err){
                 console.log(err);
             }else{
@@ -84,7 +85,8 @@ module.exports = function(app) {
                 {
                     sess = req.session;
                     sess.name = user[0].username;
-                    sess.nickname = user[0].nickname;
+                    sess.nickname = user[0].last_name;
+                    //sess.nickname = user[0].nickname;
                     res.render('test',{title:'Home Page', session : req.session});
                     console.log('success');
                 }else{
