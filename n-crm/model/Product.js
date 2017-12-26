@@ -9,10 +9,11 @@ let crmSchema = mongoose.Schema({
     },
     product_name:{
         type: String,
-        required: true
+       // required: true
     },
     image: {
-        type: String,
+        img: Buffer,
+        contentType : String
     },
     brand: {
         brand_id : String,
@@ -22,9 +23,18 @@ let crmSchema = mongoose.Schema({
         type_id: String,
         type_name: String
     },
+    final_cost:{
+        cost: Number,
+        currency: String
+    },
+    external_codes: [{
+        code : String,
+        code_name: String,
+        customer : String
+    }],
     description:{
         type: String,
-        required: true
+        //required: true
     }
 });
 

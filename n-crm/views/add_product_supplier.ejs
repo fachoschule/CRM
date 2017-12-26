@@ -56,7 +56,7 @@
                                         <div class="form-group">
                                             <label for="cost-per-item">Cost/ Item</label>
                                             <div class="input-group">
-                                                <span class="input-group-addon"><i class="fa fa-eur" aria-hidden="true"></i></span>
+                                                <span class="input-group-addon"><i class="fa fa-money" aria-hidden="true"></i></span>
                                                 <input name="itemCost" type="text" class="form-control " required="true" id="cost-per-item" placeholder=""/>
 
                                             </div>
@@ -65,16 +65,16 @@
                                     </div>
                                     <div class="col-xs-2">
                                             <label for="currency-id">Currency</label>
-                                            <select id="currency-id" class="form-control select2" name="typeID"  style="width: 100%;">
-                                                <option value="CNY">VND</option>
-                                                <option value="CNY">USD</option>
-                                                <option value="CNY">EUR</option>
+                                            <select id="currency-id" class="form-control select2" name="currency"  style="width: 100%;">
+                                                <option value="VND">VND</option>
+                                                <option value="USD">USD</option>
+                                                <option value="EUR">EUR</option>
                                                 <option value="CNY">CNY</option>
-                                                <option value="CNY">INR</option>
+                                                <option value="INR">INR</option>
                                             </select>
                                     </div>
                                     <div class="col-xs-4">
-                                        <button style=" margin-top: 20px; " type="button" onclick="" class="btn bg-olive btn-flat margin">ADD SUPPLIER FOR PRODUCT</button>
+                                        <button style=" margin-top: 20px; " type="button" onclick="addSupplierIntoProduct()" class="btn bg-olive btn-flat margin">ADD SUPPLIER FOR PRODUCT</button>
 
                                     </div>
                                 </div>
@@ -94,15 +94,15 @@
                         <div class="box-body">
                             <div class="row">
                                 <div class="col-md-5">Pro ID</div>
-                                <div class="col-md-7" style="font-weight: bold;"></div>
+                                <div class="col-md-7" style="font-weight: bold;"><%= session.product.product_id%></div>
                             </div>
                             <div class="row">
                                 <div class="col-md-5">Pro Name</div>
-                                <div class="col-md-7" style="font-weight: bold;"></div>
+                                <div class="col-md-7" style="font-weight: bold;"><%= session.product.product_name%></div>
                             </div>
                             <div class="row">
-                                <div class="col-md-5">Description</div>
-                                <div class="col-md-7" style="font-weight: bold;"></div>
+                                <div class="col-md-5">Descript</div>
+                                <div class="col-md-7" style="font-weight: bold;"><%= session.product.description%></div>
                             </div>
 
                         </div><!-- /.box-body -->
@@ -118,6 +118,69 @@
 </div>
 <!-- ./wrapper -->
 <script>
+    function loadListSupplier(suppliers){
+        alert('here');
+        var row = '';
+        row += '<table id="dataload" class="table table-bordered table-striped thead">';
+        row +=		'<thead>';
+        row +=          '<tr>';
+        row +=          '<th>#</th>';
+        row +=          '<th>Supplier Name</th>';
+        row +=          '<th>Cost</th>';
+        row +=          '<th>Currency</th>';
+        row +=          '<th>Standard Cost (EUR)</th>';
+        row +=          '</tr>';
+        for(var i = 0; i < suppliers.length; i++)
+        {
+            stt = i + 1;
+            row +=          '<tr>';
+            row +=          '<td>' + stt + '</td>';
+            row +=          '<td>' + suppliers[i].supplier.name + '</td>';
+            row +=          '<td>' + suppliers[i].costPerItem + '</td>';
+            row +=          '<td>' + suppliers[i].currency + '</td>';
+            row +=          '<td>' + suppliers[i].standardPrice + '</td>';
+            row +=          '</tr>';
+        }
+        row +=		'</thead>';
+        row += '</table>'
+        row +='<br>';
+        row += '<div class="col-xs-4">';
+        row +=  '<button style=" margin-top: 20px; " type="button" onclick="submitFinishAddingProduct()" class="btn btn-primary btn-flat">FINISH ADDING THE PRODUCT</button>'
+        row += '</div>';
+        $("#loadSuppliersForProduct").html(row);
+    }
+    function submitFinishAddingProduct(){
+        $.ajax({
+            type: "post",
+            url: '/product/finish-adding-the-product',
+            dataType: 'json',
+            data: '',
+            success: function(response) {
+                window.location = response.redirect
+            }
+        });
+    }
+    function addSupplierIntoProduct() {
+        var costItem = $('#cost-per-item').val();
+        var currency = $('#currency-id').val();
+        var supplierID = $('#supplier-ID').val();
+        var supplierName = $('#supplier-name').val();
+        $.ajax({
+            type: "post",
+            url: '/product/add-supplier-into-product',
+            dataType : 'json',
+            data: {
+                costItem : costItem,
+                currency : currency,
+                supplierID : supplierID,
+                supplierName : supplierName
+            },
+            success: function(response){
+                alert(response.suppliers);
+               loadListSupplier(response.suppliers);
+            }
+        });
+    }
     loadSupplier('');
     function loadSupplier(supplierID){
         $.ajax({
@@ -159,17 +222,21 @@
             success: function(response) {
                 var supplier = response.supplier;
                 row += '<div class="form-group">';
+                row +=		'<label for="supp-name">SUPPLIER NAME</label> ';
+                row +=		'<input name="suppName" type="text" class="form-control " value="'+supplier.address+'" id="supplier-name" placeholder="SUPPLIER ADDRESS"/>';
+                row +='</div>';
+                row += '<div class="form-group">';
                 row +=		'<label for="supp-address">SUPPLIER ADDRESS</label> ';
-                row +=		'<input name="supAddress" type="text" class="form-control " value="'+supplier.address+'" id="dia-chi" placeholder="SUPPLIER ADDRESS"/>';
+                row +=		'<input name="supAddress" type="text" class="form-control " value="'+supplier.address+'" id="supplier-address" placeholder="SUPPLIER ADDRESS"/>';
                 row +='</div>';
                 row += '<div class="form-group">';
                 row +=		'<label for="supp-tax-number">TAX NUMBER</label> ';
-                row +=		'<input name="supTaxNumber" type="text" class="form-control " value="'+supplier.tax_number+'" id="ma-so-thue" placeholder="TAX NUMBER"/>';
+                row +=		'<input name="supTaxNumber" type="text" class="form-control " value="'+supplier.tax_number+'" id="supp-tax-number" placeholder="TAX NUMBER"/>';
                 row +='</div>';
                 row += '<div class="row">';
                 row += 		'<div class="col-xs-5">';
                 row += 			'<label for="supp-telephone">TELEPHONE</label> ';
-                row +=			'<input name="supTelephone" type="text" class="form-control " value="'+supplier.contact_phone+'" id="so-dien-thoai" placeholder="TELEPHONE NUMBER"/>';
+                row +=			'<input name="supTelephone" type="text" class="form-control " value="'+supplier.contact_phone+'" id="telephone" placeholder="TELEPHONE NUMBER"/>';
                 row +=		'</div>'
                 row += 		'<div class="col-xs-5">';
                 row += 			'<label for="fax">FAX</label> ';
@@ -307,7 +374,6 @@
                                         bootbox.alert(inform);
                                         return false;
                                     } else {
-                                        alert(response.supplier._id);
                                         loadSupplier(response.supplier._id);
                                     }
                                 }
