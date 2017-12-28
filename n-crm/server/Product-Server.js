@@ -63,6 +63,10 @@ module.exports = function(app) {
                         console.log(ext);
                         product.external_codes.push(ext);
                     }
+                    product.final_cost= {
+                        cost: 0,
+                        currency: ""
+                    }
                     product.save(function (err) {
                         if (err) {
                             console.log(err);
@@ -319,5 +323,15 @@ module.exports = function(app) {
         }else{
             res.render('login',{title:'Login Page'});
         }
-    })
+    });
+    app.post('/product/add-final-cost', function (req, res) {
+       Product.findById(req.param('product_ID'), function (err, pro) {
+            pro.final_cost = {
+                cost: req.param('itemCost'),
+                currency: req.param('currency')
+            }
+            pro.save();
+            res.redirect('/new-feed-general');
+       })
+    });
 }

@@ -21,7 +21,7 @@ app.use(session({
     saveUninitialized: true
 }));
 var path = __dirname + '/views/';
-var routes = require('./server/routes')(app);
+var routes = require('./server/NewFeed-Server')(app);
 var productroutes = require('./server/Product-Server')(app);
 var externalProductCoderoutes = require('./server/External-Product-Server')(app);
 var purchaseOrderroutes = require('./server/Purchase-Order-Server')(app);

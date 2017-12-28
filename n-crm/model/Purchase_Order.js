@@ -40,7 +40,9 @@ let crmSchema = mongoose.Schema({
         description: String,
         quantity: Number,
         amount: Number,
-        customer_rate: Number
+        customer_rate: Number,
+       // img: Buffer,
+        //contentType: String,
     }],
     description:{
         type : String,

@@ -87,8 +87,8 @@ module.exports = function(app) {
                     sess.name = user[0].username;
                     sess.nickname = user[0].last_name;
                     //sess.nickname = user[0].nickname;
-                    res.render('test',{title:'Home Page', session : req.session});
-                    console.log('success');
+                    res.redirect('/new-feed-general');
+                   // console.log('success');
                 }else{
                     console.log('fail login');
                     res.render('login',{title:'Home Page'});
