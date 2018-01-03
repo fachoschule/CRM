@@ -1,6 +1,7 @@
 //bring in customers models
 let Customers = require('../model/Customer');
 var sess ;
+
 //here was get single customer
 module.exports = function(app) {
 
@@ -98,7 +99,7 @@ module.exports = function(app) {
 
     });
 
-// // Delete Customer
+// Delete Customer
     app.post('/delete-customer', function (req, res) {
         console.log("delete customer " + req.body._id);
         let query = {_id: req.body._id}

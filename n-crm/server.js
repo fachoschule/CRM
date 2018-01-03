@@ -1,10 +1,13 @@
 var http=require('http');
-var express = require('express');
+const express = require('express');
+const socketio = require('socket.io');
 var session = require('express-session');
+
 var fs = require('fs');
 var multer = require('multer');
 var app = express();
 var bodyParser = require('body-parser');
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 var http = require('http').Server(app);
@@ -28,9 +31,27 @@ var purchaseOrderroutes = require('./server/Purchase-Order-Server')(app);
 var userroutes = require('./server/User-Server')(app);
 var supplier = require('./server/Supplier-Server')(app);
 var employee = require('./server/Employee')(app);
-var customerRoutes = require('./routes/customers')(app);
 var department = require('./server/Department')(app);
 var configDB = require('./server/config' );
+const customerRoutes = require('./routes/customers')(app);
+const smsService = require('./server/sms-server')(app);
+const FCMnotification = require('./server/FCM-Notifications')(app);
 
-var port = process.env.PORT || 8080;
-http.listen(port);
+
+//config database
+const configDB = require('./server/config');
+
+// start server
+const port = process.env.PORT || 8080;
+const server = http.listen(port);
+
+// Connect to socket.io
+var io = socketio(server);
+io.on('connection', (socket) => {
+    console.log('Connected');
+    io.on('disconnect', () => {
+        console.log('Disconnected');
+    })
+});
+
+app.set('io', io);
