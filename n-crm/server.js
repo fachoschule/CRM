@@ -32,7 +32,6 @@ var userroutes = require('./server/User-Server')(app);
 var supplier = require('./server/Supplier-Server')(app);
 var employee = require('./server/Employee')(app);
 var department = require('./server/Department')(app);
-var configDB = require('./server/config' );
 const customerRoutes = require('./routes/customers')(app);
 const smsService = require('./server/sms-server')(app);
 const FCMnotification = require('./server/FCM-Notifications')(app);
