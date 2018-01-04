@@ -1,0 +1,309 @@
+
+<html>
+<head><title><%= (typeof title != "undefined" ? title : "EmpView") %></title>
+    <%include ./layout/library.ejs%>
+</head>
+<body>
+<body class="skin-blue fixed sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+    <%include ./layout/header.ejs%>
+    <!-- =============================================== -->
+
+    <!-- Left side column. contains the sidebar -->
+    <%include ./layout/menu.ejs%>
+    <!-- =============================================== -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper" style="min-height: 265px;">
+        <!-- Content Header (Page header) -->
+
+        <!-- =============================================== -->
+
+        <div style="padding-top: 10px"></div>
+        <!-- Main content -->
+        <section class="content">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                Manage Employers
+               <!-- <small>advanced tables</small> -->
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li><a href="#">Manage</a></li>
+                <li class="active">Employers</li>
+            </ol>
+        </section>
+
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-14">
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title">Registered Members</h3>
+
+                        </div><!-- /.box-header -->
+                        <div class="box-body">
+                            <table id="manage" class="table table-bordered table-stripped abc">
+                                <thead>
+                                <tr>
+                                    <th>No.</th><th>User Name</th><th>Last Name</th><th>First Name(s)</th><th>Email</th>
+                                    <th>Role</th><th>Department</th>
+                                </tr>
+                                <%for (var i=0; i< employees.length; i++){%>
+                                <tr>
+                                    <td><%=i+1%></td>
+                                    <td><%=employees[i].username%></td>
+                                    <td><%=employees[i].last_name%></td>
+                                    <td><%=employees[i].first_name%></td>
+                                    <td><%=employees[i].email%></td>
+                                    <td><%=employees[i].role%></td>
+                                    <td><%=employees[i].department%></td>
+                                    <td>
+                                        <button type="button" class="btn-link btnedit"
+                                                data-id ='{"empid":"<%=employees[i]._id%>",
+                                                "role":"<%=employees[i].role%>",
+                                                "username":"<%=employees[i].username%>",
+                                                "lastname":"<%=employees[i].last_name%>",
+                                                "firstname":"<%=employees[i].first_name%>",
+                                                "email":"<%=employees[i].email%>",
+                                                "role":"<%=employees[i].role%>",
+                                                "department":"<%=employees[i].department%>",
+                                                "gender":"<%=employees[i].gender%>",
+                                                "address":"<%=employees[i].address%>",
+                                                "phone":"<%=employees[i].phone%>"
+                                        }'  data-toggle="modal" data-target="#exampleModal">
+                                            Edit
+                                        </button>
+
+                                        <div class="btn-group-vertical">
+                                            <button type="button" onclick="empRemove('<%=employees[i]._id%>','<%=employees[i].username%>')" class="btn-link">Delete</button>
+                                        </div>
+
+                                    </td>
+                                </tr>
+                                <%}%>
+                                </thead>
+                            </table>
+                        </div><!-- /.box-body -->
+                    </div><!-- /.box -->
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </section><!-- /.content -->
+
+
+        </section><!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+
+
+    <!-- Script -->
+    <script type="text/javascript">
+
+
+        /////////////////////////    Employee Record Edit/Update ///////////////////////////////
+
+        $(document).on("click", ".btnedit", function () {
+           //console.log();
+             var editEmployeeData = $(this).data('id');
+            console.log(editEmployeeData);
+            console.log(typeof editEmployeeData);
+            //var myObj = JSON.parse(editEmployeeData);
+            console.log(editEmployeeData.lastname);
+            $(".modal-body #editid").val(editEmployeeData.empid);
+            $(".modal-body #editrole").val(editEmployeeData.role);
+            $(".modal-body #editusername").val(editEmployeeData.username);
+            $(".modal-body #editlastname").val(editEmployeeData.lastname);
+            $(".modal-body #editfirstname").val(editEmployeeData.firstname);
+            $(".modal-body #editemail").val(editEmployeeData.email);
+            //$(".modal-body #editdepartment").val(editEmployeeData.department);
+            $(".modal-body #editdepartmentname").val(editEmployeeData.department);
+            $(".modal-body #editgender").val(editEmployeeData.gender);
+          //  $(".modal-body #editdateofbirth").val(editEmployeeData.date_of_birth);
+            $(".modal-body #editaddress").val(editEmployeeData.address);
+            $(".modal-body #editphone").val(editEmployeeData.phone);
+            <!--$(".modal-body #editpassword").val(editEmployeeData.password);-->
+
+        });
+
+        function saveChanges() {
+            var newEditEmpid = $("#editid").val();
+            var newEditRole = $("#editrole").val();
+            var newEditusername = $("#editusername").val();
+            var newEditlastname = $("#editlastname").val();
+            var newEditfirstname = $("#editfirstname").val();
+            var newEditEmail = $("#editemail").val();
+            var newEditDepartment = $("#editdepartmentname").val();
+
+            var newEditGender = $("#editgender").val();
+           // var newEditDatofBirth = $("#editdateofbirth").val();
+            var newEditAddress= $("#editaddress").val();
+            var newEditPhone= $("#editphone").val();
+
+                //console.log(newEditLastname);
+
+            $.ajax({
+                type: "post",
+                url: '/edit-employee',
+                dataType: 'text',
+                data: {
+                    _id: newEditEmpid,
+                    last_name: newEditlastname,
+                    first_name: newEditfirstname,
+                    role: newEditRole,
+                    username: newEditusername,
+                    email: newEditEmail,
+                    department: newEditDepartment,
+                    gender: newEditGender,
+                    address: newEditAddress,
+                    phone: newEditPhone
+                },
+
+                success: function (response) {
+
+                    if (response == "Updated") {
+                        location.reload();
+                    } else if (response.toLowerCase().indexOf("400") >= 0) {
+                        bootbox.alert(response);
+                    }
+                    else {
+                        bootbox.alert("500: Not Successful ");
+                    }
+                }
+            });
+
+        }
+
+        <!-- Employee Record Delete  -->
+        function empRemove (_id,username) {
+            bootbox.confirm({
+                title: "Delete Membership ",
+                message: 'Are you sure! you want to delete employee '+ '"'+ username +'"'+' information?',
+                size: 'medium',
+                onEscape: function () {
+                    bootbox.hideAll();
+                },
+                callback: function (result) {
+                    if (result) {
+                        $.ajax({
+                            type: "post",
+                            url: '/delete-employee',
+                            dataType: 'text',
+                            data: {
+                                _id: _id
+                            },
+                            success: function (response) {
+                                if (response == "OK") {
+                                    location.reload();
+                                } else if (response.toLowerCase().indexOf("400") >= 0) {
+                                    bootbox.alert(response);
+                                }
+                                else {
+                                    bootbox.alert("500: Not Successful ");
+                                }
+                            }
+                        });
+                    }
+                }
+
+            });
+        }
+
+    </script>
+    <%include ./layout/footer.ejs%>
+</div>
+<!-- /.Script -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Employer Information Change</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <!-- Moden Body start-->
+            <div class="modal-body">
+                                <!-- Text input-->
+                                <div class="form-group">
+                                    <label for="textinput">Role</label>
+                                        <output type="text" id = "editrole" class="form-control"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="textinput">UserName</label>
+                                        <output type="text" id = "editusername" class="form-control"/>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="textinput">Last Name</label>
+                                        <input type="text" id = "editlastname" placeholder="Last Name" class="form-control">
+                                </div>
+
+                                <!-- Text input-->
+                                <div class="form-group">
+                                    <label for="textinput">First Name</label>
+                                        <input type="text" id = "editfirstname" placeholder="First Name" class="form-control" >
+                                </div>
+
+                                <!-- Text input-->
+                                <div class="form-group">
+                                    <label for="textinput">Emain</label>
+                                        <input type="text" id = "editemail" placeholder="Email" class="form-control">
+                                </div>
+
+                                <!-- Text input-->
+
+                                <div class="form-group">
+                                    <label for="Department Names">Departments</label>
+                                    <select id="editdepartmentname" class="form-control select2" name="editdepartmentname"  style="width: 100%;">
+                                        <% departments.forEach(function(department) { %>
+                                        <option value="<%=department.name %>"> <%= department.name %></option>s
+                                        <% }); %>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="textinput">Gender</label>
+                                        <input type="text" id = "editgender" placeholder="Gender" class="form-control">
+                                </div>
+
+
+                                <!-- Text input-->
+                                <div class="form-group">
+                                    <label for="textinput">Phone</label>
+                                        <input type="text" id = "editphone" placeholder="Phone" class="form-control">
+                                </div>
+                                <!-- Text input-->
+                                <div class="form-group">
+                                    <label for="textinput">Address</label>
+                                        <input type="text" id = "editaddress" placeholder="Address" class="form-control">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="textinput"></label>
+                                        <output type="text" id = "editid" class="form-control" style="display: none"/>
+                                </div>
+            </div>
+
+            <!-- Moden Body End-->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" onclick="saveChanges()" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Model End -->
+<!-- ./wrapper -->
+</body>
+</body>
+</html>

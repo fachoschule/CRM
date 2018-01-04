@@ -1,0 +1,103 @@
+<html>
+<head><title><%= title %></title>
+    <% include ./layout/library.ejs %>
+</head>
+<body class="skin-blue fixed sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+    <% include ./layout/header.ejs %>
+    <!-- =============================================== -->
+
+    <!-- Left side column. contains the sidebar -->
+    <% include ./layout/menu.ejs %>
+    <!-- =============================================== -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper" style="min-height: 265px;">
+        <!-- Content Header (Page header) -->
+        <!-- =============================================== -->
+
+        <div style="padding-top: 10px">
+
+        </div>
+        <!-- Main content -->
+        <section class="content">
+
+            <div class="box">
+                <div class="box-header">
+                    <h1 class="box-title" style="color: #0d6aad">LIST PRODUCT NEEDING FINAL COST</h1>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <table id="example2" class="table table-bordered table-hover display">
+                        <thead>
+                        <tr>
+                            <th style="color: #0d6aad">#</th>
+                            <th style="color: #0d6aad">Product ID</th>
+                            <th style="color: #0d6aad">Product Name</th>
+                            <th style="color: #0d6aad">Image</th>
+                            <th style="color: #0d6aad">Description</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <%
+                            var i = 1;
+                            products.forEach(function (p) {%>
+                        <tr>
+                            <td><%=i%></td>
+                            <td><%= p.product_id %></td>
+                            <td><%= p.product_name %></td>
+                            <td></td>
+                            <td><%=p.description%></td>
+                            <td><a href="/redirect-add-final-cost?proID=<%=p._id%>">Add Final Cost</a></td>
+                        </tr>
+                        <%  i = i +1;
+                            }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="box">
+                <div class="box-header">
+                    <h1 class="box-title" style="color: #0d6aad">LIST EXTERNAL CODES (NOT HAVE PRODUCT)</h1>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <table id="example2" class="table table-bordered table-hover display">
+                        <thead>
+                        <tr>
+                            <th style="color: #0d6aad">#</th>
+                            <th style="color: #0d6aad">External Code</th>
+                            <th style="color: #0d6aad">Customer</th>
+                            <th style="color: #0d6aad">Description</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <%
+                        var i = 1;
+                        externalCodes.forEach(function (eC) {%>
+                        <tr>
+                            <td><%=i%></td>
+                            <td><%= eC.external_product_id %></td>
+                            <td><%= eC.customer.name %></td>
+                            <td><%=eC.description%></td>
+                            <td><a href="/create-product">Add New Product</a></td>
+                        </tr>
+                        <%  i = i +1;
+                        }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section><!-- /.content -->
+    </div>
+
+    <% include ./layout/footer.ejs %>
+</div>
+<!-- ./wrapper -->
+
+</body>
+
+
+</html>

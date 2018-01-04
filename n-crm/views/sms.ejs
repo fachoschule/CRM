@@ -1,0 +1,47 @@
+<html>
+<head><title><%= title %></title>
+    <%include ./layout/library.ejs%>
+</head>
+<body>
+<body class="skin-blue fixed sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+    <%include ./layout/header.ejs%>
+    <!-- =============================================== -->
+
+    <!-- Left side column. contains the sidebar -->
+    <%include ./layout/menu.ejs%>
+    <!-- =============================================== -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper" style="min-height: 265px;">
+        <!-- Content Header (Page header) -->
+
+        <!-- =============================================== -->
+        <div style="padding-top: 10px"></div>
+        <!-- Main content -->
+        <section class="content">
+            <div class="col-md-10">
+                <div class="box box-solid box-primary">
+                    <div class="box-header with-border">
+                        Contact Portal
+                    </div>
+                    <div class="box-body">
+                        <h2>Send SMS message</h2>
+                        <input type="tel" name="number" id="number" placeholder="Enter Phone Number ...">
+                        <input type="text" name="msg" id="msg" placeholder="Enter Text Message ...">
+                        <input class="btn" type="submit" id="btn" value="Send Text">
+                        <p class="response"></p>
+        </section><!-- /.content -->
+    </div>S
+    <!-- /.content-wrapper -->
+
+    <%include ./layout/footer.ejs%>
+</div>
+<!-- ./wrapper -->
+
+</body>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<html>
+<head><title><%= title %></title>
+    <% include ./layout/library.ejs %>
+</head>
+<body class="skin-blue fixed sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+    <% include ./layout/header.ejs %>
+    <!-- =============================================== -->
+
+    <!-- Left side column. contains the sidebar -->
+    <% include ./layout/menu.ejs %>
+    <!-- =============================================== -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper" style="min-height: 265px;">
+        <!-- Content Header (Page header) -->
+        <!-- =============================================== -->
+
+        <div style="padding-top: 10px">
+
+        </div>
+        <!-- Main content -->
+        <section class="content">
+
+            <div class="box">
+                <div class="box-header">
+                    <h1 class="box-title" style="color: #0d6aad">View Suppliers</h1>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <table id="example2" class="table table-bordered table-hover display">
+                        <thead>
+                        <tr>
+                            <th style="color: #0d6aad">Supplier Name</th>
+                            <th style="color: #0d6aad">Address</th>
+                            <th style="color: #0d6aad">Telephone</th>
+                            <th style="color: #0d6aad">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <% for(var i = 0;i < sened.length;i++){ %>
+                        <tr>
+                            <td id="supplier_name<%= sened[i]._id %>"><%= sened[i].supplier_name %></td>
+                            <td id="address<%= sened[i]._id %>"><%= sened[i].address %></td>
+                            <td id="telephone<%= sened[i]._id %>"><%= sened[i].telephone %></td>
+                            <td>
+                                <input type='button' class="edit_button btn btn-primary"
+                                       id="edit_button<%= sened[i]._id %>" value="edit"
+                                       onclick="edit_row('<%= sened[i]._id %>')">
+                                <input type='button' class="delete_button btn btn-warning"
+                                       id="delete_button<%= sened[i]._id %>" value="delete"
+                                       onclick="delete_row('<%= sened[i]._id %>')">
+                                <input type='button' class="save_button btn btn-success"
+                                       id="save_button<%= sened[i]._id %>" value="save"
+                                       onclick="save_row('<%= sened[i]._id %>')" style="display: none">
+                            </td>
+                        </tr>
+                        <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section><!-- /.content -->
+    </div>
+    <script>
+        function edit_row(id) {
+
+            var telephone = document.getElementById("telephone" + id).innerHTML;
+            var supplier_name = document.getElementById("supplier_name" + id).innerHTML;
+            var address = document.getElementById("address" + id).innerHTML;
+
+            document.getElementById("telephone" + id).innerHTML = "<input type='text' id='telephone_text" + id + "' value='" + telephone + "'>";
+            document.getElementById("supplier_name" + id).innerHTML = "<input type='text' id='supplier_name_text" + id + "' value='" + supplier_name + "'>";
+            document.getElementById("address" + id).innerHTML = "<input type='text' id='address_text" + id + "' value='" + address + "'>";
+
+            document.getElementById("edit_button" + id).style.display = "none";
+            document.getElementById("save_button" + id).style.display = "inline";
+        }
+
+        function delete_row(id) {
+            $.post('/delete', { identification :id});
+            location.reload();
+        }
+        function save_row(id) {
+            var telephone = document.getElementById("telephone_text" + id).value;
+            var address = document.getElementById("address_text" + id).value;
+            var supplier_name = document.getElementById("supplier_name_text" + id).value;
+            $.post('/save', { telephone: telephone,identification :id,address:address,supplier_name:supplier_name });
+            document.getElementById("edit_button" + id).style.display = "inline";
+            document.getElementById("save_button" + id).style.display = "none";
+            location.reload();
+        }
+
+        </script>
+    <!-- /.content-wrapper -->
+    <script>
+        $(function () {
+            $('#example2').dynatable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": false,
+                "ordering": false,
+                "info": true,
+                "autoWidth": true
+            });
+        });
+    </script>
+    <% include ./layout/footer.ejs %>
+</div>
+<!-- ./wrapper -->
+
+</body>
+
+
+</html>

@@ -1,0 +1,79 @@
+<html>
+<head></title>
+    <%include layout/library.ejs%>
+
+</head>
+<body>
+<body class="skin-blue fixed sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+    <%include layout/header.ejs%>
+    <!-- =============================================== -->
+
+    <!-- Left side column. contains the sidebar -->
+    <%include layout/menu.ejs%>
+    <!-- =============================================== -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper" style="min-height: 265px;">
+        <!-- Content Header (Page header) -->
+
+        <!-- =============================================== -->
+
+        <div style="padding-top: 10px"></div>
+        <!-- Main content -->
+        <section class="content">
+            <div class="col-md-10">
+                <div class="box box-solid box-primary">
+                    <div class="box-header with-border">
+                        LIST OF PURCHASE ORDER
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-hover skip" id="list-product" style="font-size: 13px">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>PO Number</th>
+                                        <th>Name</th>
+                                        <th>Created Date</th>
+                                        <th>Customer</th>
+                                        <th>Description</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    <%for (var i=0; i< pos.length; i++){%>
+                                    <tr>
+                                        <td><%=i+1%></td>
+                                        <td><%=pos[i].poNumber%></td>
+                                        <td><%=pos[i].poName%></td>
+                                        <td><%=pos[i].createdDate%></td>
+                                        <td><%=pos[i].customer.name%></td>
+                                        <td><%=pos[i].description%></td>
+                                        <td>
+                                            <a href="/print-purchase-order?poID=<%=pos[i]._id%>">Look</a>
+                                        </td>
+                                    </tr>
+                                    <%}%>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section><!-- /.content -->
+    </div>
+    <%include layout/footer.ejs%>
+
+    <!-- /.content-wrapper -->
+    <script type="text/javascript">
+
+    </script>
+
+</div>
+<!-- ./wrapper -->
+
+</body>
+
+</body>
+</html>

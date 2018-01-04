@@ -1,0 +1,155 @@
+<html>
+<head></title>
+    <%include layout/library.ejs%>
+</head>
+<body class="skin-blue fixed sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+    <%include layout/header.ejs%>
+    <!-- =============================================== -->
+
+    <!-- Left side column. contains the sidebar -->
+    <%include layout/menu.ejs%>
+    <!-- =============================================== -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper" style="min-height: 265px;">
+        <!-- Content Header (Page header) -->
+
+        <!-- =============================================== -->
+
+        <div style="padding-top: 10px"></div>
+        <!-- Main content -->
+        <section class="content">
+
+            <h1></h1>
+            <div class="row ">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    <div class="box box-solid box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">ADD SUPPLIERS FOR THE PRODUCT</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <!-- form start -->
+
+                        <div class="box-body">
+                            <form method = post action="/product/add-final-cost">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label><font size="2.5px;">Product ID :</font><font size="3px;"><%= product.product_id%></font></label>
+                                    <input type="hidden" name="product_ID" value="<%=product._id%>"/>
+                                </div>
+                                <div class="col-md-6">
+                                    <label><font size="2.5px;">Product Name : </font><%= product.product_name%></label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label><font size="2.5px;">Description :</font><font size="4px;"> <%= product.description%></font></label>
+                                </div>
+                            </div>
+
+                            <div class = "row">
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label for="cost-per-item">Final Cost</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-money" aria-hidden="true"></i></span>
+                                            <input name="itemCost" type="text" class="form-control " required="true" id="cost-per-item" placeholder=""/>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-xs-2">
+                                    <label for="currency-id">Currency</label>
+                                    <select id="currency-id" class="form-control select2" name="currency"  style="width: 100%;">
+                                        <option value="VND">VND</option>
+                                        <option value="USD">USD</option>
+                                        <option value="EUR">EUR</option>
+                                        <option value="CNY">CNY</option>
+                                        <option value="INR">INR</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div>
+                                <table id="dataload" class="table table-bordered table-striped thead">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Supplier Name</th>
+                                        <th>Cost</th>
+                                        <th>Currency</th>
+                                        <th>Standard Cost (EUR)</th>
+                                    </tr>
+                                    <%
+                                    var num = 1;
+                                    prosupps.forEach(function (ps) {%>
+                                    <tr>
+                                       <td> <%= num%></td>
+                                        <td> <%=ps.supplier.name %> </td>
+                                        <td> <%= ps.costPerItem%> </td>
+                                        <td> <%=ps.currency%>  </td>
+                                        <td> <%=ps.standardPrice%> </td>
+                                    <%num = num + 1;
+                                    })%>
+                                </table>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-8">
+                                </div>
+                                <div class="col-xs-4">
+                                    <button style=" margin-top: 20px; " type="submit" class="btn bg-olive btn-flat margin">ADD FINAL COST</button>
+
+                                </div>
+                            </div>
+                            </form>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+            </div>
+
+        </section><!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <%include layout/footer.ejs%>
+</div>
+<!-- ./wrapper -->
+<script>
+    var prosupp = JSON.stringify(<%=prosupps%>)
+    loadListSupplier(prosupp);
+    function loadListSupplier(suppliers){
+        alert(suppliers);
+        var row = '';
+        row += '<table id="dataload" class="table table-bordered table-striped thead">';
+        row +=		'<thead>';
+        row +=          '<tr>';
+        row +=          '<th>#</th>';
+        row +=          '<th>Supplier Name</th>';
+        row +=          '<th>Cost</th>';
+        row +=          '<th>Currency</th>';
+        row +=          '<th>Standard Cost (EUR)</th>';
+        row +=          '</tr>';
+        for(var i = 0; i < suppliers.length; i++)
+        {
+            stt = i + 1;
+            row +=          '<tr>';
+            row +=          '<td>' + stt + '</td>';
+            row +=          '<td>' + suppliers[i].supplier.name + '</td>';
+            row +=          '<td>' + suppliers[i].costPerItem + '</td>';
+            row +=          '<td>' + suppliers[i].currency + '</td>';
+            row +=          '<td>' + suppliers[i].standardPrice + '</td>';
+            row +=          '</tr>';
+        }
+        row +=		'</thead>';
+        row += '</table>'
+        row +='<br>';
+
+        $("#loadSuppliersForProduct").html(row);
+    }
+</script>
+</body>
+</html>

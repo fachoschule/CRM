@@ -1,0 +1,393 @@
+<html>
+<head></title>
+    <%include layout/library.ejs%>
+</head>
+<body class="skin-blue fixed sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+    <%include layout/header.ejs%>
+    <!-- =============================================== -->
+
+    <!-- Left side column. contains the sidebar -->
+    <%include layout/menu.ejs%>
+    <!-- =============================================== -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper" style="min-height: 265px;">
+        <!-- Content Header (Page header) -->
+
+        <!-- =============================================== -->
+
+        <div style="padding-top: 10px"></div>
+        <!-- Main content -->
+        <section class="content">
+
+            <h1></h1>
+            <div class="row ">
+                <div class="col-md-9">
+                    <div class="box box-solid box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">ADD SUPPLIERS FOR THE PRODUCT</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <!-- form start -->
+
+                            <div class="box-body">
+
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <div id='SuppID'>
+                                            <label for="supllier-id">Supplier's infor</label>
+                                            <div id="supplierID"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <button style=" margin-top: 20px; " type="button" onclick="fillDataSupplier()" class="btn bg-olive btn-flat margin">LOAD THE INFORMATION</button>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <button style=" margin-top: 20px; " type="button" onclick="addNewSupplier()" class="btn bg-olive btn-flat margin">ADD NEW SUPPLIER</button>
+
+                                    </div>
+                                </div>
+                                <div id="loadSupplierInformation">
+                                </div>
+                                <div class = "row">
+                                    <div class="col-xs-6">
+                                        <div class="form-group">
+                                            <label for="cost-per-item">Cost/ Item</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-money" aria-hidden="true"></i></span>
+                                                <input name="itemCost" type="text" class="form-control " required="true" id="cost-per-item" placeholder=""/>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xs-2">
+                                            <label for="currency-id">Currency</label>
+                                            <select id="currency-id" class="form-control select2" name="currency"  style="width: 100%;">
+                                                <option value="VND">VND</option>
+                                                <option value="USD">USD</option>
+                                                <option value="EUR">EUR</option>
+                                                <option value="CNY">CNY</option>
+                                                <option value="INR">INR</option>
+                                            </select>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <button style=" margin-top: 20px; " type="button" onclick="addSupplierIntoProduct()" class="btn bg-olive btn-flat margin">ADD SUPPLIER FOR PRODUCT</button>
+
+                                    </div>
+                                </div>
+                                <div id="loadSuppliersForProduct">
+
+                                </div>
+                            </div>
+                            <!-- /.box-body -->
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="box box-solid box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">The Product's Information</h3>
+                        </div><!-- /.box-header -->
+                        <!-- form start -->
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-5">Pro ID</div>
+                                <div class="col-md-7" style="font-weight: bold;"><%= session.product.product_id%></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">Pro Name</div>
+                                <div class="col-md-7" style="font-weight: bold;"><%= session.product.product_name%></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">Descript</div>
+                                <div class="col-md-7" style="font-weight: bold;"><%= session.product.description%></div>
+                            </div>
+
+                        </div><!-- /.box-body -->
+                    </div>
+                </div>
+            </div>
+
+        </section><!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <%include layout/footer.ejs%>
+</div>
+<!-- ./wrapper -->
+<script>
+    function loadListSupplier(suppliers){
+        alert('here');
+        var row = '';
+        row += '<table id="dataload" class="table table-bordered table-striped thead">';
+        row +=		'<thead>';
+        row +=          '<tr>';
+        row +=          '<th>#</th>';
+        row +=          '<th>Supplier Name</th>';
+        row +=          '<th>Cost</th>';
+        row +=          '<th>Currency</th>';
+        row +=          '<th>Standard Cost (EUR)</th>';
+        row +=          '</tr>';
+        for(var i = 0; i < suppliers.length; i++)
+        {
+            stt = i + 1;
+            row +=          '<tr>';
+            row +=          '<td>' + stt + '</td>';
+            row +=          '<td>' + suppliers[i].supplier.name + '</td>';
+            row +=          '<td>' + suppliers[i].costPerItem + '</td>';
+            row +=          '<td>' + suppliers[i].currency + '</td>';
+            row +=          '<td>' + suppliers[i].standardPrice + '</td>';
+            row +=          '</tr>';
+        }
+        row +=		'</thead>';
+        row += '</table>'
+        row +='<br>';
+        row += '<div class="col-xs-4">';
+        row +=  '<button style=" margin-top: 20px; " type="button" onclick="submitFinishAddingProduct()" class="btn btn-primary btn-flat">FINISH ADDING THE PRODUCT</button>'
+        row += '</div>';
+        $("#loadSuppliersForProduct").html(row);
+    }
+    function submitFinishAddingProduct(){
+        $.ajax({
+            type: "post",
+            url: '/product/finish-adding-the-product',
+            dataType: 'json',
+            data: '',
+            success: function(response) {
+                window.location = response.redirect
+            }
+        });
+    }
+    function addSupplierIntoProduct() {
+        var costItem = $('#cost-per-item').val();
+        var currency = $('#currency-id').val();
+        var supplierID = $('#supplier-ID').val();
+        var supplierName = $('#supplier-name').val();
+        $.ajax({
+            type: "post",
+            url: '/product/add-supplier-into-product',
+            dataType : 'json',
+            data: {
+                costItem : costItem,
+                currency : currency,
+                supplierID : supplierID,
+                supplierName : supplierName
+            },
+            success: function(response){
+                alert(response.suppliers);
+               loadListSupplier(response.suppliers);
+            }
+        });
+    }
+    loadSupplier('');
+    function loadSupplier(supplierID){
+        $.ajax({
+            type: "get",
+            url: '/product/load-suppliers-information',
+            dataType : 'json',
+            data: '',
+            success: function(response) {
+
+                var row = '';
+                row +='<select id="supplier-ID" class="form-control select2" name="supplierID"  style="width: 100%;">';
+                for(var i = 0; i < response.suppliers.length; i++)
+                {
+                    if (supplierID == response.suppliers[i]._id) {
+                        row += '<option value="' + response.suppliers[i]._id + '" selected>' + response.suppliers[i].supplier_id + ' - ' + response.suppliers[i].supplier_name + '</option>';
+
+                    } else {
+                        row += '<option value="' + response.suppliers[i]._id + '">' + response.suppliers[i].supplier_id + ' - ' + response.suppliers[i].supplier_name + '</option>';
+                    }
+                }
+
+                row += '</select>';
+                $("#supplierID").html(row);
+                $('.select2').select2();
+            }
+        });
+
+    }
+    function fillDataSupplier(){
+        var supplierID=$('#supplier-ID').val();
+        var row = '';
+        $.ajax({
+            type: "get",
+            url: '/product/ajax/load-supplier-information',
+            dataType : 'json',
+            data: {
+                supplierID: supplierID
+            },
+            success: function(response) {
+                var supplier = response.supplier;
+                row += '<div class="form-group">';
+                row +=		'<label for="supp-name">SUPPLIER NAME</label> ';
+                row +=		'<input name="suppName" type="text" class="form-control " value="'+supplier.address+'" id="supplier-name" placeholder="SUPPLIER ADDRESS"/>';
+                row +='</div>';
+                row += '<div class="form-group">';
+                row +=		'<label for="supp-address">SUPPLIER ADDRESS</label> ';
+                row +=		'<input name="supAddress" type="text" class="form-control " value="'+supplier.address+'" id="supplier-address" placeholder="SUPPLIER ADDRESS"/>';
+                row +='</div>';
+                row += '<div class="form-group">';
+                row +=		'<label for="supp-tax-number">TAX NUMBER</label> ';
+                row +=		'<input name="supTaxNumber" type="text" class="form-control " value="'+supplier.tax_number+'" id="supp-tax-number" placeholder="TAX NUMBER"/>';
+                row +='</div>';
+                row += '<div class="row">';
+                row += 		'<div class="col-xs-5">';
+                row += 			'<label for="supp-telephone">TELEPHONE</label> ';
+                row +=			'<input name="supTelephone" type="text" class="form-control " value="'+supplier.contact_phone+'" id="telephone" placeholder="TELEPHONE NUMBER"/>';
+                row +=		'</div>'
+                row += 		'<div class="col-xs-5">';
+                row += 			'<label for="fax">FAX</label> ';
+                row +=			'<input name="fax" type="text" class="form-control " value="'+supplier.fax_number+'" id="fax" placeholder="FAX"/>';
+                row +=		'</div>'
+                row +='</div>';
+                row +='<br>';
+                $('#loadSupplierInformation').html(row);
+            }
+        });
+    }
+    function addNewSupplier(){
+        var row = '';
+        row += '<div class="box box-solid box-primary">';
+        row += '<div class="box-header with-border">';
+        row += '<h3 class="box-title">ADD NEW A SUPPLIER</h3>';
+        row += '</div><!-- /.box-header -->';
+        row += '<div class="box-body">';
+        row += '<div class="row">';
+        row += '<div class="col-md-12">';
+
+        row +=  '<div class="form-group" id="fID">';
+        row +=  '<label>SUPPLIER ID</label> <span id="errorNCC"></span>';
+        row +=  '<input id="FsupplierId" name="suppID" class="form-control" placeholder="Enter ..." />';
+        row +=  '</div>';
+
+        row +=  '<div class="form-group" id="fName">';
+        row +=  '<label>SUPPLIER NAME</label>';
+        row +=  '<input id="FsupplierName" name="suppName" class="form-control" placeholder="Enter ..." />';
+        row +=  '</div>';
+
+        row +=  '<div class="form-group" id="fAddress">';
+        row +=  '<label>ADDRESS</label>';
+        row +=  '<input id="FsuppAddress" name="suppAddress" class="form-control" placeholder="Enter ..." />';
+        row +=  '</div>';
+
+        row +=  '<div class="form-group" id="fTaxNumber">';
+        row +=  '<label>TAX NUMBER</label>';
+        row +=  '<input id="FsuppTaxNumber" name="suppTaxNumber" class="form-control" placeholder="Enter ..." />';
+        row +=  '</div>';
+
+        row +=  '<div class="form-group" id="fTelephone">';
+        row +=  '<label>TELEPHONE</label>';
+        row +=  '<input id="FsuppTelephone" name="suppTelephone" class="form-control" placeholder="Enter ..." />';
+        row +=  '</div>';
+
+
+        row +=  '<div class="form-group" id="fFax">';
+        row +=  '<label>FAX</label>';
+        row +=  '<input id="FFax" name="fax" class="form-control" placeholder="Enter ..." />';
+        row +=  '</div>';
+
+
+        row +=  '</div>';
+        row +=  '</div>';
+        row +=  '</div><!-- /.box-body -->';
+        row +=  '</div>';
+
+        bootbox.dialog({
+            title: "ADD NEW SUPPLIER",
+            message: row,
+            size: 'large',
+            onEscape: function() {
+                bootbox.hideAll();
+            },
+            buttons: {
+                main: {
+                    label: "CANCLE",
+                    className: "btn-default btn-flat",
+                    callback: function () {
+                        bootbox.hideAll();
+                    }
+                },
+                success: {
+                    label: "ADD",
+                    className: "btn-success btn-flat",
+                    callback: function () {
+                        var suppID = $('#FsupplierId').val();
+                        var suppName = $('#FsupplierName').val();
+                        var suppAddress = $('#FsuppAddress').val();
+                        var suppTaxNumber = $('#FsuppTaxNumber').val();
+                        var suppTelephone = $('#FsuppTelephone').val();
+                        var suppFax = $('#FFax').val();
+
+                        var valid = true;
+                        if (suppID == '' || suppID == null) {
+                            valid = false;
+                            $('#fID').addClass('has-error');
+                        } else $('#fID').removeClass('has-error');
+
+                        if (suppName == '' || suppName == null) {
+                            valid = false;
+                            $('#fName').addClass('has-error');
+                        } else $('#fName').removeClass('has-error');
+
+                        if (suppAddress == '' || suppAddress == null) {
+                            valid = false;
+                            $('#fAddress').addClass('has-error');
+                        } else $('#fAddress').removeClass('has-error');
+
+                        if(suppTaxNumber == '' || suppTaxNumber == null){
+                            valid = false;
+                            $('#fTaxNumber').addClass('has-error');
+                        }else $('#fTaxNumber').removeClass('has-error');
+
+                        if(suppTelephone == '' || suppTelephone == null){
+                            valid = false;
+                            $('#fTelephone').addClass('has-error');
+                        }else $('#fTelephone').removeClass('has-error');
+
+                        if(suppFax == '' || suppFax == null){
+                            valid = false;
+                            $('#fFax').addClass('has-error');
+                        }else $('#fFax').removeClass('has-error');
+
+                        if (valid) {
+                            $.ajax({
+                                type: "post",
+                                url: '/product/add-new-supplier',
+                                dataType : 'json',
+                                data: {
+                                    suppID: suppID,
+                                    suppName: suppName,
+                                    suppAddress: suppAddress,
+                                    suppTaxNumber : suppTaxNumber,
+                                    suppTelephone : suppTelephone,
+                                    suppFax : suppFax
+                                },
+                                success: function(response) {
+                                    var inform = response.inform;
+                                    if (inform == "error") {
+                                        bootbox.alert("500: FAIL FOR ADD NEW SUPPLIER");
+                                        return false;
+                                    } else if (inform.indexOf("400") >= 0) {
+                                        bootbox.alert(inform);
+                                        return false;
+                                    } else {
+                                        loadSupplier(response.supplier._id);
+                                    }
+                                }
+                            })
+                        } else {
+                            return false;
+                        }
+
+
+                    }
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>

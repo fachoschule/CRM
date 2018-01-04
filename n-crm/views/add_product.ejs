@@ -1,0 +1,153 @@
+<html>
+<head></title>
+    <%include layout/library.ejs%>
+</head>
+<body class="skin-blue fixed sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+    <%include layout/header.ejs%>
+    <!-- =============================================== -->
+
+    <!-- Left side column. contains the sidebar -->
+    <%include layout/menu.ejs%>
+    <!-- =============================================== -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper" style="min-height: 265px;">
+        <!-- Content Header (Page header) -->
+
+        <!-- =============================================== -->
+
+        <div style="padding-top: 10px"></div>
+        <!-- Main content -->
+        <section class="content">
+
+            <h1></h1>
+            <div class="row ">
+                <div class="col-md-1"></div>
+                <div class="col-md-9">
+                    <div class="box box-solid box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">CREATE NEW PRODUCT</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <!-- form start -->
+                        <form id="formPO"  action="/product/createNewProduct" enctype="multipart/form-data" method="post" >
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <label for="product-brand-id">Product's brand</label>
+                                            <select id="product-brand-id" class="form-control select2" name="brandID"  style="width: 100%;">
+                                                <% brands.forEach(function(brand) { %>
+                                                    <option value="<%=brand._id %>"><%=brand.brand_id %> - <%= brand.brand_name %></option>s
+                                                <% }); %>
+                                            </select>
+                                            <input type="hidden" name="brandName" id="brand-name">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <div id='product-Type'>
+                                                <label for="product-type-id">Product's type</label>
+                                                <select id="product-type-id" class="form-control select2" name="typeID" onchange="fullfillproductID()"  style="width: 100%;">
+                                                    <% types.forEach(function(type) { %>
+                                                        <option value="<%=type._id %>"><%=type.proType_id %> - <%= type.proType_name %></option>s
+                                                    <% }); %>
+                                                </select>
+                                                <input type="hidden" name="typeName" id="type-name" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="productID">Product ID</label>
+                                    <input name="productID" type="text" class="form-control " readonly required="true" id="productID" placeholder=""/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="productName">Product Name</label>
+                                    <input name="productName" type="text" class="form-control " required="true" id="productName" placeholder="Name of product"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="productImage">Product Image</label>
+                                    <input type="file" name="userPhoto"/>
+                                </div>
+
+                                <div class="form-group " >
+
+                                    <label style="color: #0d6aad">External Code</label><br>
+                                    <select class="form-control select2" multiple="multiple" name="externalCode" id="externalCode" data-placeholder="Select External Code" style="width: 100%;" >
+                                        <%externalCodes.forEach(function (eC) {%>
+                                            <option value="<%=eC._id%>"><%= eC.external_product_id%></option>
+                                        <%});%>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="description">Description</label>
+                                    <textarea name="description" class="form-control " rows="3" id="description" placeholder="Enter ..."></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>
+                                        <input type="radio" name="knowSupplier" class="minimal">
+                                        Know Supplier?
+                                    </label>
+                                </div>
+                            </div>
+                            <!-- /.box-body -->
+
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary btn-flat">ADDING NEW PRODUCT <i class="fa fa-chevron-right"></i></button>
+                                &nbsp;&nbsp;&nbsp;
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </section><!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <%include layout/footer.ejs%>
+</div>
+<!-- ./wrapper -->
+<script>
+    $(function () {
+        $(".select2").select2();
+    })
+    function uploadImage() {
+        $.ajax({
+            type: "post",
+            url: '/product/api/Upload',
+            dataType: 'json',
+            data: '',
+            success: function(response) {
+                document.getElementById('status-upload').innerHTML=response.status;
+            }
+        });
+    }
+    function fullfillproductID() {
+        var brand = $('#product-brand-id').val();
+        var type = $('#product-type-id').val();
+        $.ajax({
+            type: "get",
+            url: '/product/generate-new-product-id',
+            dataType: 'json',
+            data: {
+                brand: brand,
+                type: type
+            },
+            success: function (response) {
+                $('#productID').val(response.product_id);
+
+                $('#brand-name').val(response.brand_name);
+                $('#type-name').val(response.type - name);
+
+            }
+        });
+    }
+</script>
+</body>
+</html>
