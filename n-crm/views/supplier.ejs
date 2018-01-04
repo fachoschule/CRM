@@ -1,0 +1,68 @@
+<html>
+<head><title><%= title %></title>
+    <% include ./layout/library.ejs %>
+</head>
+<body>
+<body class="skin-blue fixed sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+    <% include ./layout/header.ejs %>
+    <!-- =============================================== -->
+
+    <!-- Left side column. contains the sidebar -->
+    <% include ./layout/menu.ejs %>
+    <!-- =============================================== -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper" style="min-height: 265px;">
+        <!-- Content Header (Page header) -->
+        <!-- =============================================== -->
+
+        <div style="padding-top: 10px"></div>
+        <!-- Main content -->
+        <section class="content">
+            <br>
+            <form action="/insert-supplier" method="post" role="form">
+                <div class="box box-solid box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Supplier </h3>
+                    </div>
+                    <br>
+                    <div class="box-tools " style="margin-left: 10px; margin-right: 10px">
+                        <label for="supplier_name">Supplier Name</label>
+                        <input type="text" class="form-control" id="supplier_name" name="supplier_name"
+                               placeholder="Enter Supplier Name">
+                    </div>
+                    <br>
+                    <div class="box-tools " style="margin-left: 10px; margin-right: 10px">
+                        <label for="address">Address</label>
+                        <input type="text" class="form-control" id="address" name="address" placeholder="Address">
+                    </div>
+                    <br>
+                    <div class="box-tools " style="margin-left: 10px; margin-right: 10px">
+                        <label for="telephone">Telephone</label>
+                        <input type="text" class="form-control" id="telephone" name="telephone" placeholder="Telephone">
+                    </div>
+                    <br>
+                    <div style="margin-left: 10px">
+                        <button type="submit" class="btn btn-primary"
+                                style="width: 200px;margin-left: 40%;">Add
+                        </button>
+                    </div>
+                    <br>
+                </div><!-- /.box-body -->
+
+
+            </form>
+        </section><!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <% include ./layout/footer.ejs %>
+</div>
+<!-- ./wrapper -->
+
+</body>
+
+</body>
+</html>

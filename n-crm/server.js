@@ -2,16 +2,19 @@ var http=require('http');
 const express = require('express');
 const socketio = require('socket.io');
 var session = require('express-session');
+
 var fs = require('fs');
 var multer = require('multer');
-var request = require('request');
 var app = express();
 var bodyParser = require('body-parser');
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 var http = require('http').Server(app);
+
 app.use(express.static('views'));
 app.set('view engine', 'ejs');
+
 app.use(session({
     secret: "secret",
     //  name: cookie_name,
@@ -22,7 +25,6 @@ app.use(session({
 }));
 var path = __dirname + '/views/';
 var routes = require('./server/NewFeed-Server')(app);
-var path = __dirname + '/views/';
 var productroutes = require('./server/Product-Server')(app);
 var externalProductCoderoutes = require('./server/External-Product-Server')(app);
 var purchaseOrderroutes = require('./server/Purchase-Order-Server')(app);
@@ -33,7 +35,12 @@ var department = require('./server/Department')(app);
 const customerRoutes = require('./routes/customers')(app);
 const smsService = require('./server/sms-server')(app);
 const FCMnotification = require('./server/FCM-Notifications')(app);
+
+
+//config database
 const configDB = require('./server/config');
+
+// start server
 const port = process.env.PORT || 8080;
 const server = http.listen(port);
 
@@ -45,9 +52,5 @@ io.on('connection', (socket) => {
         console.log('Disconnected');
     })
 });
-var supplier = require('./server/supplier')(app);
-var employee = require('./server/employee')(app);
-var customerRoutes = require('./routes/customers')(app);
-var tasks =require('./server/tasks')(app);
-var promotion =require('./server/Promotion')(app);
+
 app.set('io', io);

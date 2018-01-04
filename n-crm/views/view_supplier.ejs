@@ -79,7 +79,7 @@
         }
 
         function delete_row(id) {
-            $.post('/delete_supplier', { identification :id});
+            $.post('/delete', { identification :id});
             location.reload();
         }
         function save_row(id) {
