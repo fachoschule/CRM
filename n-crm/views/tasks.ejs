@@ -35,18 +35,7 @@
                     </div>
                 </div>
             </div>
-
-
-                <!--<div class="container">-->
-            <!--<div class="row">-->
-            <!--<% for (var t = 0; t<tasks.length ; t++){%>-->
-                <!--<div class="col-sm" style="background-color: white">-->
-                    <!--<div ><h2><%=tasks[t].title%></h2></div>-->
-                    <!--<div ><%= tasks[t].things_to_do%></div>-->
-                <!--</div>-->
-            <!--<%}%>-->
-                <!--</div>-->
-            <!--</div>-->
+            <div id="contentf">
             <% for (var t = 0; t<tasks.length ; t++){%>
             <%if(t%2 == 0){%>
             <div class="row">
@@ -80,6 +69,8 @@
             </div>
             <%}%>
             <%}%>
+
+            </div>
         <!-- Modal -->
         <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog modal-lg">
@@ -145,9 +136,40 @@
                 title : title
             },
             success: function(response){
-                location.reload();
+              //  alert(response.taskas[0].title);
+                var taskrs = response.taskas;
+                var row = "";
+                for (var t = 0; t<taskrs.length ; t++){
+                if(t%2 == 0){
+            row +='<div class="row">';
+                        }
+
+                    row +='    <div class="col-sm-6">';
+                    row +='<div class="card">';
+                    row +=' <div class="card-block">';
+                    row +='<div class="card-title"><h3 class="card-title">'+taskrs[t].title+'</h3></div>';
+                    row +='<p class="card-text"><b>'+ taskrs[t].things_to_do+'</b></p><br>';
+                    row +='<a href="/calendar" class="btn btn-primary">Calendar</a>';
+                    row +='</div>';
+                    row +='<div class="card-footer">';
+                    row +='<div class="row">';
+                    row +='<div class="col-sm-6">';
+                    row +='<b>'+taskrs[t].users+'</b>';
+                    row +='</div>';
+                    row +='<div class="col-sm-6">';
+                    row +='<small class="text-muted" style="float: right">';
+                    var date =  new Date(taskrs[t].deadline);
+                    row +=date.getDate() + '.' + date.getMonth()+ '.' + date.getYear()+'</small>';
+                    row +='</div></div></div></div></div>';
+                        if(t%2 ==1){
+                            row +='</div>';
+                }
+            }
+                    document.getElementById("contentf").innerHTML = row;
+               // alert(row);
             }
         });
+
     }
 
 

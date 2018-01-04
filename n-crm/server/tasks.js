@@ -1,7 +1,6 @@
 module.exports = function (app) {
     var connection = require('./config');
     var Task = require('../model/Task');
-    fx = require('money');
 
 
     app.get('/tasks', function (req, res) {
@@ -40,21 +39,7 @@ module.exports = function (app) {
             }
         }
     );
-    app.post('/gettitle', function (req, res) {
-            sess = req.session;
-            if (sess.name) {
-                connection.collection("tasks").find({}).toArray(function (error , tasktitle) {
-                    if(error) throw error;
 
-                    res.send('tasks', {title: 'Calendar',session: sess, tasks : tasktitle});
-                })
-            }
-            else
-            {
-                res.render('login', {title: 'Login Page'});
-            }
-        }
-    );
 
     app.post('/task_insert', function (req, res, next) {
         task = new Task();
@@ -70,6 +55,16 @@ module.exports = function (app) {
             }
         });
         res.redirect('/tasks');
+    });
+    app.post('/gettitle', function (req, res, next) {
+        var task = req.body.title;
+        console.log(task);
+        connection.collection("tasks").find({'title':new RegExp(task,'i')}).toArray(function (error , taskdb) {
+            if(error) throw error;
+
+            res.send({taskas:taskdb});
+        })
+
     });
 
 

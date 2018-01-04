@@ -4,8 +4,6 @@ var crypto = require('crypto');
 var nodemailer = require('nodemailer');
 var sess ;
 var request = require('request');
-let fx = require('money');
-var exchange = require("exchange-rates");
 var utility = require("./Utility");
 
 module.exports = function(app) {
