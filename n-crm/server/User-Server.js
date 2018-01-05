@@ -14,7 +14,7 @@ module.exports = function(app) {
         res.render('forgot_password',{title:'Forgot Password Page'});
     })
     app.post('/forgot_password', function (req, res) {
-       var to = 'avaz.babayev@student.fh-kiel.de';
+       var to = 'maihathi.92@gmail.com';
         async.waterfall([
             function(done) {
                 crypto.randomBytes(20, function(err, buf) {
@@ -26,9 +26,9 @@ module.exports = function(app) {
                 Employee.find({ username: req.param('email') }, function(err, user) {
                     if (!user) {
                         //req.flash('error', 'No account with that email address exists.');
-                        return res.render('/forgot_password');
+                        return res.redirect('/forgot_password');
                     }
-                    console.log(user);
+                   // console.log(user);
 
                     user[0].passwordToken = token;
                     user[0].passwordExpires = Date.now() + 3600000; // 1 hour
@@ -68,7 +68,7 @@ module.exports = function(app) {
             }
         ], function(err) {
             if (err) console.log(err);
-            res.render('/forgot_password');
+            res.redirect('/forgot_password');
         });
     })
 // Load Home page
@@ -79,8 +79,6 @@ module.exports = function(app) {
                 console.log(err);
             }else{
                 password = req.body.password;
-                console.log(password);
-                console.log(user[0]);
                 if(user[0].password == password)
                 {
                     sess = req.session;
@@ -101,5 +99,60 @@ module.exports = function(app) {
         sess = req.session;
         sess.name = "";
         res.render('login',{title:'Home Page'});
-    })
+    });
+    app.get('/reset/:token', function(req, res) {
+        Employee.findOne({ passwordToken: req.params.token, passwordExpires: { $gt: Date.now() } }, function(err, user) {
+            if (!user) {
+               // req.flash('error', 'Password reset token is invalid or has expired.');
+                return res.redirect('/forgot_password');
+            }
+            res.render('reset_password', {
+                title : "Reset Password",
+                user: req.user
+            });
+        });
+    });
+    app.post('/reset/:token', function(req, res) {
+        async.waterfall([
+            function(done) {
+                Employee.findOne({ passwordToken: req.params.token, passwordExpires: { $gt: Date.now() } }, function(err, user) {
+                    if (!user) {
+                        req.flash('error', 'Password reset token is invalid or has expired.');
+                        return res.redirect('back');
+                    }
+
+                    user.password = req.body.password;
+                    user.passwordToken = undefined;
+                    user.passwordExpires = undefined;
+
+                    user.save(function(err) {
+                        done(err, user);
+                        res.render('login',{title:'Home Page'});
+                    });
+                });
+            },
+            function(user, done) {
+                var smtpTransport = nodemailer.createTransport({
+                    service: 'Gmail',
+                    auth: {
+                        user: 'maihathi.92@gmail.com',
+                        pass: ''
+                    }
+                });
+                var mailOptions = {
+                    to: 'maihathi.92@gmail.com',
+                    from: 'maihathi.92@gmail.com',
+                    subject: 'Your password has been changed',
+                    text: 'Hello,\n\n' +
+                    'This is a confirmation that the password for your account ' + user.username + ' has just been changed.\n'
+                };
+                smtpTransport.sendMail(mailOptions, function(err) {
+                    req.flash('success', 'Success! Your password has been changed.');
+                    done(err);
+                });
+            }
+        ], function(err) {
+            res.redirect('/');
+        });
+    });
 }
