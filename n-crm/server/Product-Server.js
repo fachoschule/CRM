@@ -49,19 +49,15 @@ module.exports = function(app) {
                         type_id: req.param('typeID'),
                         type_name: req.param('typeName')
                     };
+
+                    product.external_codes = req.param('externalCode');
                     var ex = req.param('externalCode');
                     for(var i = 0; i < ex.length;i++){
-                        var ext ;
+
                         ExternalCode.findById(ex[i], function (err, extproducts) {
-                            ext = {
-                                code: extproducts._id,
-                                code_name: extproducts.external_product_id,
-                                customer: extproducts.customer.id
-                            }
-                            console.log(ext);
+                            extproducts.status = 1;
+                            extproducts.save();
                         });
-                        console.log(ext);
-                        product.external_codes.push(ext);
                     }
                     product.final_cost= {
                         cost: 0,
@@ -85,7 +81,6 @@ module.exports = function(app) {
                                     }
                                 });
                             } else {
-                               // console.log('kinds = 2');
                                 sess.product = product;
                                 res.redirect('/product/redirect-adding-suppliers-for-product');
                             }
@@ -149,7 +144,6 @@ module.exports = function(app) {
                     res.status(500).send(err)
                 }
                 ProSupp.find({'product.id' : sess.product._id}, function (err, suppliers) {
-                    console.log(suppliers);
                     res.status(200).send({
                         suppliers: suppliers
                     });
@@ -195,6 +189,16 @@ module.exports = function(app) {
             res.render('login',{title:'Login Page'});
         }
     });
+    app.get('/product/ajax/load-supplier-information', function (req, res) {
+        sess = req.session;
+        if(sess.name) {
+            Supplier.findById({'_id': req.param('supplierID')}, function (err, supplier) {
+                res.send({supplier: supplier});
+            })
+        }else{
+            res.render('login',{title:'Login Page'});
+        }
+    })
     app.get('/list-product',function(req,res){
         sess = req.session;
         if(sess.name) {

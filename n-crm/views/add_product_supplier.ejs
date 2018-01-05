@@ -176,7 +176,7 @@
                 supplierName : supplierName
             },
             success: function(response){
-                alert(response.suppliers);
+
                loadListSupplier(response.suppliers);
             }
         });
@@ -211,6 +211,8 @@
     }
     function fillDataSupplier(){
         var supplierID=$('#supplier-ID').val();
+
+        $('#cost-per-item').val('');
         var row = '';
         $.ajax({
             type: "get",
