@@ -26,6 +26,7 @@ module.exports = function(app) {
         if(sess.name){
             Product.findById(req.param('proID'), function (err, product) {
                 ProdSupp.find({"product.id" : req.param('proID')}, function (err, prosupps) {
+                    console.log('log: ' +prosupps);
                     res.render('determine-final-cost', {
                         session : sess,
                         product: product,

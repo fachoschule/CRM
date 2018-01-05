@@ -6,22 +6,23 @@
                  style="height: 266px; overflow: hidden; width: auto;">
             <!-- Sidebar user panel -->
             <div class="user-panel">
+
                 <% if(session.nickname){%>
-                    <div class="pull-left image">
-                        <img src='../resources/user.png'
-                             class="img-circle" alt="User Image">
-                    </div>
-                    <div class="pull-left info">
-                        <p>Welcome,<br> <%= session.nickname%></p>
-                    </div>
+                <div class="pull-left image">
+                    <img src='../resources/user.png'
+                         class="img-circle" alt="User Image">
+                </div>
+                <div class="pull-left info">
+                    <p>Welcome,<br> <%= session.nickname%></p>
+                </div>
                 <%}else{%>
-                    <div class="pull-left image">
-                        <img src='../resources/user.png'
-                             class="img-circle" alt="User Image">
-                    </div>
-                    <div class="pull-left info">
-                        <p>Welcome,<br> Anonymous User</p>
-                    </div>
+                <div class="pull-left image">
+                    <img src='../resources/user.png'
+                         class="img-circle" alt="User Image">
+                </div>
+                <div class="pull-left info">
+                    <p>Welcome,<br> Anonymous User</p>
+                </div>
                 <%}%>
 
             </div>
@@ -39,6 +40,42 @@
 
                     </ul>
                 </li>
+                <!--SECTION OF PRODUCT-->
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-gift"></i> <span>Product</span> <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="../ext-product/redirect-add-external-product"><i class="fa fa-circle-o"></i>Create External Product Code</a></li>
+                        <li><a href="../create-product"><i class="fa fa-circle-o"></i>Create New Product</a></li>
+                        <li><a href="../supplier"><i class="fa fa-circle-o"></i>Create New Supplier</a></li>
+                        <li><a href="../list-external-product-code"><i class="fa fa-circle-o"></i>List External Product Codes</a></li>
+                        <li><a href="../list-product"><i class="fa fa-circle-o"></i>List Products</a></li>
+                        <li><a href="../view_supplier"><i class="fa fa-circle-o"></i>List Suppliers</a></li>
+                    </ul>
+                </li>
+                <!--SECTION OF ORDER-->
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-reorder"></i> <span>Purchase Order</span> <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="../purchase-order/load-add"><i class="fa fa-circle-o"></i>Create New Order</a></li>
+                        <li><a href="../purchase-order/list"><i class="fa fa-circle-o"></i>List Created Orders</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i>List Canceled Order</a></li>
+                    </ul>
+                </li>
+
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-hand-o-right"></i> <span>Tasks</span> <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="../tasks"><i class="fa fa-circle-o"></i>Tasks</a></li>
+                        <li><a href="../calendar"><i class="fa fa-circle-o"></i>Calendar</a></li>
+                    </ul>
+                </li>
+
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-user"></i> <span>Contact</span> <i class="fa fa-angle-left pull-right"></i>
@@ -70,40 +107,7 @@
                         <li><a href="../department"><i class="fa fa-circle-o"></i> New Department</a></li>
                     </ul>
                 </li>
-                <!--SECTION OF ORDER-->
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-reorder"></i> <span>Purchase Order</span> <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="../purchase-order/load-add"><i class="fa fa-circle-o"></i>Create New Order</a></li>
-                        <li><a href="../purchase-order/list"><i class="fa fa-circle-o"></i>List Created Orders</a></li>
-                        <li><a href="#"><i class="fa fa-circle-o"></i>List Canceled Order</a></li>
-                    </ul>
-                </li>
-                <!--SECTION OF PRODUCT-->
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-gift"></i> <span>Product</span> <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="../ext-product/redirect-add-external-product"><i class="fa fa-circle-o"></i>Create External Product Code</a></li>
-                        <li><a href="../create-product"><i class="fa fa-circle-o"></i>Create New Product</a></li>
-                        <li><a href="../supplier"><i class="fa fa-circle-o"></i>Create New Supplier</a></li>
-                        <li><a href="../list-external-product-code"><i class="fa fa-circle-o"></i>List External Product Codes</a></li>
-                        <li><a href="../list-product"><i class="fa fa-circle-o"></i>List Products</a></li>
-                        <li><a href="../view_supplier"><i class="fa fa-circle-o"></i>List Suppliers</a></li>
-                    </ul>
-                </li>
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-hand-o-right"></i> <span>Tasks</span> <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="../tasks"><i class="fa fa-circle-o"></i>Tasks</a></li>
-                        <li><a href="../calendar"><i class="fa fa-circle-o"></i>Calendar</a></li>
-                    </ul>
-                </li>
+
                 <!--SECTION OF STATISTIC-->
                 <li class="treeview">
                     <a href="#">
@@ -111,17 +115,9 @@
                     </a>
                 </li>
                 <!--SECTION OF Logs-->
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-gears"></i> <span>Activity logs</span> <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                </li>
             </ul>
         </section>
-        <div class="slimScrollBar"
-             style="width: 3px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 71.7606px; background: rgba(0, 0, 0, 0.2);"></div>
-        <div class="slimScrollRail"
-             style="width: 3px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div>
+
     </div>
     <!-- /.sidebar -->
 </aside>
