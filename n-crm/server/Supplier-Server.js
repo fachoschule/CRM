@@ -4,14 +4,6 @@ module.exports = function(app) {
     var connection = require('./config');
     var sess ;
 
-    //Apply design pattern
-    var su = function(suppId, address, suppName, telephone) {
-        su = new Supplier();
-        su.supplier_id = suppId;
-        su.supplier_name = suppName;
-        su.telephone = telephone;
-    }
-
     app.get('/supplier',function(req,res){
         sess = req.session;
         res.render('supplier',{title:"Supplier", session: sess});
@@ -26,7 +18,11 @@ module.exports = function(app) {
     });
 
     app.post('/insert-supplier', function (req, res, next) {
-        supplier = new su("SUP_001", req.body.address, req.body.supplier_name, req.body.telephone);
+        supplier = new Supplier();
+        supplier.supplier_id = "SUP_001";
+        supplier.address = req.body.address;
+        supplier.supplier_name = req.body.supplier_name;
+        supplier.contact_phone = req.body.telephone;
         supplier.save(function (err) {
             if (err) {
                 console.log(err);
@@ -53,9 +49,11 @@ module.exports = function(app) {
         var myquery = {"_id": id};
         var newvalues = {telephone: telephone, address: address, supplier_name: supplier_name};
         // connection.collection('suppliers').update(myquery,newvalues);
-        Supplier.findById(id, function (err, res) {
-            res.set(newvalues);
-            res.save(function (err, res) {
+        Supplier.findById(id, function (err, supplier) {
+            supplier.contact_phone = telephone;
+            supplier.supplier_name = supplier_name;
+            supplier.address = address;
+            supplier.save(function (err, res) {
                 if (err) throw err;
 
             });

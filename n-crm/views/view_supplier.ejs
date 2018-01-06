@@ -42,7 +42,7 @@
                         <tr>
                             <td id="supplier_name<%= sened[i]._id %>"><%= sened[i].supplier_name %></td>
                             <td id="address<%= sened[i]._id %>"><%= sened[i].address %></td>
-                            <td id="telephone<%= sened[i]._id %>"><%= sened[i].telephone %></td>
+                            <td id="telephone<%= sened[i]._id %>"><%= sened[i].contact_phone %></td>
                             <td>
                                 <input type='button' class="edit_button btn btn-primary"
                                        id="edit_button<%= sened[i]._id %>" value="edit"
@@ -65,19 +65,15 @@
     </div>
     <script>
         function edit_row(id) {
-
             var telephone = document.getElementById("telephone" + id).innerHTML;
             var supplier_name = document.getElementById("supplier_name" + id).innerHTML;
             var address = document.getElementById("address" + id).innerHTML;
-
             document.getElementById("telephone" + id).innerHTML = "<input type='text' id='telephone_text" + id + "' value='" + telephone + "'>";
             document.getElementById("supplier_name" + id).innerHTML = "<input type='text' id='supplier_name_text" + id + "' value='" + supplier_name + "'>";
             document.getElementById("address" + id).innerHTML = "<input type='text' id='address_text" + id + "' value='" + address + "'>";
-
             document.getElementById("edit_button" + id).style.display = "none";
             document.getElementById("save_button" + id).style.display = "inline";
         }
-
         function delete_row(id) {
             $.post('/delete', { identification :id});
             location.reload();
@@ -91,12 +87,11 @@
             document.getElementById("save_button" + id).style.display = "none";
             location.reload();
         }
-
-        </script>
+    </script>
     <!-- /.content-wrapper -->
     <script>
         $(function () {
-            $('#example2').dynatable({
+            $('#example2').DataTable({
                 "paging": true,
                 "lengthChange": true,
                 "searching": false,
