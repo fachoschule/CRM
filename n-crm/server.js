@@ -1,8 +1,7 @@
 var http=require('http');
 var express = require('express');
 var session = require('express-session');
-var fs = require('fs');
-var multer = require('multer');
+var router = express.Router();
 var app = express();
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
@@ -11,7 +10,6 @@ var http = require('http').Server(app);
 
 app.use(express.static('views'));
 app.set('view engine', 'ejs');
-
 app.use(session({
     secret: "secret",
     //  name: cookie_name,
@@ -20,16 +18,21 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
+
+
 var path = __dirname + '/views/';
-var routes = require('./server/NewFeed-Server')(app);
+var routes = require('./server/routes')(app);
 var productroutes = require('./server/Product-Server')(app);
-var externalProductCoderoutes = require('./server/External-Product-Server')(app);
-var purchaseOrderroutes = require('./server/Purchase-Order-Server')(app);
 var userroutes = require('./server/User-Server')(app);
+var contactform = require('./server/contactform')(app);
+var todolist = require('./server/todolist')(app);
+var fileacomplaint = require('./server/fileacomplaint')(app);
 var supplier = require('./server/Supplier-Server')(app);
 var employee = require('./server/Employee')(app);
 var customerRoutes = require('./routes/customers')(app);
-var department = require('./server/Department')(app);
+// var promotion = require('./server/Promotion')(app);
+// var TARGET = require('./server/TARGET')(app);
+
 var configDB = require('./server/config' );
 
 var port = process.env.PORT || 8080;

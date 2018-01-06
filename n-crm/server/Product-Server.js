@@ -1,102 +1,10 @@
-var Product = require ('../model/Product');
-var Supplier = require ('../model/Suppliers');
-var Brand = require ('../model/Product_Brand');
-var ProType = require ('../model/Product_Type');
-var ProSupp = require ('../model/Product_Supplier');
-var ExternalCode = require ('../model/External_Product_Code');
-var multer = require('multer');
-var fs = require('fs');
-
+var Product = require('../model/Product');
+var Supplier = require('../model/Suppliers');
+var Brand = require('../model/Product_Brand');
+var ProType = require('../model/Product_Type');
 var sess ;
 module.exports = function(app) {
-    var Storage = multer.diskStorage({
-        destination: function(req, file, callback) {
-            callback(null, "./Images");
-        },
-        filename: function(req, file, callback) {
-            callback(null, file.fieldname + "_" + Date.now() + "_" + file.originalname);
-        }
-    });
-    var upload = multer({ storage : Storage}).single('userPhoto');
-
-    app.post('/product/createNewProduct', function (req,res) {
-        sess = req.session;
-        if(sess.name) {
-       // console.log('1111L '+ req.file);
-        upload(req,res,function(err) {
-            console.log(req.file);
-            if(err) {
-                console.log('here');
-               // return res.end("Error uploading file.");
-            }
-            //console.log('finish');
-
-               // console.log(req.param('externalCode'));
-                let product = new Product();
-                    console.log(req.param('knowSupplier'));
-                    product.product_id = req.param('productID');
-                    product.product_name = req.param('productName');
-                    product.image = {
-                        img: fs.readFileSync(req.file.path),
-                        contentType: 'image/png'
-                    };
-                    product.description = req.param('description');
-                    product.brand = {
-                        brand_id: req.param('brandID'),
-                        brand_name: req.param('brandName')
-                    };
-                    product.pro_type = {
-                        type_id: req.param('typeID'),
-                        type_name: req.param('typeName')
-                    };
-                    var ex = req.param('externalCode');
-                    for(var i = 0; i < ex.length;i++){
-                        var ext ;
-                        ExternalCode.findById(ex[i], function (err, extproducts) {
-                            ext = {
-                                code: extproducts._id,
-                                code_name: extproducts.external_product_id,
-                                customer: extproducts.customer.id
-                            }
-                            console.log(ext);
-                        });
-                        console.log(ext);
-                        product.external_codes.push(ext);
-                    }
-                    product.final_cost= {
-                        cost: 0,
-                        currency: ""
-                    }
-                    product.save(function (err) {
-                        if (err) {
-                            console.log(err);
-                            return;
-                        } else {
-                            if (req.param('knowSupplier') != 'on') {
-                               // console.log('kinds = 1');
-                                Product.find({}, function (err, products) {
-                                    if (err) {
-                                        console.log(err);
-                                    } else {
-                                        res.render('list_products', {
-                                            products: products,
-                                            session: sess
-                                        });
-                                    }
-                                });
-                            } else {
-                               // console.log('kinds = 2');
-                                sess.product = product;
-                                res.redirect('/product/redirect-adding-suppliers-for-product');
-                            }
-                        }
-                    });
-        });
-        }else{
-                res.render('login',{title:'Login Page'});
-            }
-        });
-    app.get('/product/redirect-adding-suppliers-for-product', function (req, res) {
+    app.get('/product/redirect-adding-suppliers-for-product', function (req,res) {
         sess = req.session;
         if(sess.name) {
             res.render('add_product_supplier',{
@@ -107,61 +15,6 @@ module.exports = function(app) {
             res.render('login',{title:'Login Page'});
         }
     });
-    app.post('/product/finish-adding-the-product', function (req, res) {
-        sess = req.session;
-        if(sess.name) {
-            sess.product = null;
-            res.send({redirect: '/list-product'});
-        }else{
-            res.render('login',{title:'Login Page'});
-        }
-    })
-    app.post('/product/add-supplier-into-product', function (req, res) {
-        sess = req.session;
-        if(sess.name) {
-            var costItem = req.param('costItem');
-            var currency = req.param('currency');
-            var supplierID = req.param('supplierID');
-            var suppName = req.param('supplierName');
-            let proSupp = new ProSupp();
-            console.log('test first: '+ suppName);
-            if(suppName == '' || suppName == null || typeof suppName == 'undefined'){
-               // console.log('here');
-                Supplier.find({'_id': supplierID}, function (err, supp) {
-                    console.log('here' + supp);
-                    suppName = supp.supplier_name;
-                })
-            }
-            console.log('test then: '+ suppName);
-            proSupp.supplier = {
-                id : supplierID,
-                name : suppName
-            };
-            proSupp.product = {
-                id : sess.product._id,
-                name : sess.product.product_name
-            };
-            proSupp.costPerItem = costItem;
-            proSupp.currency = currency;
-            proSupp.standardPrice = 0.000;
-            proSupp.save(function (err, proSupp) {
-                if (err) {
-                    res.status(500).send(err)
-                }
-                ProSupp.find({'product.id' : sess.product._id}, function (err, suppliers) {
-                    console.log(suppliers);
-                    res.status(200).send({
-                        suppliers: suppliers
-                    });
-                })
-
-            });
-            sess.suppliers = supplierID;
-        }
-        else {
-            res.render('login',{title:'Login Page'});
-        }
-    })
     // Load Home page
     app.get('/create-product',function(req,res){
         sess = req.session;
@@ -175,15 +28,11 @@ module.exports = function(app) {
                         if(err){
                             console.log(err);
                         }else {
-                            ExternalCode.find({"status": 0}, function (err, externalCodes) {
-                                res.render('add_product',{
-                                    brands: brands,
-                                    types : types,
-                                    externalCodes : externalCodes,
-                                    session: sess
-                                });
-                            })
-
+                            res.render('add_product',{
+                                brands: brands,
+                                types : types,
+                                session: sess
+                            });
                         }
                     });
                 }
@@ -203,9 +52,7 @@ module.exports = function(app) {
                     console.log(err);
                 }else{
                     console.log(products);
-                    products.forEach(function (p) {
-                        console.log(p.description);
-                    });
+
                     res.render('list_products',{
                         products: products,
                         session: sess
@@ -216,14 +63,6 @@ module.exports = function(app) {
             res.render('login',{title:'Login Page'});
         }
     });
-
-    app.get('/product/ajax/loadProduct', function (req, res) {
-        var page = Integer.parseInt(req.param('page'));
-        var perPage = Integer.parseInt(req.param('perPage'));
-        var offset = Integer.parseInt(req.param('offset'));
-        var start = page * perPage;
-    });
-
     app.post('/edit-product', function (req, res) {
         sess = req.session;
         if(sess.name) {
@@ -264,7 +103,49 @@ module.exports = function(app) {
             res.render('login',{title:'Login Page'});
         }
     });
+    app.post('/product/createNewProduct', function (req,res) {
+        sess = req.session;
+        if(sess.name) {
+            let product = new Product();
+            console.log('proID'+ req.body.productID);
+            product.product_id = req.param('productID');
+            product.product_name =req.param('productName');
+            product.image = req.param('productName');
+            product.description = req.param('description');
+            Brand.findById(req.param('brandID'), function (err, brand){
+                product.brand = {
+                    brand_id: req.param('brandID'),
+                    brand_name : brand.brand_name
+                };
+            });
 
+            ProType.findById(req.param('typeID'), function (err, type){
+                product.pro_type = {
+                    type_id : req.param('typeID'),
+                    type_name :  type.proType_name
+                };
+            });
+            product.save(function (err) {
+                if (err) {
+                    console.log(err);
+                    return;
+                } else {
+                    Product.find({}, function (err, products){
+                        if(err){
+                            console.log(err);
+                        }else{
+                            res.render('list_products',{
+                                products: products,
+                                session: sess
+                            });
+                        }
+                    });
+                }
+            });
+        }else{
+            res.render('login',{title:'Login Page'});
+        }
+    });
     //load ajax for supplier list
     app.get ('/product/load-suppliers-information', function (req,res) {
         sess = req.session;
@@ -309,11 +190,7 @@ module.exports = function(app) {
                                         id = products.length + 1;
                                         pro_id = br_type + '_' + '00' + id;
                                     }
-                                    res.send({
-                                        product_id: pro_id,
-                                        brand_name: brand.brand_name,
-                                        type_name : type.proType_name
-                                    });
+                                    res.send({product_id: pro_id});
                                 }
                             })
                         }
@@ -323,15 +200,5 @@ module.exports = function(app) {
         }else{
             res.render('login',{title:'Login Page'});
         }
-    });
-    app.post('/product/add-final-cost', function (req, res) {
-       Product.findById(req.param('product_ID'), function (err, pro) {
-            pro.final_cost = {
-                cost: req.param('itemCost'),
-                currency: req.param('currency')
-            }
-            pro.save();
-            res.redirect('/new-feed-general');
-       })
-    });
+    })
 }

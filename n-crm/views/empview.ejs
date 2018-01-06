@@ -79,6 +79,8 @@
                                             Edit
                                         </button>
 
+
+
                                         <div class="btn-group-vertical">
                                             <button type="button" onclick="empRemove('<%=employees[i]._id%>','<%=employees[i].username%>')" class="btn-link">Delete</button>
                                         </div>
@@ -98,14 +100,7 @@
         </section><!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-
-
-
-    <!-- Script -->
     <script type="text/javascript">
-
-
-        /////////////////////////    Employee Record Edit/Update ///////////////////////////////
 
         $(document).on("click", ".btnedit", function () {
            //console.log();
@@ -120,8 +115,7 @@
             $(".modal-body #editlastname").val(editEmployeeData.lastname);
             $(".modal-body #editfirstname").val(editEmployeeData.firstname);
             $(".modal-body #editemail").val(editEmployeeData.email);
-            //$(".modal-body #editdepartment").val(editEmployeeData.department);
-            $(".modal-body #editdepartmentname").val(editEmployeeData.department);
+            $(".modal-body #editdepartment").val(editEmployeeData.department);
             $(".modal-body #editgender").val(editEmployeeData.gender);
           //  $(".modal-body #editdateofbirth").val(editEmployeeData.date_of_birth);
             $(".modal-body #editaddress").val(editEmployeeData.address);
@@ -137,8 +131,7 @@
             var newEditlastname = $("#editlastname").val();
             var newEditfirstname = $("#editfirstname").val();
             var newEditEmail = $("#editemail").val();
-            var newEditDepartment = $("#editdepartmentname").val();
-
+            var newEditDepartment = $("#editdepartment").val();
             var newEditGender = $("#editgender").val();
            // var newEditDatofBirth = $("#editdateofbirth").val();
             var newEditAddress= $("#editaddress").val();
@@ -216,7 +209,6 @@
     </script>
     <%include ./layout/footer.ejs%>
 </div>
-<!-- /.Script -->
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -231,7 +223,18 @@
 
             <!-- Moden Body start-->
             <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-4">
+                        <form class="form-horizontal" role="form">
+                            <fieldset>
+                                <!-- Form Name -->
+                                <legend>Employer Update</legend>
+
                                 <!-- Text input-->
+
+
+
+
                                 <div class="form-group">
                                     <label for="textinput">Role</label>
                                         <output type="text" id = "editrole" class="form-control"/>
@@ -263,13 +266,10 @@
                                 <!-- Text input-->
 
                                 <div class="form-group">
-                                    <label for="Department Names">Departments</label>
-                                    <select id="editdepartmentname" class="form-control select2" name="editdepartmentname"  style="width: 100%;">
-                                        <% departments.forEach(function(department) { %>
-                                        <option value="<%=department.name %>"> <%= department.name %></option>s
-                                        <% }); %>
-                                    </select>
+                                    <label for="textinput">Department</label>
+                                        <input type="text" id = "editdepartment" placeholder="Department" class="form-control">
                                 </div>
+
 
                                 <div class="form-group">
                                     <label for="textinput">Gender</label>
@@ -292,6 +292,11 @@
                                     <label for="textinput"></label>
                                         <output type="text" id = "editid" class="form-control" style="display: none"/>
                                 </div>
+
+                            </fieldset>
+                        </form>
+                    </div><!-- /.col-lg-12 -->
+                </div>
             </div>
 
             <!-- Moden Body End-->

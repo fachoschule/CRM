@@ -9,11 +9,11 @@ module.exports = function(app) {
     });
     app.get('/view_supplier',function(req,res){
         sess = req.session;
-
         connection.collection("suppliers").find({}).toArray(function(err, result) {
             if (err) throw err;
             res.render('view_supplier',{title:"View Supplier",sened:result , session: sess});
         })
+
     });
 
     app.post('/insert-supplier', function (req, res, next) {

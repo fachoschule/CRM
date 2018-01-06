@@ -32,39 +32,35 @@
                         </div>
                         <!-- /.box-header -->
                         <!-- form start -->
-                        <form id="formPO"  action="/product/createNewProduct" enctype="multipart/form-data" method="post" >
+                        <form action="/product/createNewProduct" method="post" commandName="formDH">
                             <div class="box-body">
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-xs-6">
-                                            <label for="product-brand-id">Product's brand</label>
-                                            <select id="product-brand-id" class="form-control select2" name="brandID"  style="width: 100%;">
-                                                <% brands.forEach(function(brand) { %>
-                                                    <option value="<%=brand._id %>"><%=brand.brand_id %> - <%= brand.brand_name %></option>s
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <label for="product-brand-id">Product's brand</label>
+                                        <select id="product-brand-id" class="form-control select2" name="brandID"  style="width: 100%;">
+                                            <% brands.forEach(function(brand) { %>
+                                                <option value="<%=brand._id %>"><%=brand.brand_id %> - <%= brand.brand_name %></option>s
+                                            <% }); %>
+                                        </select>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <div id='product-Type'>
+                                            <label for="product-type-id">Product's type</label>
+                                            <select id="product-type-id" class="form-control select2" name="typeID" onchange="fullfillproductID()"  style="width: 100%;">
+                                                <% types.forEach(function(type) { %>
+                                                    <option value="<%=type._id %>"><%=type.proType_id %> - <%= type.proType_name %></option>s
                                                 <% }); %>
                                             </select>
-                                            <input type="hidden" name="brandName" id="brand-name">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-xs-6">
-                                            <div id='product-Type'>
-                                                <label for="product-type-id">Product's type</label>
-                                                <select id="product-type-id" class="form-control select2" name="typeID" onchange="fullfillproductID()"  style="width: 100%;">
-                                                    <% types.forEach(function(type) { %>
-                                                        <option value="<%=type._id %>"><%=type.proType_id %> - <%= type.proType_name %></option>s
-                                                    <% }); %>
-                                                </select>
-                                                <input type="hidden" name="typeName" id="type-name" >
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <br>
                                 <div class="form-group">
                                     <label for="productID">Product ID</label>
-                                    <input name="productID" type="text" class="form-control " readonly required="true" id="productID" placeholder=""/>
+                                    <input name="productID" type="text" class="form-control " required="true" id="productID" placeholder=""/>
                                 </div>
                                 <div class="form-group">
                                     <label for="productName">Product Name</label>
@@ -72,34 +68,39 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="productImage">Product Image</label>
-                                    <input type="file" name="userPhoto"/>
+                                    <input name="productImage" type="file" class="form-control" accept=".image/png, .jpgx" id="productImage"/>
                                 </div>
 
-                                <div class="form-group " >
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <div id='SuppID'>
+                                            <label for="supllier-id">Supplier's infor</label>
+                                            <div id="supplierID"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <button style=" margin-top: 20px; " type="button" onclick="fillDataSupplier()" class="btn bg-olive btn-flat margin">LOAD THE INFORMATION</button>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <button style=" margin-top: 20px; " type="button" onclick="addNewSupplier()" class="btn bg-olive btn-flat margin">ADD NEW SUPPLIER</button>
+                                    </div>
+                                </div>
+                                <br>
+                                <div id="loadSupplierInformation">
 
-                                    <label style="color: #0d6aad">External Code</label><br>
-                                    <select class="form-control select2" multiple="multiple" name="externalCode" id="externalCode" data-placeholder="Select External Code" style="width: 100%;" >
-                                        <%externalCodes.forEach(function (eC) {%>
-                                            <option value="<%=eC._id%>"><%= eC.external_product_id%></option>
-                                        <%});%>
-                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="description">Description</label>
                                     <textarea name="description" class="form-control " rows="3" id="description" placeholder="Enter ..."></textarea>
                                 </div>
-                                <div class="form-group">
-                                    <label>
-                                        <input type="radio" name="knowSupplier" class="minimal">
-                                        Know Supplier?
-                                    </label>
-                                </div>
                             </div>
                             <!-- /.box-body -->
 
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary btn-flat">ADDING NEW PRODUCT <i class="fa fa-chevron-right"></i></button>
+                                <button type="submit" class="btn btn-primary btn-flat">ADDING NEW PRODUCT & FINISH<i class="fa fa-chevron-right"></i></button>
                                 &nbsp;&nbsp;&nbsp;
+                                <button type="button" class="btn btn-primary btn-flat"><a href="/product/redirect-adding-suppliers-for-product">ADDING SUPPLIER<i class="fa fa-chevron-right"></i></a></button>
+
                             </div>
                         </form>
                     </div>
@@ -114,21 +115,8 @@
 </div>
 <!-- ./wrapper -->
 <script>
-    $(function () {
-        $(".select2").select2();
-    })
-    function uploadImage() {
-        $.ajax({
-            type: "post",
-            url: '/product/api/Upload',
-            dataType: 'json',
-            data: '',
-            success: function(response) {
-                document.getElementById('status-upload').innerHTML=response.status;
-            }
-        });
-    }
-    function fullfillproductID() {
+    loadSupplier('');
+    function fullfillproductID(){
         var brand = $('#product-brand-id').val();
         var type = $('#product-type-id').val();
         $.ajax({
@@ -137,14 +125,213 @@
             dataType: 'json',
             data: {
                 brand: brand,
-                type: type
+                type : type
             },
-            success: function (response) {
+            success: function(response) {
                 $('#productID').val(response.product_id);
+            }
+        });
+    }
+    function loadSupplier(supplierID){
+        $.ajax({
+            type: "get",
+            url: '/product/load-suppliers-information',
+            dataType : 'json',
+            data: '',
+            success: function(response) {
 
-                $('#brand-name').val(response.brand_name);
-                $('#type-name').val(response.type - name);
+                var row = '';
+                row +='<select id="supplier-ID" class="form-control select2" name="supplierID"  style="width: 100%;">';
+                for(var i = 0; i < response.suppliers.length; i++)
+                {
+                    if (supplierID == response.suppliers[i]._id) {
+                        row += '<option value="' + response.suppliers[i]._id + '" selected>' + response.suppliers[i].supplier_id + ' - ' + response.suppliers[i].supplier_name + '</option>';
 
+                    } else {
+                        row += '<option value="' + response.suppliers[i]._id + '">' + response.suppliers[i].supplier_id + ' - ' + response.suppliers[i].supplier_name + '</option>';
+                    }
+                }
+
+                row += '</select>';
+                $("#supplierID").html(row);
+                $('.select2').select2();
+            }
+        });
+
+    }
+    function fillDataSupplier(){
+        var supplierID=$('#supplier-ID').val();
+        var row = '';
+        $.ajax({
+            type: "get",
+            url: '/product/ajax/load-supplier-information',
+            dataType : 'json',
+            data: {
+                supplierID: supplierID
+            },
+            success: function(response) {
+                var supplier = response.supplier;
+                row += '<div class="form-group">';
+                row +=		'<label for="supp-address">SUPPLIER ADDRESS</label> ';
+                row +=		'<input name="supAddress" type="text" class="form-control " value="'+supplier.address+'" id="dia-chi" placeholder="SUPPLIER ADDRESS"/>';
+                row +='</div>';
+                row += '<div class="form-group">';
+                row +=		'<label for="supp-tax-number">TAX NUMBER</label> ';
+                row +=		'<input name="supTaxNumber" type="text" class="form-control " value="'+supplier.tax_number+'" id="ma-so-thue" placeholder="TAX NUMBER"/>';
+                row +='</div>';
+                row += '<div class="row">';
+                row += 		'<div class="col-xs-5">';
+                row += 			'<label for="supp-telephone">TELEPHONE</label> ';
+                row +=			'<input name="supTelephone" type="text" class="form-control " value="'+supplier.contact_phone+'" id="so-dien-thoai" placeholder="TELEPHONE NUMBER"/>';
+                row +=		'</div>'
+                row += 		'<div class="col-xs-5">';
+                row += 			'<label for="fax">FAX</label> ';
+                row +=			'<input name="fax" type="text" class="form-control " value="'+supplier.fax_number+'" id="fax" placeholder="FAX"/>';
+                row +=		'</div>'
+                row +='</div>';
+                row +='<br>';
+                $('#loadSupplierInformation').html(row);
+            }
+        });
+    }
+    function addNewSupplier(){
+        var row = '';
+        row += '<div class="box box-solid box-primary">';
+        row += '<div class="box-header with-border">';
+        row += '<h3 class="box-title">ADD NEW A SUPPLIER</h3>';
+        row += '</div><!-- /.box-header -->';
+        row += '<div class="box-body">';
+        row += '<div class="row">';
+        row += '<div class="col-md-12">';
+
+        row +=  '<div class="form-group" id="fID">';
+        row +=  '<label>SUPPLIER ID</label> <span id="errorNCC"></span>';
+        row +=  '<input id="FsupplierId" name="suppID" class="form-control" placeholder="Enter ..." />';
+        row +=  '</div>';
+
+        row +=  '<div class="form-group" id="fName">';
+        row +=  '<label>SUPPLIER NAME</label>';
+        row +=  '<input id="FsupplierName" name="suppName" class="form-control" placeholder="Enter ..." />';
+        row +=  '</div>';
+
+        row +=  '<div class="form-group" id="fAddress">';
+        row +=  '<label>ADDRESS</label>';
+        row +=  '<input id="FsuppAddress" name="suppAddress" class="form-control" placeholder="Enter ..." />';
+        row +=  '</div>';
+
+        row +=  '<div class="form-group" id="fTaxNumber">';
+        row +=  '<label>TAX NUMBER</label>';
+        row +=  '<input id="FsuppTaxNumber" name="suppTaxNumber" class="form-control" placeholder="Enter ..." />';
+        row +=  '</div>';
+
+        row +=  '<div class="form-group" id="fTelephone">';
+        row +=  '<label>TELEPHONE</label>';
+        row +=  '<input id="FsuppTelephone" name="suppTelephone" class="form-control" placeholder="Enter ..." />';
+        row +=  '</div>';
+
+
+        row +=  '<div class="form-group" id="fFax">';
+        row +=  '<label>FAX</label>';
+        row +=  '<input id="FFax" name="fax" class="form-control" placeholder="Enter ..." />';
+        row +=  '</div>';
+
+
+        row +=  '</div>';
+        row +=  '</div>';
+        row +=  '</div><!-- /.box-body -->';
+        row +=  '</div>';
+
+        bootbox.dialog({
+            title: "ADD NEW SUPPLIER",
+            message: row,
+            size: 'large',
+            onEscape: function() {
+                bootbox.hideAll();
+            },
+            buttons: {
+                main: {
+                    label: "CANCLE",
+                    className: "btn-default btn-flat",
+                    callback: function () {
+                        bootbox.hideAll();
+                    }
+                },
+                success: {
+                    label: "ADD",
+                    className: "btn-success btn-flat",
+                    callback: function () {
+                        var suppID = $('#FsupplierId').val();
+                        var suppName = $('#FsupplierName').val();
+                        var suppAddress = $('#FsuppAddress').val();
+                        var suppTaxNumber = $('#FsuppTaxNumber').val();
+                        var suppTelephone = $('#FsuppTelephone').val();
+                        var suppFax = $('#FFax').val();
+
+                        var valid = true;
+                        if (suppID == '' || suppID == null) {
+                            valid = false;
+                            $('#fID').addClass('has-error');
+                        } else $('#fID').removeClass('has-error');
+
+                        if (suppName == '' || suppName == null) {
+                            valid = false;
+                            $('#fName').addClass('has-error');
+                        } else $('#fName').removeClass('has-error');
+
+                        if (suppAddress == '' || suppAddress == null) {
+                            valid = false;
+                            $('#fAddress').addClass('has-error');
+                        } else $('#fAddress').removeClass('has-error');
+
+                        if(suppTaxNumber == '' || suppTaxNumber == null){
+                            valid = false;
+                            $('#fTaxNumber').addClass('has-error');
+                        }else $('#fTaxNumber').removeClass('has-error');
+
+                        if(suppTelephone == '' || suppTelephone == null){
+                            valid = false;
+                            $('#fTelephone').addClass('has-error');
+                        }else $('#fTelephone').removeClass('has-error');
+
+                        if(suppFax == '' || suppFax == null){
+                            valid = false;
+                            $('#fFax').addClass('has-error');
+                        }else $('#fFax').removeClass('has-error');
+
+                        if (valid) {
+                            $.ajax({
+                                type: "post",
+                                url: '/product/add-new-supplier',
+                                dataType : 'json',
+                                data: {
+                                    suppID: suppID,
+                                    suppName: suppName,
+                                    suppAddress: suppAddress,
+                                    suppTaxNumber : suppTaxNumber,
+                                    suppTelephone : suppTelephone,
+                                    suppFax : suppFax
+                                },
+                                success: function(response) {
+                                    var inform = response.inform;
+                                    if (inform == "error") {
+                                        bootbox.alert("500: FAIL FOR ADD NEW SUPPLIER");
+                                        return false;
+                                    } else if (inform.indexOf("400") >= 0) {
+                                        bootbox.alert(inform);
+                                        return false;
+                                    } else {
+                                        alert(response.supplier._id);
+                                        loadSupplier(response.supplier._id);
+                                    }
+                                }
+                            })
+                        } else {
+                            return false;
+                        }
+
+
+                    }
+                }
             }
         });
     }

@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "body-parser": "~1.18.2",
+    "bootbox": "^4.4.0",
     "connect-flash": "^0.1.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
@@ -14,12 +15,18 @@
     "express": "~4.15.5",
     "express-messages": "^1.0.1",
     "express-session": "^1.15.6",
+    "express-sessions": "^1.0.6",
     "express-validator": "^4.3.0",
     "jade": "~1.11.0",
+    "js-popup": "^1.0.4",
     "mongoose": "^4.13.2",
     "mongoose-unique-validator": "^1.0.6",
     "morgan": "~1.9.0",
-    "multer": "^1.3.0",
-    "serve-favicon": "~2.4.5"
+    "nodemailer": "^4.4.1",
+    "nodemailer-smtp-transport": "^2.7.4",
+    "nodemon": "^1.14.7",
+    "popups": "^1.1.3",
+    "serve-favicon": "~2.4.5",
+    "xoauth2": "^1.2.0"
   }
 }

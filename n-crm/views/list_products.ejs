@@ -31,7 +31,7 @@
                     <div class="box-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <table class="table table-hover skip" id="list-product" style="font-size: 13px">
+                                <table class="table table-hover skip" style="font-size: 13px">
                                     <tr>
                                         <th>#</th>
                                         <th>Product-ID</th>
@@ -58,7 +58,6 @@
                                     </tr>
                                     <%}%>
                                 </table>
-
                             </div>
                         </div>
                     </div>
@@ -66,8 +65,6 @@
             </div>
         </section><!-- /.content -->
     </div>
-    <%include layout/footer.ejs%>
-
     <!-- /.content-wrapper -->
     <script type="text/javascript">
         function removeProduct (_id){
@@ -204,28 +201,8 @@
                 }
             });
         }
-        $('#dataload').dynatable({
-            features: {
-                paginate: true,
-                sort: false,
-                pushState: true,
-                search: true,
-                recordCount: true,
-                perPageSelect: true
-            },dataset: {
-                ajax: true,
-                perPageOptions: [5, 10, 20],
-                ajaxUrl: '/product/ajax/loadProduct',
-                ajaxOnLoad: true,
-                records: []
-            },
-            inputs: {
-                processingText: '<i class="fa fa-spinner fa-pulse"></i>'
-            }
-        });
-        $("#list-product").floatThead();
     </script>
-
+    <%include layout/footer.ejs%>
 </div>
 <!-- ./wrapper -->
 

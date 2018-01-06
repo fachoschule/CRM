@@ -6,4 +6,8 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+router.get('/views/contactform', function(req, res, next) {
+    res.render('contactform');
+});
+
 module.exports = router;
