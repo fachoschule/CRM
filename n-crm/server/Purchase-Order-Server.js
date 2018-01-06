@@ -26,9 +26,10 @@ module.exports = function(app) {
 
             var dateDelivery = req.param('receivedandreleaseDate');
             console.log(dateDelivery);
-            Customer.find({'_id': req.param('customer')}, function (error, customer) {
+            Customer.findById({'_id': req.param('customer')}, function (error, customer) {
                 var po = new Purchase_Order();
                 console.log(customer);
+
                 po.poNumber = req.param('poNumber');
                 po.poName = req.param('poName');
 

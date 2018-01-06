@@ -36,10 +36,10 @@ module.exports = function(app) {
                     console.log(req.param('knowSupplier'));
                     product.product_id = req.param('productID');
                     product.product_name = req.param('productName');
-                    product.image = {
-                        img: fs.readFileSync(req.file.path),
-                        contentType: 'image/png'
-                    };
+                    product.image = "";//{
+                       // img: fs.readFileSync(req.file.path),
+                       // contentType: 'image/png'
+                   // };
                     product.description = req.param('description');
                     product.brand = {
                         brand_id: req.param('brandID'),
@@ -53,14 +53,15 @@ module.exports = function(app) {
                     for(var i = 0; i < ex.length;i++){
                         var ext ;
                         ExternalCode.findById(ex[i], function (err, extproducts) {
-                            ext = {
-                                code: extproducts._id,
-                                code_name: extproducts.external_product_id,
-                                customer: extproducts.customer.id
-                            }
+                           console.log(extproducts);
+                            // ext = {
+                             //   code: extproducts._id,
+                               // code_name: extproducts.external_product_id,
+                             //   customer: extproducts.customer.id
+                            //}
                             console.log(ext);
                         });
-                        console.log(ext);
+                        //console.log(ext);
                         product.external_codes.push(ext);
                     }
                     product.final_cost= {

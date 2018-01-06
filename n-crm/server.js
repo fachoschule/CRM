@@ -30,6 +30,7 @@ var supplier = require('./server/Supplier-Server')(app);
 var employee = require('./server/Employee')(app);
 var customerRoutes = require('./routes/customers')(app);
 var department = require('./server/Department')(app);
+var customerorder = require('./server/Cutomer-Order')(app);
 var configDB = require('./server/config' );
 
 var port = process.env.PORT || 8080;

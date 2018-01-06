@@ -1,0 +1,160 @@
+<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head><title><%= (typeof title != "undefined" ? title : "") %></title>
+    <%include ./layout/library.ejs%>
+</head>
+<body>
+<body class="skin-blue fixed sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+    <%include ./layout/header.ejs%>
+    <!-- =============================================== -->
+
+    <!-- Left side column. contains the sidebar -->
+    <%include ./layout/menu.ejs%>
+    <!-- =============================================== -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper" style="min-height: 265px;">
+        <!-- Content Header (Page header) -->
+
+        <!-- =============================================== -->
+        <div style="padding-top: 10px"></div>
+        <!-- Main content -->
+        <div class="col-xs-16">
+        <button  type="button" onclick="graphCustomer()" class="btn btn-primary btn-block btn-flat">Show Graph </button>
+
+        <div>
+            <section>
+                <script src="https://code.highcharts.com/highcharts.js"></script>
+                <script src="https://code.highcharts.com/modules/exporting.js"></script>
+            <div id="container"  style="min-width: 300px; height: 400px; margin: 0 auto"></div>
+            </section>
+
+        </div>
+    </div>
+
+        </section><!-- /.content -->
+    </div>
+
+    <!-- /.content-wrapper -->
+
+    <%include ./layout/footer.ejs%>
+</div>
+<!-- ./wrapper -->
+
+</body>
+<script>
+
+
+    var obj;
+    function graphCustomer () {
+        $.ajax({
+            type: "get",
+            url: '/ajax/customer-order',
+            dataType: 'text',
+            success: function (response) {
+                obj = JSON.parse(response);
+
+                console.log(obj);
+
+
+               // console.log(obj[3]['customer']['name']);
+
+
+
+
+
+            //console.log(pos);
+            // var temp = document.querySelector('#container');
+            //var testvalue= temp.dataset.value;
+            //console.log(testvalue)
+//        var zyx = JSON.parse(testvalue);
+            //console.log(typeof zyx);
+            // for(i=0;i<temp.length;i++) {
+            //    console.log(temp[i]);
+            // }
+
+            Highcharts.chart('container', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Customer Orders'
+                },
+                subtitle: {
+                    text: 'Customers Purschased Products' //'Source: <a href="http://en.wikipedia.org/wiki/List_of_cities_proper_by_population">Wikipedia</a>'
+                },
+                xAxis: {
+                    type: 'category',
+                    labels: {
+                        rotation: -45,
+                        style: {
+                            fontSize: '13px',
+                            fontFamily: 'Verdana, sans-serif'
+                        }
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Product Purchased Orders'
+                    }
+                },
+                legend: {
+                    enabled: false
+                },
+                tooltip: {
+                    pointFormat: 'Purchased Products'// <b>{point.y:.1f} millions</b>'
+                },
+                series: [{
+                    name: 'Population',
+                    data: obj,
+
+                      //  $.each(obj, function (index, value) {
+
+
+
+                     //   })
+
+                        /*        ['Shanghai', 23.7],
+                                ['Lagos', 16.1],
+                                ['Istanbul', 14.2],
+                                ['Karachi', 14.0],
+                                ['Mumbai', 12.5],
+                                ['Moscow', 12.1],
+                                ['São Paulo', 11.8],
+                                ['Beijing', 11.7],
+                                ['Guangzhou', 11.1],
+                                ['Delhi', 11.1],
+                                ['Shenzhen', 10.5],
+                                ['Seoul', 10.4],
+                                ['Jakarta', 10.0],
+                                ['Kinshasa', 9.3],
+                                ['Tianjin', 9.3],
+                                ['Tokyo', 9.0],
+                                ['Cairo', 8.9],
+                                ['Dhaka', 8.9],
+                                ['Mexico City', 8.9],
+                                ['Lima', 8.9]
+                                */
+
+                    dataLabels: {
+                        enabled: true,
+                        rotation: -90,
+                        color: '#FFFFFF',
+                        align: 'right',
+                        format: '{point.y:.1f}', // one decimal
+                        y: 10, // 10 pixels down from the top
+                        style: {
+                            fontSize: '13px',
+                            fontFamily: 'Verdana, sans-serif'
+                        }
+                    }
+                }]
+            });
+            }
+        });
+    }
+</script>
+</body>
+</html>

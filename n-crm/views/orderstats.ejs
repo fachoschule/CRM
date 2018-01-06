@@ -1,0 +1,292 @@
+
+<html>
+<head><title><%= (typeof title != "undefined" ? title : "EmpView") %></title>
+    <%include ./layout/library.ejs%>
+</head>
+
+<body class="skin-blue fixed sidebar-mini">
+
+
+<!-- Site wrapper -->
+<div class="wrapper">
+    <%include ./layout/header.ejs%>
+    <!-- =============================================== -->
+
+    <!-- Left side column. contains the sidebar -->
+    <%include ./layout/menu.ejs%>
+    <!-- =============================================== -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper" style="min-height: 265px;">
+        <!-- Content Header (Page header) -->
+
+        <!-- =============================================== -->
+
+        <div style="padding-top: 10px"></div>
+        <!-- Main content -->
+        <section class="content">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>
+                    Manage Departments
+                    <!-- <small>advanced tables</small> -->
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                    <li><a href="#">Manage</a></li>
+                    <li class="active">Departments</li>
+                </ol>
+            </section>
+            <!-- Main content -->
+            <section class="content">
+                <div class="row">
+                    <div class="col-xs-14">
+                        <div class="box">
+                            <div class="box-header">
+                                <h3 class="box-title">Departments</h3>
+
+                            </div><!-- /.box-header -->
+                            <div class="box-body">
+                                <table id="manage" class="table table-bordered table-stripped abc">
+                                    <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Department</th>
+                                        <th>Location</th>
+                                    </tr>
+                                    <%for (var i=0; i< departments.length; i++){%>
+                                    <tr>
+                                        <td><%=i+1%></td>
+                                        <td><%=departments[i].name%></td>
+                                        <td><%=departments[i].location%></td>
+                                        <td>
+                                            <button onclick="empDepartFetch('<%=departments[i].name%>')" type="button" class="btn-link btnemployee">
+                                                Employee
+                                            </button>
+
+                                            <button type="button" class="btn-link btnedit"
+                                                    data-id ='{"depid":"<%=departments[i]._id%>",
+                                                "departmentName":"<%=departments[i].name%>",
+                                                "departmentLocation":"<%=departments[i].location%>"
+
+                                        }'  data-toggle="modal" data-target="#exampleModal">
+                                                Edit
+                                            </button>
+
+                                            <div class="btn-group-vertical">
+                                                <button type="button" onclick="empRemove('<%=departments[i]._id%>','<%=departments[i].name%>')" class="btn-link">Delete</button>
+                                            </div>
+
+                                        </td>
+                                    </tr>
+                                    <%}%>
+                                    </thead>
+                                </table>
+                            </div><!-- /.box-body -->
+                        </div><!-- /.box -->
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </section><!-- /.content -->
+        </section><!-- /.content -->
+
+
+
+
+
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Department Update</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <!-- Moden Body start-->
+                    <div class="modal-body">
+
+                        <!-- Form Name -->
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label for="textinput"></label>
+                            <output type="text" id = "depid" class="form-control" style="display: none"/>
+                        </div>
+                        <!-- Text input-->
+                        <div class="form-group has-feedback">
+                            <label for="Department">Department Name</label>
+                            <input type="text" id = "editdepartname" placeholder="Department Name" class="form-control" >
+                            <span class="glyphicon form-control-feedback"></span>
+                        </div>
+
+                        <!-- Text input-->
+                        <div class="form-group has-feedback">
+                            <label for="Location">Location</label>
+                            <input type="text" id = "editlocation" placeholder="Location" class="form-control">
+                            <span class="glyphicon form-control-feedback"></span>
+                        </div>
+                    </div>
+                    <!-- Moden Body End-->
+                    <div class="modal-footer">
+                        <button type="button" onclick="saveChanges()" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Model End -->
+    </div>
+
+
+
+
+
+    <!-- /.content-wrapper -->
+    <script type="text/javascript">
+
+        function empDepartFetch (departmentName) {
+
+            $.ajax({
+                type: "post",
+                url: '/department-list/Employee',
+                dataType: 'text',
+                data: {
+                    departmentName: departmentName
+                },
+
+                success: function(response) {
+                    var obj = JSON.parse(response);
+                    //console.log(obj.length);
+                    var row = '';
+
+                    row += '<table id="manage" class="table table-bordered table-stripped abc">';
+                    row +=  '<tr><th>No.</th><th>Last Name</th><th>First Name(s)<th>Email</th></tr>';
+                    for(var i = 0; i < obj.length; i++)
+                    {
+                        row += "<tr><td>"+ (i+1) +"</td>"+"<td>" + obj[i].last_name + "</td>"+"<td>" + obj[i].first_name + "</td>"+"<td>" + obj[i].email + "</td></tr>";
+                    }
+                    row += '</<table>';
+                    bootbox.dialog({
+                        title: "Employees In Department Of : "+departmentName,
+                        message: row,
+                        size: 'large',
+                        onEscape: function () {
+                            bootbox.hideAll();
+                        },
+                        buttons: {
+                            main: {
+
+                                label: "CLOSE",
+                                className: "btn-default btn-flat",
+                                callback: function () {
+                                    bootbox.hideAll();
+                                }
+                            }
+                        }
+
+                    });
+
+                }
+
+            });
+        }
+
+
+        <!-- Department Record Edit  -->
+
+        $(document).on("click", ".btnedit", function () {
+            //console.log();
+            var editDepartmentData = $(this).data('id');
+            // console.log(editDepartmentData);
+            // console.log(typeof editEmployeeData);
+            //var myObj = JSON.parse(editEmployeeData);
+            // console.log(editEmployeeData.lastname);
+            $(".modal-body #depid").val(editDepartmentData.depid);
+            $(".modal-body #editdepartname").val(editDepartmentData.departmentName);
+            $(".modal-body #editlocation").val(editDepartmentData.departmentLocation);
+
+        });
+
+        function saveChanges() {
+            var newEditDepid = $("#depid").val();
+            var newEditDepartName = $("#editdepartname").val();
+            var newEditLocation = $("#editlocation").val();
+
+            $.ajax({
+                type: "post",
+                url: '/edit-department',
+                dataType: 'text',
+                data: {
+                    _id: newEditDepid,
+                    name: newEditDepartName,
+                    location: newEditLocation
+                },
+
+                success: function (response) {
+
+                    if (response == "Updated") {
+                        location.reload();
+                    } else if (response.toLowerCase().indexOf("400") >= 0) {
+                        bootbox.alert(response);
+                    }
+                    else {
+                        bootbox.alert("500: Not Successful ");
+                    }
+                }
+            });
+
+        }
+
+
+
+
+
+
+        <!-- Department Record Delete  -->
+        function empRemove (_id,department) {
+            bootbox.confirm({
+                title: "Delete Membership ",
+                message: 'Are you sure! you want to delete Department '+ '"'+ department +'"'+' information?',
+                size: 'medium',
+                onEscape: function () {
+                    bootbox.hideAll();
+                },
+                callback: function (result) {
+                    if (result) {
+                        $.ajax({
+                            type: "post",
+                            url: '/delete-department',
+                            dataType: 'text',
+                            data: {
+                                _id: _id
+                            },
+                            success: function (response) {
+                                if (response == "OK") {
+                                    location.reload();
+                                } else if (response.toLowerCase().indexOf("400") >= 0) {
+                                    bootbox.alert(response);
+                                }
+                                else {
+                                    bootbox.alert("500: Not Successful ");
+                                }
+                            }
+                        });
+                    }
+                }
+
+            });
+        }
+
+    </script>
+    <%include ./layout/footer.ejs%>
+</div>
+
+
+<!-- ./wrapper -->
+</body>
+
+</html>
