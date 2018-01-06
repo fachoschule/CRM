@@ -3,6 +3,15 @@ module.exports = function(app) {
     var Supplier = require('../model/Suppliers');
     var connection = require('./config');
     var sess ;
+
+    //Apply design pattern
+    var su = function(suppId, address, suppName, telephone) {
+        su = new Supplier();
+        su.supplier_id = suppId;
+        su.supplier_name = suppName;
+        su.telephone = telephone;
+    }
+
     app.get('/supplier',function(req,res){
         sess = req.session;
         res.render('supplier',{title:"Supplier", session: sess});
@@ -17,11 +26,7 @@ module.exports = function(app) {
     });
 
     app.post('/insert-supplier', function (req, res, next) {
-        supplier = new Supplier();
-        supplier.supplier_id = "SUP_001";
-        supplier.address = req.body.address;
-        supplier.supplier_name = req.body.supplier_name;
-        supplier.telephone = req.body.telephone;
+        supplier = new su("SUP_001", req.body.address, req.body.supplier_name, req.body.telephone);
         supplier.save(function (err) {
             if (err) {
                 console.log(err);

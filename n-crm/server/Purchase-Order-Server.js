@@ -59,33 +59,33 @@ module.exports = function(app) {
     app.post('/purchase-order/add-pro-into-PO', function (req, res) {
         sess = req.session;
         if(sess.name) {
-           Purchase_Order.findById(sess.po._id, (err, po) => {
-               var product ={
-                   productID: req.param('proid'),
-                   product_id: req.param('proID'),
-                   product_name: req.param('proName'),
-                   external_code: 'XXX',
-                   costPerItem: req.param('proCost'),
-                   currency: req.param('proCurrency'),
-                   exchange_rate: req.param('exchangeRate'),
-                   description: req.param('proNote'),
-                   quantity: req.param('quantity'),
-                   amount: req.param('proAmount'),
-                   customer_rate: req.param('cusRate')
-               };
-               po.products.push(product);
-               po.save((err, todo) => {
-                   if (err) {
-                       res.status(500).send(err)
-                   }
-                   sess.po = po;
-                   console.log(po);
-                   console.log('session: ' + sess.po);
-                   res.status(200).send({
-                       products : po.products
-                   });
-               });
-           });
+            Purchase_Order.findById(sess.po._id, (err, po) => {
+                var product ={
+                    productID: req.param('proid'),
+                    product_id: req.param('proID'),
+                    product_name: req.param('proName'),
+                    external_code: 'XXX',
+                    costPerItem: req.param('proCost'),
+                    currency: req.param('proCurrency'),
+                    exchange_rate: req.param('exchangeRate'),
+                    description: req.param('proNote'),
+                    quantity: req.param('quantity'),
+                    amount: req.param('proAmount'),
+                    customer_rate: req.param('cusRate')
+                };
+                po.products.push(product);
+                po.save((err, todo) => {
+                    if (err) {
+                        res.status(500).send(err)
+                    }
+                    sess.po = po;
+                    console.log(po);
+                    console.log('session: ' + sess.po);
+                    res.status(200).send({
+                        products : po.products
+                    });
+                });
+            });
         }else {
             res.render('login',{title:'Login Page'});
         }
@@ -115,7 +115,7 @@ module.exports = function(app) {
             Purchase_Order.findById(sess.po._id, (err, po) => {
                 var total = 0;
                 po.products.forEach(function (p) {
-                   total = total + p.amount;
+                    total = total + p.amount;
                 });
                 var totalAfter = (total * 0.1) + total;
                 po.vat = 10;
@@ -123,25 +123,29 @@ module.exports = function(app) {
                 po.totalAfterVAT = totalAfter;
                 po.save();
                 sess.po = null;
-            res.send({redirect: '/purchase-order/list'});
+                res.send({redirect: '/purchase-order/list'});
             });
         }else{
             res.render('login',{title:'Login Page'});
         }
     });
-    app.get('/purchase-order/list', function (req, res) {
+    app.get('/purchase-order-list/:page', function (req, res) {
         sess = req.session;
+        var perPage = 9
+        var page = req.params.page || 1
         if(sess.name) {
-            Purchase_Order.find({}, function (err, pos){
-                if(err){
-                    console.log(err);
-                }else{
-                    res.render('list_purchase_orders',{
-                        pos: pos,
-                        session: sess
-                    });
-                }
-            });
+            Purchase_Order.find({}).skip((perPage * page) - perPage).limit(perPage)
+                .exec(function(err, pos) {
+                    Purchase_Order.count().exec(function(err, count) {
+                        if (err) return next(err)
+                        res.render('list_purchase_orders', {
+                            session: sess,
+                            pos: pos,
+                            current: page,
+                            pages: Math.ceil(count / perPage)
+                        })
+                    })
+                })
         }else{
             res.render('login',{title:'Login Page'});
         }
@@ -149,18 +153,18 @@ module.exports = function(app) {
     app.get('/print-purchase-order', function (req, res) {
         sess = req.session;
         if(sess.name) {
-        var poID = req.param('poID');
-        console.log(poID);
-        Purchase_Order.findById(poID, (err, po) => {
-            console.log('test print'+ po);
-            Customer.findById(po.customer.id, (err, cu) => {
-                res.render('view_purchase_order', {
-                    po: po,
-                    session: sess,
-                    customer: cu
+            var poID = req.param('poID');
+            console.log(poID);
+            Purchase_Order.findById(poID, (err, po) => {
+                console.log('test print'+ po);
+                Customer.findById(po.customer.id, (err, cu) => {
+                    res.render('view_purchase_order', {
+                        po: po,
+                        session: sess,
+                        customer: cu
+                    });
                 });
             });
-        });
         }else{
             res.render('login',{title:'Login Page'});
         }

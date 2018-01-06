@@ -3,10 +3,15 @@ var Employee = require('../model/Employee');
 var async = require('async');
 var crypto = require('crypto');
 var nodemailer = require('nodemailer');
+var utility = require('./Utility');
 var sess ;
 module.exports = function(app) {
     // Load Home page
     app.get('/',function(req,res){
+        utility.converter('EUR','USD',200,function (data) {
+            partofJson = data;
+            console.log(partofJson);
+        })
         res.render('login',{title:'login page'});
     });
     //Redirect Forgot password page

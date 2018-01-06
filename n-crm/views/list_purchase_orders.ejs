@@ -1,7 +1,7 @@
 <html>
 <head></title>
     <%include layout/library.ejs%>
-
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
 <body class="skin-blue fixed sidebar-mini">
@@ -58,6 +58,34 @@
 
                             </div>
                         </div>
+                        <% if (pages > 0) { %>
+                        <ul class="pagination text-center">
+                            <% if (current == 1) { %>
+                            <li class="disabled"><a>First</a></li>
+                            <% } else { %>
+                            <li><a href="/purchase-order-list/1">First</a></li>
+                            <% } %>
+                            <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+                            <% if (i !== 1) { %>
+                            <li class="disabled"><a>...</a></li>
+                            <% } %>
+                            <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+                            <% if (i == current) { %>
+                            <li class="active"><a><%= i %></a></li>
+                            <% } else { %>
+                            <li><a href="/purchase-order-list/<%= i %>"><%= i %></a></li>
+                            <% } %>
+                            <% if (i == Number(current) + 4 && i < pages) { %>
+                            <li class="disabled"><a>...</a></li>
+                            <% } %>
+                            <% } %>
+                            <% if (current == pages) { %>
+                            <li class="disabled"><a>Last</a></li>
+                            <% } else { %>
+                            <li><a href="/purchase-order-list/<%= pages %>">Last</a></li>
+                            <% } %>
+                        </ul>
+                        <% } %>
                     </div>
                 </div>
             </div>

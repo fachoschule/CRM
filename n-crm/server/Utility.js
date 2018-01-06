@@ -1,20 +1,28 @@
 var request = require('request');
 
-module.exports = {
-    converter:function (from,to,number,cb) {
+var converter = function (from, to, number, cb) {
 
-        request('https://api.fixer.io/latest?base='+from,function (error, response, body) {
+    request('https://api.fixer.io/latest?base=' + from, function (error, response, body) {
+
+        var info = JSON.parse(body);
+        var sum = Number(info.rates[to]) * number;
+        cb(sum);
+    })};
+
+var decoratedConverter = function (from, to, cb) {
+        request('https://api.fixer.io/latest?base=' + from, function (error, response, body) {
             var info = JSON.parse(body);
-            // console.log(info.rates[to]);
-            var sum =Number(info.rates[to])*number;
-            console.log(sum);
+            var sum = Number(info.rates[to]);
             cb(sum);
-        })
+        })};
 
-        /*
-        utility.converter('EUR','USD',200,function (data) {
-        partofJson = data;
-        console.log(partofJson);
-    })*/
+
+        module.exports = {converter,decoratedConverter
+
+            /*
+            utility.converter('EUR','USD',200,function (data) {
+            partofJson = data;
+            console.log(partofJson);
+        })*/
+
     }
-}
