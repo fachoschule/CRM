@@ -28,7 +28,7 @@ module.exports = function(app) {
                         //req.flash('error', 'No account with that email address exists.');
                         return res.render('/forgot_password');
                     }
-                    console.log(user);
+                   // console.log(user);
 
                     user[0].passwordToken = token;
                     user[0].passwordExpires = Date.now() + 3600000; // 1 hour
@@ -41,7 +41,7 @@ module.exports = function(app) {
                         done(err, token, user);
                     });
 
-                    console.log(user);
+                    //console.log(user);
                 });
             },
             function(token, user, done) {
@@ -79,8 +79,8 @@ module.exports = function(app) {
                 console.log(err);
             }else{
                 password = req.body.password;
-                console.log(password);
-                console.log(user[0]);
+               // console.log(password);
+               // console.log(user[0]);
                 if(user[0].password == password)
                 {
                     sess = req.session;

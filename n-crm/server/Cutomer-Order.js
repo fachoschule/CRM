@@ -12,7 +12,7 @@ module.exports = function(app) {
         sess = req.session;
         if(sess.name) {
             Purchase_Order.find({}, function (err, pos){
-                console.log("type of pos " + typeof pos);
+               // console.log("type of pos " + typeof pos);
                 if(err){
                     console.log(err);
                 }else{
@@ -32,7 +32,7 @@ module.exports = function(app) {
         sess = req.session;
         if(sess.name) {
             Purchase_Order.find({}, function (err, pos){
-                console.log("type of pos " + typeof pos);
+               // console.log("type of pos " + typeof pos);
                 if(err){
                     console.log(err);
                 }else{
