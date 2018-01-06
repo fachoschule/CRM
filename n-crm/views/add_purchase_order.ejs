@@ -37,7 +37,7 @@
                             <div class="box-body">
                                 <div class="form-group">
                                     <label for="po-number">PO (PRE-ORDER) NUMBER</label>
-                                    <input name="poNumber" type="text" class="form-control " id="po-number" placeholder="PO NUMBER"/>
+                                    <input name="poNumber" type="text" readonly class="form-control " value="<%=ponumber%>" id="po-number" placeholder="PO NUMBER"/>
                                 </div>
                                 <div class="form-group">
                                     <label for="po-name">PO NAME</label>
@@ -59,9 +59,9 @@
                                         <div class="col-xs-2">
                                             <label for="currency-id">CURRENCY</label>
                                             <select id="currency-id" class="form-control select2" name="currency"  style="width: 100%;">
+                                                <option value="USD">EUR</option>
                                                 <option value="VND">VND</option>
-                                                <option value="USD">USD</option>
-                                                <option value="EUR">EUR</option>
+                                                <option value="EUR">USD</option>
                                                 <option value="CNY">CNY</option>
                                                 <option value="INR">INR</option>
                                             </select>

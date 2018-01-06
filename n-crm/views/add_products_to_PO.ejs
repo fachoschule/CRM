@@ -166,13 +166,13 @@
         if(quantity == "" ){
             quantity = 1;
         }
-        alert('quantity' + quantity);
+      //  alert('quantity' + quantity);
         var custRate = $('#cus-rate').val();
 
         if(custRate == ""){
             custRate = 1;
         }
-        alert('custRate' + custRate);
+       // alert('custRate' + custRate);
         var proAmount = proCost * exchangeRate * quantity * custRate;
         $('#amountProduct').val(proAmount);
     }

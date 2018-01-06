@@ -1,6 +1,8 @@
 var Purchase_Order = require ('../model/Purchase_Order');
 var Customer = require('../model/Customer');
 var Product = require('../model/Product');
+var utility = require('../server/Utility');
+var isodate = require("isodate");
 var sess ;
 module.exports = function(app) {
     app.get('/purchase-order/load-add', function (req, res) {
@@ -8,12 +10,24 @@ module.exports = function(app) {
         sess = req.session;
         if(sess.name) {
             Customer.find({}, function (err, customers) {
+                var today = new Date();
+                var year = today.getFullYear();
+                var isodateFrom = year + '-01-01T00:00:24.382Z';
+                var isodateTo = year + '-12-31T12:56:24.382Z';
 
-                res.render('add_purchase_order',{
-                    title:'Add New Purchase Order',
-                    customers: customers,
-                    session : sess
-                });
+                Purchase_Order.find({'createdDate': {'$gte': isodate(isodateFrom),
+                    '$lte': isodate(isodateTo)}}, function (er, pos) {
+                    var polength = pos.length;
+
+                    polength = polength + 1;
+                    var ponumber = 'PO-'+ polength + '-' +year;
+                    res.render('add_purchase_order',{
+                        title:'Add New Purchase Order',
+                        customers: customers,
+                        session : sess,
+                        ponumber : ponumber
+                    });
+                })
             });
 
         }else{
@@ -26,7 +40,7 @@ module.exports = function(app) {
 
             var dateDelivery = req.param('receivedandreleaseDate');
             console.log(dateDelivery);
-            Customer.find({'_id': req.param('customer')}, function (error, customer) {
+            Customer.findById({'_id': req.param('customer')}, function (error, customer) {
                 var po = new Purchase_Order();
                 console.log(customer);
                 po.poNumber = req.param('poNumber');
@@ -95,15 +109,24 @@ module.exports = function(app) {
         if(sess.name){
             //req.param('proID')
             Product.findById(req.param('proID'), (err, product) => {
-                console.log('a a a a a : ' + product);
+
                 curr = 1;
-                if(sess.po.currency != product.currency){
-                    curr = 2;
+                if(sess.po.currency != product.final_cost.currency){
+
+                    utility.converter('USD', sess.po.currency,function (data) {
+                        curr = data;
+                        console.log(curr);
+                        res.send({
+                            product : product,
+                            exchangeRate : curr
+                        });
+                    });
+                }else{
+                    res.send({
+                        product : product,
+                        exchangeRate : 1
+                    });
                 }
-                res.send({
-                    product : product,
-                    exchangeRate : curr
-                });
             });
         }else {
             res.render('login',{title:'Login Page'});
