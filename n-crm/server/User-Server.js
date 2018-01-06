@@ -42,7 +42,7 @@ module.exports = function(app) {
                         done(err, token, user);
                     });
 
-                    console.log(user);
+                    //console.log(user);
                 });
             },
             function(token, user, done) {
@@ -80,6 +80,7 @@ module.exports = function(app) {
                 console.log(err);
             }else{
                 password = req.body.password;
+
                 if(user[0].password == password)
                 {
                     sess = req.session;

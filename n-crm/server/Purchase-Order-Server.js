@@ -43,6 +43,7 @@ module.exports = function(app) {
             Customer.findById({'_id': req.param('customer')}, function (error, customer) {
                 var po = new Purchase_Order();
                 console.log(customer);
+
                 po.poNumber = req.param('poNumber');
                 po.poName = req.param('poName');
 

@@ -1,0 +1,116 @@
+<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head><title><%= (typeof title != "undefined" ? title : "") %></title>
+    <%include ./layout/library.ejs%>
+</head>
+<body>
+<body class="skin-blue fixed sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+    <%include ./layout/header.ejs%>
+    <!-- =============================================== -->
+
+    <!-- Left side column. contains the sidebar -->
+    <%include ./layout/menu.ejs%>
+    <!-- =============================================== -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper" style="min-height: 265px;">
+        <!-- Content Header (Page header) -->
+
+        <!-- =============================================== -->
+        <div style="padding-top: 10px"></div>
+        <!-- Main content -->
+        <div class="col-xs-16">
+        <button  type="button" onclick="graphCustomer()" class="btn btn-primary btn-block btn-flat">Show Graph </button>
+
+        <div>
+            <section>
+                <script src="https://code.highcharts.com/highcharts.js"></script>
+                <script src="https://code.highcharts.com/modules/exporting.js"></script>
+            <div id="container"  style="min-width: 300px; height: 400px; margin: 0 auto"></div>
+            </section>
+
+        </div>
+    </div>
+
+        </section><!-- /.content -->
+    </div>
+
+    <!-- /.content-wrapper -->
+
+    <%include ./layout/footer.ejs%>
+</div>
+<!-- ./wrapper -->
+
+</body>
+<script>
+
+
+    var obj;
+    function graphCustomer () {
+        $.ajax({                     //Query for getting data from database
+            type: "get",
+            url: '/ajax/customer-order',
+            dataType: 'text',
+            success: function (response) {
+                obj = JSON.parse(response);          //recieve Data and convert into object
+
+               // console.log(obj);
+
+            Highcharts.chart('container', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Customer Orders'
+                },
+                subtitle: {
+                    text: 'Customers Purschased Products'
+                },
+                xAxis: {
+                    type: 'category',
+                    labels: {
+                        rotation: -45,
+                        style: {
+                            fontSize: '13px',
+                            fontFamily: 'Verdana, sans-serif'
+                        }
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Product Purchased Orders'
+                    }
+                },
+                legend: {
+                    enabled: false
+                },
+                tooltip: {
+                    pointFormat: 'Purchased Products'// <b>{point.y:.1f} millions</b>'
+                },
+                series: [{
+                    name: 'Population',
+                    data: obj,      // Insert received Data object into chart graph
+
+
+                    dataLabels: {
+                        enabled: true,
+                        rotation: -90,
+                        color: '#FFFFFF',
+                        align: 'right',
+                        format: '{point.y:.1f}', // one decimal
+                        y: 10, // 10 pixels down from the top
+                        style: {
+                            fontSize: '13px',
+                            fontFamily: 'Verdana, sans-serif'
+                        }
+                    }
+                }]
+            });
+            }
+        });
+    }
+</script>
+</body>
+</html>

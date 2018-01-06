@@ -1,0 +1,102 @@
+<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head><title><%= (typeof title != "undefined" ? title : "") %></title>
+    <%include ./layout/library.ejs%>
+</head>
+<body>
+<body class="skin-blue fixed sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+    <%include ./layout/header.ejs%>
+    <!-- =============================================== -->
+
+    <!-- Left side column. contains the sidebar -->
+    <%include ./layout/menu.ejs%>
+    <!-- =============================================== -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper" style="min-height: 265px;">
+        <!-- Content Header (Page header) -->
+
+        <!-- =============================================== -->
+        <div style="padding-top: 10px"></div>
+        <!-- Main content -->
+        <div class="col-xs-16">
+
+            <button  type="button" onclick="chartProduct()" class="btn btn-primary btn-block btn-flat">Products Sold Chart</button>
+
+            <section>
+                <script src="https://code.highcharts.com/highcharts.js"></script>
+                <script src="https://code.highcharts.com/modules/exporting.js"></script>
+                <div id="container1" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+            </section>
+        </div>
+    </div>
+
+    </section><!-- /.content -->
+</div>
+
+<!-- /.content-wrapper -->
+
+<%include ./layout/footer.ejs%>
+</div>
+<!-- ./wrapper -->
+
+</body>
+<script>
+//Generate Chart Graph
+    function chartProduct () {
+        $.ajax({                //Query for getting data from database
+            type: "get",
+            url: '/ajax/purchased-products',
+            dataType: 'text',
+            success: function (response) {
+                obj = JSON.parse(response);     //recieve Data and convert into object
+                console.log(obj[1].name);
+                var arr=[];
+                for (i in obj){
+                    arr.push(obj[i]);           //insert object data in array for ploting chart graph
+                    //console.log(arr);
+                }
+                console.log(arr);
+                Highcharts.chart('container1', {
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false,
+                        type: 'pie'
+                    },
+                    title: {
+                        text: 'Products Sold'
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: true,
+                                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                                style: {
+                                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                                }
+                            }
+                        }
+                    },
+                    series: [{
+                        name: 'Sold',
+                        colorByPoint: true,
+                        data:arr,           // Insert Array Data into chart graph
+
+                    }]
+                });
+            }
+        });
+
+    }
+
+
+</script>
+</body>
+</html>

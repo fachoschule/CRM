@@ -33,6 +33,8 @@ var supplier = require('./server/Supplier-Server')(app);
 var employee = require('./server/Employee')(app);
 var department = require('./server/Department')(app);
 var tasks =require('./server/tasks')(app);
+var customerorder = require('./server/Cutomer-Order')(app);
+
 const customerRoutes = require('./routes/customers')(app);
 const smsService = require('./server/sms-server')(app);
 const FCMnotification = require('./server/FCM-Notifications')(app);
@@ -53,5 +55,7 @@ io.on('connection', (socket) => {
         console.log('Disconnected');
     })
 });
+
+
 
 app.set('io', io);

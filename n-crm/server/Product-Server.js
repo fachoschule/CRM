@@ -55,9 +55,11 @@ module.exports = function(app) {
                     for(var i = 0; i < ex.length;i++){
 
                         ExternalCode.findById(ex[i], function (err, extproducts) {
+
                             extproducts.status = 1;
                             extproducts.save();
                         });
+
                     }
                     product.final_cost= {
                         cost: 0,
