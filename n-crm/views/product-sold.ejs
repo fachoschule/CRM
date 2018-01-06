@@ -43,18 +43,18 @@
 
 </body>
 <script>
-
+//Generate Chart Graph
     function chartProduct () {
-        $.ajax({
+        $.ajax({                //Query for getting data from database
             type: "get",
             url: '/ajax/purchased-products',
             dataType: 'text',
             success: function (response) {
-                obj = JSON.parse(response);
+                obj = JSON.parse(response);     //recieve Data and convert into object
                 console.log(obj[1].name);
                 var arr=[];
                 for (i in obj){
-                    arr.push(obj[i]);
+                    arr.push(obj[i]);           //insert object data in array for ploting chart graph
                     //console.log(arr);
                 }
                 console.log(arr);
@@ -87,7 +87,7 @@
                     series: [{
                         name: 'Sold',
                         colorByPoint: true,
-                        data:arr,
+                        data:arr,           // Insert Array Data into chart graph
 
                     }]
                 });

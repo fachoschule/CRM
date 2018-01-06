@@ -48,31 +48,14 @@
 
     var obj;
     function graphCustomer () {
-        $.ajax({
+        $.ajax({                     //Query for getting data from database
             type: "get",
             url: '/ajax/customer-order',
             dataType: 'text',
             success: function (response) {
-                obj = JSON.parse(response);
+                obj = JSON.parse(response);          //recieve Data and convert into object
 
-                console.log(obj);
-
-
-               // console.log(obj[3]['customer']['name']);
-
-
-
-
-
-            //console.log(pos);
-            // var temp = document.querySelector('#container');
-            //var testvalue= temp.dataset.value;
-            //console.log(testvalue)
-//        var zyx = JSON.parse(testvalue);
-            //console.log(typeof zyx);
-            // for(i=0;i<temp.length;i++) {
-            //    console.log(temp[i]);
-            // }
+               // console.log(obj);
 
             Highcharts.chart('container', {
                 chart: {
@@ -82,7 +65,7 @@
                     text: 'Customer Orders'
                 },
                 subtitle: {
-                    text: 'Customers Purschased Products' //'Source: <a href="http://en.wikipedia.org/wiki/List_of_cities_proper_by_population">Wikipedia</a>'
+                    text: 'Customers Purschased Products'
                 },
                 xAxis: {
                     type: 'category',
@@ -108,35 +91,8 @@
                 },
                 series: [{
                     name: 'Population',
-                    data: obj,
+                    data: obj,      // Insert received Data object into chart graph
 
-                      //  $.each(obj, function (index, value) {
-
-
-
-                     //   })
-
-                        /*        ['Shanghai', 23.7],
-                                ['Lagos', 16.1],
-                                ['Istanbul', 14.2],
-                                ['Karachi', 14.0],
-                                ['Mumbai', 12.5],
-                                ['Moscow', 12.1],
-                                ['São Paulo', 11.8],
-                                ['Beijing', 11.7],
-                                ['Guangzhou', 11.1],
-                                ['Delhi', 11.1],
-                                ['Shenzhen', 10.5],
-                                ['Seoul', 10.4],
-                                ['Jakarta', 10.0],
-                                ['Kinshasa', 9.3],
-                                ['Tianjin', 9.3],
-                                ['Tokyo', 9.0],
-                                ['Cairo', 8.9],
-                                ['Dhaka', 8.9],
-                                ['Mexico City', 8.9],
-                                ['Lima', 8.9]
-                                */
 
                     dataLabels: {
                         enabled: true,
