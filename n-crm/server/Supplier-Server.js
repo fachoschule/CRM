@@ -8,13 +8,28 @@ module.exports = function(app) {
         sess = req.session;
         res.render('supplier',{title:"Supplier", session: sess});
     });
-    app.get('/view_supplier',function(req,res){
+    app.get('/view_supplier/:page',function(req,res){
         sess = req.session;
+        var perPage = 9
+        var page = req.params.page || 1
+        if(sess.name) {
+            Supplier.find({}).skip((perPage * page) - perPage).limit(perPage)
+                .exec(function(err, result) {
+                    Supplier.count().exec(function(err, count) {
+                        if (err) return next(err)
+                        res.render('view_supplier', {
+                            title:"Supplier",
+                            session: sess,
+                            sened:result,
+                            current: page,
+                            pages: Math.ceil(count / perPage)
+                        })
+                    })
+                })
+        }else{
+            res.render('login',{title:'Login Page'});
+        }
 
-        connection.collection("suppliers").find({}).toArray(function(err, result) {
-            if (err) throw err;
-            res.render('view_supplier',{title:"View Supplier",sened:result , session: sess});
-        })
     });
 
     app.post('/insert-supplier', function (req, res, next) {
