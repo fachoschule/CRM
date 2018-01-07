@@ -3,17 +3,33 @@ module.exports = function(app) {
     var Supplier = require('../model/Suppliers');
     var connection = require('./config');
     var sess ;
+
     app.get('/supplier',function(req,res){
         sess = req.session;
         res.render('supplier',{title:"Supplier", session: sess});
     });
-    app.get('/view_supplier',function(req,res){
+    app.get('/view_supplier/:page',function(req,res){
         sess = req.session;
+        var perPage = 9
+        var page = req.params.page || 1
+        if(sess.name) {
+            Supplier.find({}).skip((perPage * page) - perPage).limit(perPage)
+                .exec(function(err, result) {
+                    Supplier.count().exec(function(err, count) {
+                        if (err) return next(err)
+                        res.render('view_supplier', {
+                            title:"Supplier",
+                            session: sess,
+                            sened:result,
+                            current: page,
+                            pages: Math.ceil(count / perPage)
+                        })
+                    })
+                })
+        }else{
+            res.render('login',{title:'Login Page'});
+        }
 
-        connection.collection("suppliers").find({}).toArray(function(err, result) {
-            if (err) throw err;
-            res.render('view_supplier',{title:"View Supplier",sened:result , session: sess});
-        })
     });
 
     app.post('/insert-supplier', function (req, res, next) {
@@ -21,7 +37,7 @@ module.exports = function(app) {
         supplier.supplier_id = "SUP_001";
         supplier.address = req.body.address;
         supplier.supplier_name = req.body.supplier_name;
-        supplier.telephone = req.body.telephone;
+        supplier.contact_phone = req.body.telephone;
         supplier.save(function (err) {
             if (err) {
                 console.log(err);
@@ -48,9 +64,11 @@ module.exports = function(app) {
         var myquery = {"_id": id};
         var newvalues = {telephone: telephone, address: address, supplier_name: supplier_name};
         // connection.collection('suppliers').update(myquery,newvalues);
-        Supplier.findById(id, function (err, res) {
-            res.set(newvalues);
-            res.save(function (err, res) {
+        Supplier.findById(id, function (err, supplier) {
+            supplier.contact_phone = telephone;
+            supplier.supplier_name = supplier_name;
+            supplier.address = address;
+            supplier.save(function (err, res) {
                 if (err) throw err;
 
             });

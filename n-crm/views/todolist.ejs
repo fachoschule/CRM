@@ -1,0 +1,220 @@
+<html>
+<head><title> ToDoList</title>
+    <% include layout/library.ejs %>
+</head>
+<body class="skin-blue fixed sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+    <% include layout/header.ejs %>
+    <!-- =============================================== -->
+
+    <!-- Left side column. contains the sidebar -->
+    <% include layout/menu.ejs %>
+    <!-- =============================================== -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper" style="min-height: 265px;">
+        <!-- Content Header (Page header) -->
+
+        <!-- =============================================== -->
+
+        <div style="padding-top: 10px"></div>
+        <!-- Main content -->
+        <section class="content">
+
+            <h1></h1>
+            <div class="row ">
+                <div class="col-md-1"></div>
+                <div class="col-md-9">
+                    <div class="box box-solid box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">To Do List</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <!-- form start -->
+                        <form action="/AddToDoList" method="post">
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label for="promotions">Title</label>
+                                    <input name="myInput" type="text" class="form-control " required="true"
+                                           id="myInput" placeholder=""/>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary btn-flat">ADD <i
+                                            class="fa fa-chevron-right"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </section><!-- /.content -->
+        <div>
+            <section class="content">
+                <div class="row">
+                    <div class="col-xs-14">
+                        <div class="box box-solid box-primary">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Yours To Do Lists</h3>
+
+                            </div><!-- /.box-header -->
+                            <div class="box-body">
+                                <table id="manage" class="table table-bordered table-stripped abc">
+                                    <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Name of Activity</th>
+                                    </tr>
+                                    <% if(todolist)
+                                    for (var i = 0; i < todolist.length; i++){
+                                    if(todolist[i].status == "remain"){  %>
+                                    <tr>
+                                        <td><%= i + 1 %></td>
+                                        <td><%= todolist[i].myInput %></td>
+                                        <div class="btn-group-vertical">
+
+                                        </div>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group-vertical">
+                                                <button type="button"
+                                                        onclick="promoRemove('<%= todolist[i]._id %>')"
+                                                        class="btn-link">Delete
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group-vertical">
+                                                <button type="button"
+                                                        onclick="Complete('<%= todolist[i]._id %>')"
+                                                        class="btn-link">complete
+                                                </button>
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                    <% }} %>
+                                    </thead>
+                                </table>
+                            </div><!-- /.box-body -->
+                        </div><!-- /.box -->
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </section><!-- /.content -->
+        </div>
+        <div>
+            <section class="content">
+                <div class="row">
+                    <div class="col-xs-14">
+                        <div class="box box-solid box-primary">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Yours Completed To Do Lists</h3>
+
+                            </div><!-- /.box-header -->
+                            <div class="box-body">
+                                <table id="manage" class="table table-bordered table-stripped abc">
+                                    <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <strike> <th>Name of Activity</th></strike>
+                                    </tr>
+                                    <% if(todolist)
+                                    for (var i = 0; i < todolist.length; i++){
+                                    if(todolist[i].status == "complete"){  %>
+                                    <tr>
+                                        <td><%= i + 1 %></td>
+                                        <strike> <td><strike><%= todolist[i].myInput %></strike></td></strike>
+                                        <div class="btn-group-vertical">
+
+                                        </div>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group-vertical">
+                                                <button type="button"
+                                                        onclick="promoRemove('<%= todolist[i]._id %>')"
+                                                        class="btn-link">Delete
+                                                </button>
+                                            </div>
+                                        </td>
+
+
+                                    </tr>
+                                    <% }} %>
+                                    </thead>
+                                </table>
+                            </div><!-- /.box-body -->
+                        </div><!-- /.box -->
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </section><!-- /.content -->
+        </div>
+    </div>
+
+    <!-- /.content-wrapper -->
+
+    <% include layout/footer.ejs %>
+    <!-- Message Sent Modal Structure -->
+
+    <script type="text/javascript">
+        function promoRemove (id) {
+                      $.ajax({
+                            type: "post",
+                            url: '/delete_todolist',
+                            dataType: 'text',
+                            data: {
+                                _id: id
+                            },
+                            success: function (response) {
+                                if (response == "OK") {
+                                    location.reload();
+                                } else if (response.toLowerCase().indexOf("400") >= 0) {
+                                    bootbox.alert(response);
+                                }
+                                else {
+                                    bootbox.alert("500: Not Successful ");
+                                }
+                            }
+                        });
+
+        }
+        function Complete(id) {
+            $.ajax({
+                type: "post",
+                url: '/Complete_todolist',
+                dataType: 'text',
+                data: {
+                    _id: id
+                },
+                success: function (response) {
+                    if (response == "OK") {
+                        location.reload();
+                    } else if (response.toLowerCase().indexOf("400") >= 0) {
+                        bootbox.alert(response);
+                    }
+                    else {
+                        bootbox.alert("500: Not Successful ");
+                    }
+                }
+            });
+
+        }
+
+
+    </script>
+    <!--// <div id="modal1" class="modal modal-fixed-footer thank-you-modal">-->
+    <!--<div class="modal-content">-->
+    <!--<h4>Thank you!</h4>-->
+    <!--<p>Your email has been sent. I'll get back to you shortly.</p>-->
+    <!--</div>-->
+    <!--<div class="modal-footer">-->
+    <!--<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>-->
+    <!--</div>-->
+    <!--</div>//-->
+
+</div>
+<!-- ./wrapper -->
+
+</body>
+</html>

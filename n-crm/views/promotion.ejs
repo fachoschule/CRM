@@ -1,0 +1,68 @@
+<html>
+<head></title>
+    <%include layout/library.ejs%>
+</head>
+<body class="skin-blue fixed sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+    <%include layout/header.ejs%>
+    <!-- =============================================== -->
+
+    <!-- Left side column. contains the sidebar -->
+    <%include layout/menu.ejs%>
+    <!-- =============================================== -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper" style="min-height: 265px;">
+        <!-- Content Header (Page header) -->
+
+        <!-- =============================================== -->
+
+        <div style="padding-top: 10px"></div>
+        <!-- Main content -->
+        <section class="content">
+
+            <h1></h1>
+            <div class="row ">
+                <div class="col-md-1"></div>
+                <div class="col-md-9">
+                    <div class="box box-solid box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">CREATE NEW PROMOTION</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <!-- form start -->
+                        <form action="/createNewPromotion" method="post">
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label for="promotions">Promotions code</label>
+                                    <input name="promotionCode" type="text" class="form-control " required="true" id="promotionCode" placeholder=""/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="promotionName">Promotion Name</label>
+                                    <input name="promotionName" type="text" class="form-control " required="true" id="promotionName" placeholder="Name of Promotion"/>
+                                </div>
+                                <!--<div class="form-group">-->
+                                    <!--<label for="promotionImage">Promotion Image</label>-->
+                                    <!--<input name="promotionImage" type="file" class="form-control" accept=".image/png, .jpgx" id="promotionImage"/>-->
+                                   <!--</div>-->
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary btn-flat">ADDING NEW PROMOTION <i class="fa fa-chevron-right"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </section><!-- /.content -->
+    </div>
+
+    <!-- /.content-wrapper -->
+
+    <%include layout/footer.ejs%>
+</div>
+<!-- ./wrapper -->
+
+</body>
+</html>

@@ -4,6 +4,7 @@ var Brand = require ('../model/Product_Brand');
 var ProType = require ('../model/Product_Type');
 var ProSupp = require ('../model/Product_Supplier');
 var ExternalCode = require ('../model/External_Product_Code');
+var utility = require('../server/Utility');
 var multer = require('multer');
 var fs = require('fs');
 
@@ -49,20 +50,8 @@ module.exports = function(app) {
                         type_id: req.param('typeID'),
                         type_name: req.param('typeName')
                     };
-                    var ex = req.param('externalCode');
-                    for(var i = 0; i < ex.length;i++){
-                        var ext ;
-                        ExternalCode.findById(ex[i], function (err, extproducts) {
-                            ext = {
-                                code: extproducts._id,
-                                code_name: extproducts.external_product_id,
-                                customer: extproducts.customer.id
-                            }
-                            console.log(ext);
-                        });
-                        console.log(ext);
-                        product.external_codes.push(ext);
-                    }
+
+                    product.external_codes = req.param('externalCode');
                     product.final_cost= {
                         cost: 0,
                         currency: ""
@@ -73,19 +62,35 @@ module.exports = function(app) {
                             return;
                         } else {
                             if (req.param('knowSupplier') != 'on') {
-                               // console.log('kinds = 1');
                                 Product.find({}, function (err, products) {
                                     if (err) {
                                         console.log(err);
                                     } else {
-                                        res.render('list_products', {
-                                            products: products,
-                                            session: sess
-                                        });
+                                        var ex =req.param('externalCode');
+                                        var ext = new Array();
+                                        ext.push(ex);
+                                            for (var cp in ext) {
+                                                //console.log(ext[cp]);
+                                                ExternalCode.findById(ext[cp], function (errors, extproducts) {
+                                                    extproducts.status = 1;
+                                                    extproducts.save();
+                                                });
+                                            }
+
+                                        res.redirect('/list-product/:page');
                                     }
                                 });
                             } else {
-                               // console.log('kinds = 2');
+                                var ex =req.param('externalCode');
+                                var ext = new Array();
+                                ext.push(ex);
+                                for (var cp in ext) {
+                                   // console.log(ext[cp]);
+                                    ExternalCode.findById(ext[cp], function (errors, extproducts) {
+                                        extproducts.status = 1;
+                                        extproducts.save();
+                                    });
+                                }
                                 sess.product = product;
                                 res.redirect('/product/redirect-adding-suppliers-for-product');
                             }
@@ -111,7 +116,7 @@ module.exports = function(app) {
         sess = req.session;
         if(sess.name) {
             sess.product = null;
-            res.send({redirect: '/list-product'});
+            res.send({redirect: '/list-product/:page'});
         }else{
             res.render('login',{title:'Login Page'});
         }
@@ -124,15 +129,12 @@ module.exports = function(app) {
             var supplierID = req.param('supplierID');
             var suppName = req.param('supplierName');
             let proSupp = new ProSupp();
-            console.log('test first: '+ suppName);
             if(suppName == '' || suppName == null || typeof suppName == 'undefined'){
                // console.log('here');
                 Supplier.find({'_id': supplierID}, function (err, supp) {
-                    console.log('here' + supp);
                     suppName = supp.supplier_name;
                 })
             }
-            console.log('test then: '+ suppName);
             proSupp.supplier = {
                 id : supplierID,
                 name : suppName
@@ -143,13 +145,19 @@ module.exports = function(app) {
             };
             proSupp.costPerItem = costItem;
             proSupp.currency = currency;
-            proSupp.standardPrice = 0.000;
+            utility.decoratedConverter(currency,'EUR',function (result) {
+               // proSupp.standardPrice = result * costItem;
+                if(currency == 'EUR'){
+                    proSupp.standardPrice =  costItem;
+                }else{
+                    proSupp.standardPrice =  costItem * result;
+                }
+           // proSupp.standardPrice =  costItem;
             proSupp.save(function (err, proSupp) {
                 if (err) {
                     res.status(500).send(err)
                 }
                 ProSupp.find({'product.id' : sess.product._id}, function (err, suppliers) {
-                    console.log(suppliers);
                     res.status(200).send({
                         suppliers: suppliers
                     });
@@ -157,6 +165,7 @@ module.exports = function(app) {
 
             });
             sess.suppliers = supplierID;
+            });
         }
         else {
             res.render('login',{title:'Login Page'});
@@ -195,20 +204,32 @@ module.exports = function(app) {
             res.render('login',{title:'Login Page'});
         }
     });
-    app.get('/list-product',function(req,res){
+    app.get('/product/ajax/load-supplier-information', function (req, res) {
         sess = req.session;
         if(sess.name) {
-            Product.find({}, function (err, products){
+            Supplier.findById({'_id': req.param('supplierID')}, function (err, supplier) {
+                res.send({supplier: supplier});
+            })
+        }else{
+            res.render('login',{title:'Login Page'});
+        }
+    })
+    app.get('/list-product/:page',function(req,res){
+        sess = req.session;
+        var perPage = 7;
+        var page = req.params.page || 1;
+        if(sess.name) {
+            Product.find({}).skip((perPage * page) - perPage).limit(perPage).exec(function (err, products){
                 if(err){
                     console.log(err);
                 }else{
-                    console.log(products);
-                    products.forEach(function (p) {
-                        console.log(p.description);
-                    });
-                    res.render('list_products',{
-                        products: products,
-                        session: sess
+                    Product.count().exec(function(err, count) {
+                        res.render('list_products', {
+                            products: products,
+                            session: sess,
+                            current: page,
+                            pages: Math.ceil(count / perPage)
+                        });
                     });
                 }
             });

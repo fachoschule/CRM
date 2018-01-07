@@ -27,11 +27,9 @@ let crmSchema = mongoose.Schema({
         cost: Number,
         currency: String
     },
-    external_codes: [{
-        code : String,
-        code_name: String,
-        customer : String
-    }],
+    external_codes:{
+        type: String
+    },
     description:{
         type: String,
         //required: true

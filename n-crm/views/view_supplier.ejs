@@ -42,7 +42,7 @@
                         <tr>
                             <td id="supplier_name<%= sened[i]._id %>"><%= sened[i].supplier_name %></td>
                             <td id="address<%= sened[i]._id %>"><%= sened[i].address %></td>
-                            <td id="telephone<%= sened[i]._id %>"><%= sened[i].telephone %></td>
+                            <td id="telephone<%= sened[i]._id %>"><%= sened[i].contact_phone %></td>
                             <td>
                                 <input type='button' class="edit_button btn btn-primary"
                                        id="edit_button<%= sened[i]._id %>" value="edit"
@@ -57,7 +57,36 @@
                         </tr>
                         <% } %>
                         </tbody>
+
                     </table>
+                    <% if (pages > 0) { %>
+                    <ul class="pagination text-center">
+                        <% if (current == 1) { %>
+                        <li class="disabled"><a>First</a></li>
+                        <% } else { %>
+                        <li><a href="/view_supplier/1">First</a></li>
+                        <% } %>
+                        <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+                        <% if (i !== 1) { %>
+                        <li class="disabled"><a>...</a></li>
+                        <% } %>
+                        <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+                        <% if (i == current) { %>
+                        <li class="active"><a><%= i %></a></li>
+                        <% } else { %>
+                        <li><a href="/view_supplier/<%= i %>"><%= i %></a></li>
+                        <% } %>
+                        <% if (i == Number(current) + 4 && i < pages) { %>
+                        <li class="disabled"><a>...</a></li>
+                        <% } %>
+                        <% } %>
+                        <% if (current == pages) { %>
+                        <li class="disabled"><a>Last</a></li>
+                        <% } else { %>
+                        <li><a href="/view_supplier/<%= pages %>">Last</a></li>
+                        <% } %>
+                    </ul>
+                    <% } %>
                 </div>
             </div>
 
@@ -65,19 +94,15 @@
     </div>
     <script>
         function edit_row(id) {
-
             var telephone = document.getElementById("telephone" + id).innerHTML;
             var supplier_name = document.getElementById("supplier_name" + id).innerHTML;
             var address = document.getElementById("address" + id).innerHTML;
-
             document.getElementById("telephone" + id).innerHTML = "<input type='text' id='telephone_text" + id + "' value='" + telephone + "'>";
             document.getElementById("supplier_name" + id).innerHTML = "<input type='text' id='supplier_name_text" + id + "' value='" + supplier_name + "'>";
             document.getElementById("address" + id).innerHTML = "<input type='text' id='address_text" + id + "' value='" + address + "'>";
-
             document.getElementById("edit_button" + id).style.display = "none";
             document.getElementById("save_button" + id).style.display = "inline";
         }
-
         function delete_row(id) {
             $.post('/delete', { identification :id});
             location.reload();
@@ -91,12 +116,11 @@
             document.getElementById("save_button" + id).style.display = "none";
             location.reload();
         }
-
-        </script>
+    </script>
     <!-- /.content-wrapper -->
     <script>
         $(function () {
-            $('#example2').dynatable({
+            $('#example2').DataTable({
                 "paging": true,
                 "lengthChange": true,
                 "searching": false,
