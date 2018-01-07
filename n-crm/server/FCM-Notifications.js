@@ -29,7 +29,7 @@ module.exports = function(app) {
         databaseURL: "https://ecrm-fh-kiel.firebaseio.com"
     });
 // This registration token comes from the client FCM SDKs.
-    var registrationToken = "e7nfxKa0fck:APA91bEawrneFWSn7G6y75tjNz2LuasdyyDOs7mcctfc_qH75n-rQvw9m6NHO4kgVL_blIB1Wpqkj7Xib_zDyvvjw2YlqdmomKlP2nJhkXCnZ00Hc_iirhFt0LNZko8TeQjg-wIBiS4K";
+    var registrationToken = "duK5r1yuYSY:APA91bFIOhQ73YZ3rihJ8Qw764eRi15sftbNn5zccQYPQ_yA4Nbx9ZqhVyp8mfHLuntLa-bWcvmsvrTjosr_gNBNS-9sDXzVarbOAQ1FNk0Nc34GH7XnsOHyQ6hmsECooSSoh3Iboiz0";
 
 // Defining the message payload
     var payload = {
