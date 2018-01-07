@@ -1,0 +1,136 @@
+<html>
+<head></title>
+    <%include layout/library.ejs%>
+</head>
+<body class="skin-blue fixed sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+    <%include layout/header.ejs%>
+    <!-- =============================================== -->
+
+    <!-- Left side column. contains the sidebar -->
+    <%include layout/menu.ejs%>
+    <!-- =============================================== -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper" style="min-height: 265px;">
+        <!-- Content Header (Page header) -->
+
+        <!-- =============================================== -->
+
+        <div style="padding-top: 10px"></div>
+        <!-- Main content -->
+        <section class="content">
+
+            <h1></h1>
+            <div class="row ">
+                <div class="col-md-1"></div>
+                <div class="col-md-9">
+                    <div class="box box-solid box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">FILE A COMPLAINT</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <!-- form start -->
+                        <form action="/SendEail" method="post">
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label for="fileacomplaint">Full Name</label>
+                                    <input name="Fullname" type="text" class="form-control " required="true" id="Fullname" placeholder=""/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="fileacomplaint">Employee ID</label>
+                                    <input name="EmpID" type="text" class="form-control " required="true" id="EmpID" placeholder=""/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="promotions">Phone</label>
+                                    <input name="Phone" type="number" class="form-control " required="true" id="Phone" placeholder=""/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="promotions">Email</label>
+                                    <input name="Email" type="text" class="form-control " required="true" id="Email" placeholder=""/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="promotionName">Department</label>
+                                    <select name="Dept" class="form-control " required="true" id="Dept" placeholder="Choose the department">
+                                        <option value="products">Products</option>
+                                        <option value="sales">Sales</option>
+                                        <option value="promotions">Promotions</option>
+                                        <option value="suppliers" selected>Suppliers</option>
+                                        <option value="others" selected>Others</option>
+                                    </select>
+                                </div>
+                                <fieldset>
+                                    <legend>Complaint details:</legend>
+                                <div class="form-group">
+                                    <label for="promotionName">Nature of the Complaint </label>
+                                    <select name="Naturecomp" class="form-control " required="true" id="Naturecomp" placeholder="Choose the complaint type">
+                                        <option value="technical">Technical problem</option>
+                                        <option value="service">Service level</option>
+                                        <option value="personal">Personal</option>
+                                        <option value="others" selected>Others</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="promotions">Date Event Took Place </label>
+                                    <input name="Date" type="date" class="form-control " required="true" id="Date" placeholder=""/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="promotions">Date You Noticed the Problem </label>
+                                    <input name="Date1" type="date" class="form-control " required="true" id="Date1" placeholder=""/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="promotionName">Summary of Complaint</label>
+                                    <textarea name="Message" type="text" class="form-control " required="true" id="promotionName" placeholder="Name of Promotion">
+                                    </textarea>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary btn-flat">Send Email <i class="fa fa-chevron-right"></i></button>
+                            </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </section><!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <%include layout/footer.ejs%>
+
+    <script>
+        $("#SendEail").submit(function(e){
+            //preventDefault();
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '/SendEail',
+                data: $('#SendEail').serialize(),
+                success: function () {
+                    // alert('form was submitted');
+                    bootbox.alert('Mail Sent successfully');
+
+                }
+            });
+            // alert("Submitted");
+        });
+    </script>
+    <!-- Message Sent Modal Structure -->
+    <!--<div id="modal1" class="modal modal-fixed-footer thank-you-modal">-->
+        <!--<div class="modal-content">-->
+            <!--<h4>Thank you!</h4>-->
+            <!--<p>Your complaint has been sent. I'll get back to you shortly.</p>-->
+        <!--</div>-->
+        <!--<div class="modal-footer">-->
+            <!--<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+<!--&lt;!&ndash; ./wrapper &ndash;&gt;-->
+
+</body>
+</html>

@@ -1,0 +1,112 @@
+<html>
+<head></title>
+    <%include layout/library.ejs%>
+</head>
+<body class="skin-blue fixed sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+    <%include layout/header.ejs%>
+    <!-- =============================================== -->
+
+    <!-- Left side column. contains the sidebar -->
+    <%include layout/menu.ejs%>
+    <!-- =============================================== -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper" style="min-height: 265px;">
+        <!-- Content Header (Page header) -->
+
+        <!-- =============================================== -->
+
+        <div style="padding-top: 10px"></div>
+        <!-- Main content -->
+        <section class="content">
+
+            <h1></h1>
+            <div class="row ">
+                <div class="col-md-1"></div>
+                <div class="col-md-9">
+                    <div class="box box-solid box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">FEEDBACK</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <!-- form start -->
+                        <form id="sendEmail">
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label for="promotions">Email</label>
+                                    <input name="Email" type="text" class="form-control " required="true" id="promotionCode" placeholder=""/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="promotionName">Subject</label>
+                                    <input name="Subject" type="text" class="form-control " required="true" id="promotionName" placeholder="subject"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="promotionName">Message</label>
+                                    <textarea name="Message" type="text" class="form-control " required="true" id="promotionName" placeholder="Name of Promotion">
+                                    </textarea>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit"  class="btn btn-primary btn-flat">Send Email <i class="fa fa-chevron-right"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </section><!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <%include layout/footer.ejs%>
+    <!-- Message Sent Modal Structure -->
+
+    <script>
+      function Send_Email(){
+             $.ajax({
+                type: 'POST',
+                url: '/Send Email ',
+                data: $('#Send Email ').serialize(),
+                success: function (info) {
+                    // alert('form was submitted');
+                    bootbox.alert(info);
+
+                }
+            });
+            // alert("Submitted");
+
+      }
+    </script>
+   <!--// <div id="modal1" class="modal modal-fixed-footer thank-you-modal">-->
+        <!--<div class="modal-content">-->
+            <!--<h4>Thank you!</h4>-->
+            <!--<p>Your email has been sent. I'll get back to you shortly.</p>-->
+        <!--</div>-->
+        <!--<div class="modal-footer">-->
+            <!--<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>-->
+        <!--</div>-->
+    <!--</div>//-->
+
+</div>
+<!-- ./wrapper -->
+<script>
+    $("#sendEmail").submit(function(e){
+        //preventDefault();
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: '/SendEmail',
+            data: $('#sendEmail').serialize(),
+            success: function () {
+                // alert('form was submitted');
+                bootbox.alert('Mail Sent successfully');
+
+            }
+        });
+        // alert("Submitted");
+    });
+</script>
+</body>
+</html>

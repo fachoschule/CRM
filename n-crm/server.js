@@ -34,6 +34,9 @@ var employee = require('./server/Employee')(app);
 var department = require('./server/Department')(app);
 var tasks =require('./server/tasks')(app);
 var promotion = require('./server/Promotion')(app);
+var contactform = require('./server/contactform')(app);
+var todolist = require('./server/todolist')(app);
+var fileacomplaint = require('./server/fileacomplaint')(app);
 var customerorder = require('./server/Cutomer-Order')(app);
 
 const customerRoutes = require('./routes/customers')(app);
