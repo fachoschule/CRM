@@ -40,6 +40,8 @@ module.exports = function(app) {
 
             var dateDelivery = req.param('receivedandreleaseDate');
             console.log(dateDelivery);
+            var dateDes = dateDelivery.split("-");
+            console.log(dateDes[1]);
             Customer.findById({'_id': req.param('customer')}, function (error, customer) {
                 var po = new Purchase_Order();
                 console.log(customer);
@@ -51,6 +53,7 @@ module.exports = function(app) {
                 po.deliveryTo = req.param('deliveryTo');
                 po.description = req.param('note');
                 po.createdDate = new Date();
+                po.deliveryDate = new Date(dateDes[1]);
                 po.customer = {
                     id: req.param('customer'),
                     name: customer.last_name
@@ -112,9 +115,10 @@ module.exports = function(app) {
             Product.findById(req.param('proID'), (err, product) => {
 
                 curr = 1;
+                console.log(sess.po.currency );
                 if(sess.po.currency != product.final_cost.currency){
 
-                    utility.converter('USD', sess.po.currency,function (data) {
+                    utility.decoratedConverter('USD', sess.po.currency,function (data) {
                         curr = data;
                         console.log(curr);
                         res.send({
@@ -147,7 +151,7 @@ module.exports = function(app) {
                 po.totalAfterVAT = totalAfter;
                 po.save();
                 sess.po = null;
-                res.send({redirect: '/purchase-order/list'});
+                res.send({redirect: '/purchase-order-list/:page'});
             });
         }else{
             res.render('login',{title:'Login Page'});
@@ -165,6 +169,7 @@ module.exports = function(app) {
                         res.render('list_purchase_orders', {
                             session: sess,
                             pos: pos,
+                            utility: utility,
                             current: page,
                             pages: Math.ceil(count / perPage)
                         })
@@ -185,6 +190,7 @@ module.exports = function(app) {
                     res.render('view_purchase_order', {
                         po: po,
                         session: sess,
+                        utility : utility,
                         customer: cu
                     });
                 });

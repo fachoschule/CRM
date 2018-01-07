@@ -8,14 +8,14 @@ var sess ;
 module.exports = function(app) {
     // Load Home page
     app.get('/',function(req,res){
-                res.render('login',{title:'login page'});
+        res.render('login',{title:'login page'});
     });
     //Redirect Forgot password page
     app.get('/forgot_password', function (req,res) {
         res.render('forgot_password',{title:'Forgot Password Page'});
     })
     app.post('/forgot_password', function (req, res) {
-       var to = 'maihathi.92@gmail.com';
+       var to = req.param('email');
         async.waterfall([
             function(done) {
                 crypto.randomBytes(20, function(err, buf) {
@@ -49,13 +49,13 @@ module.exports = function(app) {
                 var smtpTransport = nodemailer.createTransport({
                     service: 'Gmail',
                     auth: {
-                        user: 'maihathi.92@gmail.com',
-                        pass: ''
+                        user: 'Ecrmjs@gmail.com',
+                        pass: 'adminadmin123'
                     }
                 });
                 var mailOptions = {
                     to: to,
-                    from: 'ha.t.mai@student.fh-kiel.com',
+                    from: 'Ecrmjs@gmail.com',
                     subject: 'ECRM is reset password',
                     text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
                     'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
@@ -74,10 +74,10 @@ module.exports = function(app) {
     })
 // Load Home page
     app.post('/login/checkAuthentication',function(req,res){
-        console.log(req.body.email);
+
         Employee.find({"username": req.body.email}, function (err, user){
             if(err){
-                console.log(err);
+                res.render('login',{title:'Home Page'});
             }else{
                 password = req.body.password;
 
@@ -90,11 +90,13 @@ module.exports = function(app) {
                     res.redirect('/new-feed-general');
                    // console.log('success');
                 }else{
-                    console.log('fail login');
+                   // console.log('fail login');
                     res.render('login',{title:'Home Page'});
                 }
             }
+
         });
+
        // res.render('add_product');
     });
     app.get('/logout', function (req,res) {
@@ -137,15 +139,15 @@ module.exports = function(app) {
                 var smtpTransport = nodemailer.createTransport({
                     service: 'Gmail',
                     auth: {
-                        user: 'maihathi.92@gmail.com',
-                        pass: ''
+                        user: 'Ecrmjs@gmail.com',
+                        pass: 'adminadmin123'
                     }
                 });
                 var mailOptions = {
-                    to: 'maihathi.92@gmail.com',
-                    from: 'maihathi.92@gmail.com',
+                    to: user.username,
+                    from: 'Ecrmjs@gmail.com',
                     subject: 'Your password has been changed',
-                    text: 'Hello,\n\n' +
+                    text: 'Dear customer,\n\n' +
                     'This is a confirmation that the password for your account ' + user.username + ' has just been changed.\n'
                 };
                 smtpTransport.sendMail(mailOptions, function(err) {
