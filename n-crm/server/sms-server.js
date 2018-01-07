@@ -7,7 +7,7 @@ const nexmo = new Nexmo({
 }, {debug:true
 });
 
-//here was get single customer
+
 module.exports = function(app) {
 // send sms
     app.get('/sms', (req, res) => {

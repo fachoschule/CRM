@@ -75,7 +75,7 @@
 
 
                 // Callback fired if Instance ID token is updated.
-                /*messaging.onTokenRefresh(function() {
+                messaging.onTokenRefresh(function() {
                     messaging.getToken()
                         .then(function(refreshedToken) {
                             console.log('Token refreshed.');
@@ -90,11 +90,12 @@
                             console.log('Unable to retrieve refreshed token ', err);
                             showToken('Unable to retrieve refreshed token ', err);
                         });
-                });*/
+                });
                 // get message
                 messaging.onMessage(function(payload) {
                     console.log("Message received. ", payload);
-                    // ...
+                    //alert ('message Received'+payload);
+
                 });
                 function sendTokenToServer(currentToken){
                     $.ajax({
@@ -109,19 +110,7 @@
                         }
                     });
                 }
-                /*function sendTokenToServer(refreshedToken){
-                    $.ajax({
-                        type: "post",
-                        url: '/send-token-to-server',
-                        dataType: 'text',
-                        data: {
-                            currentToken: refreshedToken
-                        },
-                        success: function (response) {
 
-                        }
-                    });
-                }*/
             </script>
 
         </section><!-- /.content -->
