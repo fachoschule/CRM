@@ -6,22 +6,16 @@ let sess;
 module.exports = function(app) {
     app.get('/firebase', function (req ,res) {
         sess = req.session;
-        if (sess.name) {
         res.render('firebase-clientview', {session:sess});
         //console.log(tokenToServer);
-        }
-        else
-        {
-            res.render('login', {title: 'Login Page'});
-        }
-    })
+    });
     app.post('/send-token-to-server',function (req, res) {
         var currentToken = req.param('currentToken');
         console.log(currentToken);
         sess = req.session;
         res.render('firebase-clientview',{session:sess});
 
-    })
+    });
 
 
     admin.initializeApp({
@@ -29,7 +23,7 @@ module.exports = function(app) {
         databaseURL: "https://ecrm-fh-kiel.firebaseio.com"
     });
 // This registration token comes from the client FCM SDKs.
-    var registrationToken = "duK5r1yuYSY:APA91bFIOhQ73YZ3rihJ8Qw764eRi15sftbNn5zccQYPQ_yA4Nbx9ZqhVyp8mfHLuntLa-bWcvmsvrTjosr_gNBNS-9sDXzVarbOAQ1FNk0Nc34GH7XnsOHyQ6hmsECooSSoh3Iboiz0";
+    var registrationToken = "csDfzjm0re8:APA91bFZ_bXG41mdLVIfLeImwQboQ3oFyXTKFshwBaGueCNXuBOO4SXHhe-kjq4K1oqPXLX3yGAHRnkinsKIJZqTr8M8pgJEMDKjygIxPJZAFP5GqjzF13o2-zVS6jw2UNXZTuENbI0b";
 
 // Defining the message payload
     var payload = {
