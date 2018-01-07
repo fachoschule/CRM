@@ -6,8 +6,14 @@ let sess;
 module.exports = function(app) {
     app.get('/firebase', function (req ,res) {
         sess = req.session;
+        if (sess.name) {
         res.render('firebase-clientview', {session:sess});
         //console.log(tokenToServer);
+        }
+        else
+        {
+            res.render('login', {title: 'Login Page'});
+        }
     })
     app.post('/send-token-to-server',function (req, res) {
         var currentToken = req.param('currentToken');

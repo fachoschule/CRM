@@ -8,6 +8,7 @@ module.exports = function(app) {
 // Customers Route
     app.get('/customers', function (req, res){
         sess = req.session;
+        if (sess.name) {
         Customers.find({}, function (err, customers){
             if(err){
                 console.log(err);
@@ -19,6 +20,11 @@ module.exports = function(app) {
                 });
             }
         });
+        }
+        else
+        {
+            res.render('login', {title: 'Login Page'});
+        }
     });
 // Add Customer Route
     app.get('/add-customer', function (req, res) {

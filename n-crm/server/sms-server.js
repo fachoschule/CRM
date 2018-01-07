@@ -12,10 +12,16 @@ module.exports = function(app) {
 // send sms
     app.get('/sms', (req, res) => {
         sess = req.session;
+        if (sess.name) {
         res.render('sms',{
             title: 'send SMS',
             session: sess
         });
+    }
+else
+    {
+        res.render('login', {title: 'Login Page'});
+    }
     });
 //  catch sms submit
     app.post('/sms', (req, res) =>{
