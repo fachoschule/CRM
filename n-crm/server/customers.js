@@ -2,13 +2,13 @@
 let Customers = require('../model/Customer');
 var sess ;
 
-//here was get single customer
+// get single customer
 module.exports = function(app) {
 
 // Customers Route
     app.get('/customers', function (req, res){
         sess = req.session;
-        console.log('customer here');
+        if (sess.name) {
         Customers.find({}, function (err, customers){
             if(err){
                 console.log(err);
@@ -20,6 +20,11 @@ module.exports = function(app) {
                 });
             }
         });
+        }
+        else
+        {
+            res.render('login', {title: 'Login Page'});
+        }
     });
 // Add Customer Route
     app.get('/add-customer', function (req, res) {
@@ -32,7 +37,6 @@ module.exports = function(app) {
 
 // Add Submit POST Route
     app.post('/addCustomer', function (req, res) {
-        console.log("Before adding");
 
         let customer = new Customers();
         customer.last_name = req.body.last_name;
@@ -80,7 +84,6 @@ module.exports = function(app) {
                 res.status(500).send(err);
             } else {
                 // Update each attribute with any possible attribute that may have been submitted in the body of the request
-                // If that attribute isn't in the request body, default back to whatever it was before.
                 customer.last_name = req.param('last_name');
                 customer.first_name = req.param('first_name');
                 customer.email = req.param('email');
@@ -109,7 +112,6 @@ module.exports = function(app) {
                 console.log(err);
                 res.send('500');
             }
-            console.log("delete");
             res.send('OK');
         });
 

@@ -1,3 +1,4 @@
+//this file contains the functions that send the phone number of the customer to the NEXmo api for sending SMS
 const numberInput = document.getElementById('number'),
     textInput =document.getElementById('msg'),
     button =document.getElementById('btn'),
