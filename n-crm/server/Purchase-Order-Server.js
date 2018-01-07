@@ -39,13 +39,10 @@ module.exports = function(app) {
         if(sess.name) {
 
             var dateDelivery = req.param('receivedandreleaseDate');
-            console.log(dateDelivery);
             var dateDes = dateDelivery.split("-");
-            console.log(dateDes[1]);
+
             Customer.findById({'_id': req.param('customer')}, function (error, customer) {
                 var po = new Purchase_Order();
-                console.log(customer);
-
                 po.poNumber = req.param('poNumber');
                 po.poName = req.param('poName');
 
@@ -60,7 +57,8 @@ module.exports = function(app) {
                 };
                 po.save();
                 sess.po = po;
-                Product.find({}, function (err, products) {
+                var k = 0;
+                Product.find({'final_cost.cost': {'$ne':k+''}}, function (err, products) {
                     res.render('add_products_to_PO',{
                         title:'Add Products into New Purchase Order',
                         products: products,
@@ -97,8 +95,6 @@ module.exports = function(app) {
                         res.status(500).send(err)
                     }
                     sess.po = po;
-                    console.log(po);
-                    console.log('session: ' + sess.po);
                     res.status(200).send({
                         products : po.products
                     });
@@ -115,12 +111,11 @@ module.exports = function(app) {
             Product.findById(req.param('proID'), (err, product) => {
 
                 curr = 1;
-                console.log(sess.po.currency );
+
                 if(sess.po.currency != product.final_cost.currency){
 
                     utility.decoratedConverter('USD', sess.po.currency,function (data) {
                         curr = data;
-                        console.log(curr);
                         res.send({
                             product : product,
                             exchangeRate : curr
@@ -183,9 +178,7 @@ module.exports = function(app) {
         sess = req.session;
         if(sess.name) {
             var poID = req.param('poID');
-            console.log(poID);
             Purchase_Order.findById(poID, (err, po) => {
-                console.log('test print'+ po);
                 Customer.findById(po.customer.id, (err, cu) => {
                     res.render('view_purchase_order', {
                         po: po,

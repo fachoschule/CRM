@@ -216,7 +216,7 @@ module.exports = function(app) {
     })
     app.get('/list-product/:page',function(req,res){
         sess = req.session;
-        var perPage = 7;
+        var perPage = 5;
         var page = req.params.page || 1;
         if(sess.name) {
             Product.find({}).skip((perPage * page) - perPage).limit(perPage).exec(function (err, products){

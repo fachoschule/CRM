@@ -58,7 +58,6 @@ module.exports = function (app) {
     });
     app.post('/gettitle', function (req, res, next) {
         var task = req.body.title;
-        console.log(task);
         connection.collection("tasks").find({'title':new RegExp(task,'i')}).toArray(function (error , taskdb) {
             if(error) throw error;
 

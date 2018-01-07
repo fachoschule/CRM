@@ -16,35 +16,40 @@ module.exports = function(app) {
 
     })
 
-
-    admin.initializeApp({
-        credential: admin.credential.cert(serviceAccount),
-        databaseURL: "https://ecrm-fh-kiel.firebaseio.com"
-    });
+    app.get('/call-notification', function (req, res) {
+        if(admin.apps.length == 0) {
+            admin.initializeApp({
+                credential: admin.credential.cert(serviceAccount),
+                databaseURL: "https://ecrm-fh-kiel.firebaseio.com"
+            });
+        }
 // This registration token comes from the client FCM SDKs.
-    var registrationToken = "e7nfxKa0fck:APA91bEawrneFWSn7G6y75tjNz2LuasdyyDOs7mcctfc_qH75n-rQvw9m6NHO4kgVL_blIB1Wpqkj7Xib_zDyvvjw2YlqdmomKlP2nJhkXCnZ00Hc_iirhFt0LNZko8TeQjg-wIBiS4K";
+        var registrationToken = "csDfzjm0re8:APA91bFZ_bXG41mdLVIfLeImwQboQ3oFyXTKFshwBaGueCNXuBOO4SXHhe-kjq4K1oqPXLX3yGAHRnkinsKIJZqTr8M8pgJEMDKjygIxPJZAFP5GqjzF13o2-zVS6jw2UNXZTuENbI0b";
 
 // See the "Defining the message payload" section below for details
 // on how to define a message payload.
-    var payload = {
-        notification: {
-            title: "Urgent action needed!",
-            body: "Urgent action is needed to prevent your account from being disabled! ESAM is happy",
-            icon: "images/logo.png"
-        }
-    };
+        var payload = {
+            notification: {
+                title: "Urgent action needed!",
+                body: "Urgent action is needed to prevent your account from being disabled! ESAM is happy",
+                icon: "images/logo.png"
+            }
+        };
 // Send a message to the device corresponding to the provided
 // registration token.
 
         admin.messaging().sendToDevice(registrationToken, payload)
-            .then(function (response) {
+            .then(function (res) {
                 // See the MessagingDevicesResponse reference documentation for
                 // the contents of response.
-                console.log("Successfully sent message:", response);
+                console.log("Successfully sent message:", res);
             })
             .catch(function (error) {
                 console.log("Error sending message:", error);
             });
+        //res.redirect('/new-feed-general');
+    })
+
     //get access token
     /*function getAccessToken() {
         return new Promise(function(resolve, reject) {
@@ -57,7 +62,8 @@ module.exports = function(app) {
                 null
             );
             jwtClient.authorize(function(err, tokens) {
-                if (err) {
+                if (er
+                r) {
                     reject(err);
                     return;
                 }
