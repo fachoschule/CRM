@@ -30,6 +30,7 @@ E-CRM is you daily work hub that you can rely on.
 -	To-do lists
 -	Send promotions
 -	File complains 
+- statistical analysis
 
 ## Contact
 Email : Ecrmjs@gmail.com
