@@ -32,6 +32,6 @@ E-CRM is you daily work hub that you can rely on.
 -	File complains 
 
 ## Contact
-Email : mailto:Ecrmjs@gmail.com
+Email : Ecrmjs@gmail.com
  
 
