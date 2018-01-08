@@ -68,7 +68,13 @@ module.exports = function(app) {
                                     } else {
                                         var ex =req.param('externalCode');
                                         var ext = new Array();
-                                        ext.push(ex);
+                                        ext.push(ex);var ex =req.param('externalCode');
+                                        var ext = new Array();
+                                        if(ex.length > 5){
+                                            ext.push(ex);
+                                        }else{
+                                            ext = ex;
+                                        }
                                             for (var cp in ext) {
                                                 //console.log(ext[cp]);
                                                 ExternalCode.findById(ext[cp], function (errors, extproducts) {
@@ -83,7 +89,11 @@ module.exports = function(app) {
                             } else {
                                 var ex =req.param('externalCode');
                                 var ext = new Array();
-                                ext.push(ex);
+                                if(ex.length > 5){
+                                    ext.push(ex);
+                                }else{
+                                    ext = ex;
+                                }
                                 for (var cp in ext) {
                                    // console.log(ext[cp]);
                                     ExternalCode.findById(ext[cp], function (errors, extproducts) {
